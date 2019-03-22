@@ -1,0 +1,8 @@
+{
+  "name": "MED_Cliente_Front",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/marrodrigues/MED_Cliente.git",
+  "author": "Mario Rodrigues <mario.rodrigues@lasa.com.br>",
+  "license": "MIT"
+}
