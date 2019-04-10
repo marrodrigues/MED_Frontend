@@ -51,6 +51,21 @@ body{
     }
 }
 
+.heading-secondary--white{
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: inline-block;
+    background-image: linear-gradient(to right, $color-white, $color-grey-light-1);
+    -webkit-background-clip: text;
+    color: transparent;
+
+    &:hover{
+        transform: skewY(2deg) skewX(10deg) scale(1.1);
+        text-shadow: .5rem 1rem 2rem rgba($color-black, .3);
+    }
+}
+
 .heading-tertiary{
     font-size: $default-font-size;
     font-weight: 700;
