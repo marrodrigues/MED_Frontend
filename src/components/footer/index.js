@@ -3,10 +3,12 @@ import styled from 'styled-components'
 
 const ContainerFooter = styled.footer`
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 2.5rem;
     font-style: italic;
     text-transform: uppercase;
     background-color: #F7F7F7;
+    font-weight: bold;
+    padding-bottom: 4rem;
 `
 
 export default () => {

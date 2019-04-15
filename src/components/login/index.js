@@ -53,47 +53,62 @@ export default class extends React.Component {
     render() {
         const { showLoginForm } = this.state;
         return (
-            <React.Fragment>
-                <section class="cadastro">
-                    <header class="header">
-                        <nav>
+            <section class="section-book">
+                <div class="row">
+                    <div class="book">
+                        <div class="book__form">
                             <div class="row">
-                                <div class="header__logo-box">
-                                    <img src={logoMedBranco} alt="logo" class="header__logo" onClick={() => {window.location.href = '/'}}/>
+                                <div class="col-1-of-2">
+                                    <form action="#" class="form">
+                                        <div class="u-margin-bottom-medium">
+                                            <h2 class="heading-secondary">
+                                                Cadastre-se
+                                            </h2>
+                                        </div>
+
+                                        <div class="form__group">
+                                            <input type="text" class="form__input" placeholder="CEP" id="name" required/>
+                                            <label for="name" class="form__label">CEP</label>
+                                        </div>
+
+                                        <div class="form__group">
+                                            <input type="email" class="form__input" placeholder="Número" id="email" required/>
+                                            <label for="email" class="form__label">Número</label>
+                                        </div>
+
+                                        <div class="form__group">
+                                            <button class="btn btn--green">Cadastre-se</button>
+                                        </div>
+                                    </form>
                                 </div>
-                                <ul class="main-nav">
-                                    <li class="main-nav__item"><a href="#" class="main-nav__item__link">Sobre Nós</a></li>
-                                    <li class="main-nav__item"><a href="#" class="main-nav__item__link">Menu</a></li>
-                                    <li class="main-nav__item"><a href="/login/" class="main-nav__item__link">Cadastro / Login</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-                        <Container>
-                            {
-                                showLoginForm
-                                ? (<StyledForm>
-                                        E-mail: <input type="email" name="email"/><br/>
-                                        Senha: <input type="password" name="password"/><br/>
-                                        <input type="submit" value="Entrar"/>
-                                    </StyledForm>)
-                                : (<StyledForm>
-                                    Nome: <input type="text" name="email"/><br/>
-                                    E-mail: <input type="email" name="email"/><br/>
-                                    Senha: <input type="password" name="password"/><br/>
-                                    <input type="submit" value="Entrar"/>
-                                    </StyledForm>)
-                            }
-                            
-                            
-                        </Container>
-                    </header>
-                    <div style={{display: 'flex', justifyContent: 'center'}}>
-                        <StyledButton onClick={this.changeFormToRender}>
-                            {showLoginForm ? 'Ainda não possui cadastro?' : 'Já tenho um cadastro'}
-                        </StyledButton>
+                                <div class="col-1-of-2">
+                                    <form action="#" class="form">
+                                        <div class="u-margin-bottom-medium">
+                                            <h2 class="heading-secondary">
+                                                Login
+                                            </h2>
+                                        </div>
+
+                                        <div class="form__group">
+                                            <input type="text" class="form__input" placeholder="Login" id="name" required/>
+                                            <label for="name" class="form__label">Login</label>
+                                        </div>
+
+                                        <div class="form__group">
+                                            <input type="email" class="form__input" placeholder="Senha" id="email" required/>
+                                            <label for="email" class="form__label">Senha</label>
+                                        </div>
+
+                                        <div class="form__group">
+                                            <button class="btn btn--green">Login</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>    
+                        </div>
                     </div>
-                </section>
-            </React.Fragment>
+                </div>
+            </section>
         )
     }
 }
