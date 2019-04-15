@@ -1,64 +1,21 @@
 import React from 'react'
-import pizza1 from '../../assets/img/pizza-1.jpg'
-import pizza2 from '../../assets/img/pizza-2.jpg'
-import pizza3 from '../../assets/img/pizza-3.jpg'
 
-// import Header from '../../components/header'
+import About from '../../components/about'
+import Header from '../../components/header'
+import Login from '../../components/login'
+import Footer from '../../components/footer'
+
 import logoMedBranco from '../../assets/img/logo-med-branco.png'
+
 
 export default class extends React.Component {
 
 render() {
     return (
         <React.Fragment>
-            <header class="header">
-                <nav>
-                    <div class="row">
-                        <div class="header__logo-box">
-                            <img src={logoMedBranco} alt="logo" class="header__logo"  onClick={() => {window.location.href = '/'}}/>
-                        </div>
-                        <ul class="main-nav">
-                            <li class="main-nav__item"><a href="#" class="main-nav__item__link">Sobre Nós</a></li>
-                            <li class="main-nav__item"><a href="#" class="main-nav__item__link">Menu</a></li>
-                            <li class="main-nav__item"><a href="/login/" class="main-nav__item__link">Cadastro / Login</a></li>
-                        </ul>
-                    </div>
-                </nav>
-                <div class="header__text-box">
-                    <h1 class="heading-primary">
-                        <span class="heading-primary--main">MED Pizza</span>
-                        <span class="heading-primary--sub">Sabor que não se mede!</span>
-                    </h1>
-                    <a href="#" class="btn btn--white btn--animated">Confira nossos sabores</a>
-                </div>
-            </header>
+            <Header/>
             <main>
-                <section class="section-about">
-                    <div class="u-center-text u-margin-bottom-big">
-                        <h2 class="heading-secondary">
-                            Nossa história
-                        </h2>
-                    </div>
-                    <div class="row">
-                        <div class="col-1-of-2">
-                            <h3 class="heading-tertiary u-margin-bottom-small">
-                                O sonho que esta se realizando.
-                            </h3>
-                            <p class="paragraph">
-                                Mussum Ipsum, cacilds vidis litro abertis. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Per aumento de cachacis, eu reclamis. Suco de cevadiss deixa as pessoas mais interessantis. Quem num gosta di mim que vai caçá sua turmis!
-                                In elementis mé pra quem é amistosis quis leo. A ordem dos tratores não altera o pão duris. Quem num gosta di mé, boa gentis num é. Não sou faixa preta cumpadi, sou preto inteiris, inteiris.
-                                Mussum Ipsum, cacilds vidis litro abertis. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Manduma pindureta quium dia nois paga. Delegadis gente finis, bibendum egestas augue arcu ut est. Diuretics paradis num copo é motivis de denguis.
-                            </p>
-                        </div>
-                        <div class="col-1-of-2">
-                            <div class="composition">
-                                <img src={pizza1} alt="Photo 1" class="composition__photo composition__photo--p1"/>
-                                <img src={pizza2} alt="Photo 2" class="composition__photo composition__photo--p2"/>
-                                <img src={pizza3} alt="Photo 3" class="composition__photo composition__photo--p3"/>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <About/>
                 <section class="section-menu">
                     <div class="u-center-text u-margin-bottom-big">
                         <h2 class="heading-secondary--white">
@@ -349,14 +306,9 @@ render() {
                         </div>
                     </div>
                 </section>
-                <section class="cadastro">
-
-                </section>
+                <Login/>
             </main>
-
-            <footer>
-
-            </footer>
+            <Footer/>
         </React.Fragment>
     )}
 }

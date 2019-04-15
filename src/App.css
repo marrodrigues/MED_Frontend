@@ -423,7 +423,7 @@ body {
 
 .header {
   height: 95vh;
-  background-image: linear-gradient(to right bottom, rgba(252, 216, 101, 0.5), rgba(252, 0, 0, 0.5)), url(./img/pizza_header.jpg);
+  background-image: linear-gradient(to right bottom, rgba(252, 216, 101, 0.5), rgba(252, 0, 0, 0.5)), url(./assets/img/pizza_header.jpg);
   background-size: cover;
   background-position: top;
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
