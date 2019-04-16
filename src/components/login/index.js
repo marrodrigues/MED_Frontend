@@ -61,19 +61,19 @@ export default class extends React.Component {
                                 <div class="col-1-of-2">
                                     <form action="#" class="form">
                                         <div class="u-margin-bottom-medium">
-                                            <h2 class="heading-secondary">
+                                            <h2 class="heading-secondary--white">
                                                 Cadastre-se
                                             </h2>
                                         </div>
 
                                         <div class="form__group">
-                                            <input type="text" class="form__input" placeholder="CEP" id="name" required/>
-                                            <label for="name" class="form__label">CEP</label>
+                                            <input type="text" class="form__input" placeholder="CEP" id="CEP" required/>
+                                            <label for="CEP" class="form__label">CEP</label>
                                         </div>
 
                                         <div class="form__group">
-                                            <input type="email" class="form__input" placeholder="Número" id="email" required/>
-                                            <label for="email" class="form__label">Número</label>
+                                            <input type="text" class="form__input" placeholder="Número" id="numero" required/>
+                                            <label for="numero" class="form__label">Número</label>
                                         </div>
 
                                         <div class="form__group">
@@ -83,20 +83,21 @@ export default class extends React.Component {
                                 </div>
                                 <div class="col-1-of-2">
                                     <form action="#" class="form">
-                                        <div class="u-margin-bottom-medium">
-                                            <h2 class="heading-secondary">
-                                                Login
-                                            </h2>
+
+                                            <div class="u-margin-bottom-medium">
+                                                    <h2 class="heading-secondary--white">
+                                                        Login
+                                                    </h2>
+                                            </div>
+
+                                        <div class="form__group">
+                                            <input type="text" class="form__input" placeholder="Login" id="login" required/>
+                                            <label for="login" class="form__label">Login</label>
                                         </div>
 
                                         <div class="form__group">
-                                            <input type="text" class="form__input" placeholder="Login" id="name" required/>
-                                            <label for="name" class="form__label">Login</label>
-                                        </div>
-
-                                        <div class="form__group">
-                                            <input type="email" class="form__input" placeholder="Senha" id="email" required/>
-                                            <label for="email" class="form__label">Senha</label>
+                                            <input type="password" class="form__input" placeholder="Senha" id="senha" required/>
+                                            <label for="senha" class="form__label">Senha</label>
                                         </div>
 
                                         <div class="form__group">

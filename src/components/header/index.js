@@ -20,7 +20,7 @@ class Header extends React.Component {
                 </nav>
                 <div class="header__text-box">
                     <h1 class="heading-primary">
-                        <span class="heading-primary--main">MED Pizza</span>
+                        <span class="heading-primary--main">MED Pizzaria</span>
                         <span class="heading-primary--sub">Sabor que não se mede!</span>
                     </h1>
                     <a href="#" class="btn btn--white btn--animated">Confira nossos sabores</a>

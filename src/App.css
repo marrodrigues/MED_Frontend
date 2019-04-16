@@ -82,13 +82,14 @@ body {
 
 .heading-primary {
   color: #fff;
+  padding-top: 3rem;
   text-transform: uppercase;
-  margin-bottom: 6rem; }
+  margin-bottom: 3rem; }
   .heading-primary--main {
     display: block;
     font-size: 6rem;
     font-weight: 400;
-    letter-spacing: 3rem;
+    letter-spacing: 1rem;
     animation: moveInLeft 1s ease-out;
     /*
         animation-name: moveInLeft;
@@ -99,7 +100,7 @@ body {
         */ }
   .heading-primary--sub {
     display: block;
-    font-size: 2rem;
+    font-size: 2.7rem;
     font-weight: 700;
     letter-spacing: .85rem;
     animation: moveInRight 1s ease-out; }
@@ -190,7 +191,7 @@ body {
     background-color: #fff; }
 
 .btn--green {
-  background-color: #ff7730;
+  background-color: rgba(200, 0, 0, 1);
   color: #FFF; 
   text-transform: uppercase;
   display: inline-block;
@@ -201,7 +202,7 @@ body {
   position: relative;
   font-size: 1.6rem; }
   .btn--green::after {
-    background-color: #ff7730; 
+    background-color: rgba(200, 0, 0, 0.603);
     text-transform: uppercase;
     display: inline-block;
     text-decoration: none;
@@ -506,7 +507,7 @@ body {
   background-image: linear-gradient(to right bottom, #F7F7F7, #F7F7F7); }
 
 .book {
-  background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%, transparent 50%), url(./assets/img/pizza_header.jpg);
+  background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 100%, transparent 50%), url(./assets/img/pizza_header.jpg);
   background-size: 100%;
   border-radius: 3px;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
