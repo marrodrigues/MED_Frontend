@@ -5,17 +5,14 @@ import Header from '../../components/header'
 import Login from '../../components/login'
 import Footer from '../../components/footer'
 
-import logoMedBranco from '../../assets/img/logo-med-branco.png'
-
-
 export default class extends React.Component {
 
 render() {
     return (
         <React.Fragment>
-            <Header/>
+            <Header />
             <main>
-                <About/>
+                <About />
                 <section class="section-menu">
                     <div class="u-center-text u-margin-bottom-big">
                         <h2 class="heading-secondary--white">

@@ -27,9 +27,7 @@ class About extends React.Component {
                     </div>
                     <div class="col-1-of-2">
                         <div class="composition">
-                            <img src={pizza1} alt="Photo 1" class="composition__photo composition__photo--p1"/>
-                            <img src={pizza2} alt="Photo 2" class="composition__photo composition__photo--p2"/>
-                            <img src={pizza3} alt="Photo 3" class="composition__photo composition__photo--p3"/>
+                        {[pizza1, pizza2, pizza3].map((pizza, index) => <img key={index} src={pizza} alt={`Photo ${index + 1}`} class={`composition__photo composition__photo--p${index +1}`} />)}
                         </div>
                     </div>
                 </div>

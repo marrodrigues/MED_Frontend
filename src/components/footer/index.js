@@ -14,9 +14,7 @@ const ContainerFooter = styled.footer`
 export default () => {
     return (
         <ContainerFooter>
-            <footer>
-                Criação e Desenvolvimento Equipe TCC®
-            </footer>
+            Criação e Desenvolvimento Equipe TCC®
         </ContainerFooter>
     )
 }

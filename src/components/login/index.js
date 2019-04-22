@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
+import axios from 'axios'
 
-import logoMedBranco from '../../assets/img/logo-med-branco.png'
+// import logoMedBranco from '../../assets/img/logo-med-branco.png'
 // import {Header} from '../../components/header'
 
 const Container = styled.main`
@@ -44,8 +45,20 @@ export default class extends React.Component {
         super(props)
 
         this.state = {
-            showLoginForm: true
+            showLoginForm: true,
+            email: '',
+            password: ''
         }
+    }
+
+    handleLogin = () => {
+        if(!this.state.email || !this.state.password) {
+            // console.log('Preencha os campos')
+            return
+        }
+        axios.get('https://randomuser.me/api/')
+        .then(result => {debugger;console.log(result);})
+
     }
 
     changeFormToRender = () => {this.setState({showLoginForm: !this.state.showLoginForm})}
@@ -68,12 +81,12 @@ export default class extends React.Component {
 
                                         <div class="form__group">
                                             <input type="text" class="form__input" placeholder="CEP" id="CEP" required/>
-                                            <label for="CEP" class="form__label">CEP</label>
+                                            <label for="CEPS" class="form__label">CEP</label>
                                         </div>
 
                                         <div class="form__group">
-                                            <input type="text" class="form__input" placeholder="Número" id="numero" required/>
-                                            <label for="numero" class="form__label">Número</label>
+                                            <input type="number" class="form__input" placeholder="Número" min={1} id="number" required/>
+                                            <label for="number" class="form__label">Número</label>
                                         </div>
 
                                         <div class="form__group">
@@ -91,17 +104,17 @@ export default class extends React.Component {
                                             </div>
 
                                         <div class="form__group">
-                                            <input type="text" class="form__input" placeholder="Login" id="login" required/>
-                                            <label for="login" class="form__label">Login</label>
+                                            <input type="text" class="form__input" placeholder="Login" id="name" required value={this.state.email} onChange={(event) => {console.log(event.target.value);this.setState({email:event.target.value})}}/>
+                                            <label for="name" class="form__label">Login</label>
                                         </div>
 
                                         <div class="form__group">
-                                            <input type="password" class="form__input" placeholder="Senha" id="senha" required/>
+                                            <input type="senha" class="form__input" placeholder="Senha" id="password" type="password" required value={this.state.password}/>
                                             <label for="senha" class="form__label">Senha</label>
                                         </div>
 
                                         <div class="form__group">
-                                            <button class="btn btn--green">Login</button>
+                                            <button onClick={this.handleLogin} class="btn btn--green">Login</button>
                                         </div>
                                     </form>
                                 </div>
