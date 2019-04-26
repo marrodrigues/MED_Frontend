@@ -13,7 +13,7 @@ const Header = styled.div`
     background-color:rgba(0,0,0,0.3);
     width: 100%;
     box-sizing: border-box;
-    z-index: 1;
+    z-index: 99;
 
 `
 const Nav = styled.nav`

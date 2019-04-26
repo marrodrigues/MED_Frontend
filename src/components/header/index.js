@@ -6,16 +6,18 @@ class Header extends React.Component {
 
     render() {
         return (
-            <header class="header">
+            <div>
                 <HeaderV2 />
-                <div class="header__text-box">
-                    <h1 class="heading-primary">
-                        <span class="heading-primary--main">MED Pizzaria</span>
-                        <span class="heading-primary--sub">Sabor que não se mede!</span>
-                    </h1>
-                    <a href="/#menu" class="btn btn--white btn--animated">Confira nossos sabores</a>
-                </div>
-            </header>
+                <header class="header">
+                    <div class="header__text-box">
+                        <h1 class="heading-primary">
+                            <span class="heading-primary--main">MED Pizzaria</span>
+                            <span class="heading-primary--sub">Sabor que não se mede!</span>
+                        </h1>
+                        <a href="/#menu" class="btn btn--white btn--animated">Confira nossos sabores</a>
+                    </div>
+                </header>
+            </div>
         )
     } 
 
