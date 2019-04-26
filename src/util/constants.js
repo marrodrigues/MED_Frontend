@@ -5,7 +5,8 @@ const PATHS = {
 
 const ALLOWED_DISTRICTS = [
     'Curicica',
-    'Jacarepaguá'
+    'Jacarepaguá',
+    'Freguesia (Jacarepaguá)'
 ]
 
 const ALLOWED_CITY = 'Rio de Janeiro'
@@ -24,7 +25,6 @@ const FORM_INPUT_IDS = {
     LOGRADOURO: 'logradouro',
     BAIRRO: 'bairro',
     CIDADE: 'cidade',
-    CADASTRAR: 'cadastrar'
 }
 
 export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS }

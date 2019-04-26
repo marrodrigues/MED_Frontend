@@ -7,7 +7,7 @@ const BaseForm = styled.form`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 90vh;
 `
 
 export default class extends React.Component {
