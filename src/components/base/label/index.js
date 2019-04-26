@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 const BaseLabel = styled.label`
-    font-size: 20px;
-    // font-weight: bold;
+    font-size: 16px;
+    font-weight: bold;
     color: white;
     text-align: center;
 `

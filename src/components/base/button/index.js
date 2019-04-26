@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const BaseButton = styled.button`
     font-size: 14px;
-    // font-weight: bold;
+    font-weight: bold;
     color: white;
     max-width: 300px;
     border: 2px solid white;
