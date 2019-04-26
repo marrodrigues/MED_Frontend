@@ -3,6 +3,10 @@ const PATHS = {
     USERS: 'clientes/'
 }
 
+const KEYS = {
+    TOKEN: 'tokenMED'
+}
+
 const ALLOWED_DISTRICTS = [
     'Curicica',
     'Jacarepaguá',
@@ -28,4 +32,4 @@ const FORM_INPUT_IDS = {
     COMPLEMENTO: 'complemento'
 }
 
-export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS }
+export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS, KEYS }

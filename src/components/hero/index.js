@@ -18,7 +18,7 @@ export default class extends React.Component {
     render() {
         return (
             <Main>
-                Hero
+                {this.props.children}
             </Main>
         )
     }

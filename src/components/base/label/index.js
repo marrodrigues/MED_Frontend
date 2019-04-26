@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 const BaseLabel = styled.label`
     font-size: 20px;
+    // font-weight: bold;
+    color: white;
+    text-align: center;
 `
 
 export default class extends React.Component {

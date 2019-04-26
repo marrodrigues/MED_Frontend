@@ -1,6 +1,6 @@
 import axios from 'axios'
 import config from '../config'
-import { PATHS } from '../util/constants'
+import { PATHS, KEYS } from '../util/constants'
 
 const createClienteObj = (data) => {
     let clienteObj = {}
@@ -18,6 +18,7 @@ const UserProvider = {
                 // debugger
                 // return result.data.token
                 alert(`Login efetuado com sucesso\nToken: ${result.data.token}`)
+                window.localStorage.setItem(KEYS.TOKEN, result.data.token)
                 window.location.href = '/'
             })
             .catch(error => { 

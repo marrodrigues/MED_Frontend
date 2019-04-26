@@ -3,9 +3,10 @@ import styled from 'styled-components'
 
 const BaseButton = styled.button`
     font-size: 14px;
-    font-weight: bold;
+    // font-weight: bold;
+    color: white;
     max-width: 300px;
-    border: 2px solid gray;
+    border: 2px solid white;
     border-radius: 20px;
     margin: 2px 0;
     padding: 5px 10px;
