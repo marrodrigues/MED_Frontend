@@ -7,6 +7,35 @@ const createClienteObj = (data) => {
 
 }
 
+// {
+//     "cpf": 11111111111,
+//     "pessoa": {
+//         "nome": "Matheus",
+//         "login": "matheus",
+//         "senha": "123456",
+//         "email": "matheus_cxp@hotmail.com",
+//         "dataNascimento": "1993-03-09",
+//         "endereco": [
+//             {
+//                 "logradouro": "Rua Calmon",
+//                 "numero": "22",
+//                 "complemento": "Quadra 88",
+//                 "CEP": "22710560",
+//                 "bairro": "Curicica",
+//                 "cidade": "Rio de Janeiro",
+//                 "UF": "RJ"
+//             }
+//         ],
+//         "telefone": [
+//             {
+//                 "DDD": 21,
+//                 "numero": "99999-0399",
+//                 "tipo": "celular"
+//             }
+//         ]
+//     }
+// }
+
 const UserProvider = {
     create: () => {
 
