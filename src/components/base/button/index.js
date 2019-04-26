@@ -8,8 +8,8 @@ const BaseButton = styled.button`
     max-width: 300px;
     border: 2px solid white;
     border-radius: 20px;
-    margin: 2px 0;
-    padding: 5px 10px;
+    margin: 5rem 0 0;
+    padding: 1rem 2rem;
     background: transparent;
 `
 

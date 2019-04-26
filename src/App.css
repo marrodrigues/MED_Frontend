@@ -480,8 +480,7 @@ body {
 
 .main-nav {
   float: right;
-  list-style: none;
-  margin-top: 55px; }
+  list-style: none;}
   .main-nav__item {
     display: inline-block;
     margin-left: 4rem; }
@@ -494,17 +493,14 @@ body {
 
 .section-about {
   background-color: #F7F7F7;
-  padding: 25rem 0;
+  padding: 25rem 0 40rem;
   margin-top: -20vh; }
 
 .section-menu {
-  padding: 20rem 0;
+  padding: 10rem 0;
   background-image: linear-gradient(to right bottom, #fc0000, #777777);
   background-size: cover;
-  transform: skewY(-5deg);
   margin-top: -10rem; }
-  .section-menu > * {
-    transform: skewY(5deg); }
 
 .section-tours {
   background-color: #F7F7F7;
@@ -513,7 +509,7 @@ body {
 
 .section-book {
   margin-top: -25vh;
-  padding: 35rem 0 7rem 0;
+  padding: 10rem 0 10rem 0;
   background-image: linear-gradient(to right bottom, #F7F7F7, #F7F7F7); }
 
 .book {

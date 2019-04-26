@@ -63,9 +63,8 @@ export default class extends React.Component {
 
     render () {
         return (
-            <FormContainer>
                 <Hero>
-                    <RegisterForm onSubmit={this.submit}>
+                    <RegisterForm onSubmit={this.submit}>   
                         <BaseLabel htmlFor={FORM_INPUT_IDS.NOME}>NOME</BaseLabel>
                         <BaseInput
                             id={FORM_INPUT_IDS.NOME}
@@ -216,8 +215,6 @@ export default class extends React.Component {
                         {this.state.loading && <Spinner name='circle' />}
                     </RegisterForm>
                 </Hero>
-                
-            </FormContainer>
         )
     }
 }

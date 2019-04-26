@@ -13,7 +13,7 @@ class Header extends React.Component {
                         <span class="heading-primary--main">MED Pizzaria</span>
                         <span class="heading-primary--sub">Sabor que não se mede!</span>
                     </h1>
-                    <a href="#" class="btn btn--white btn--animated">Confira nossos sabores</a>
+                    <a href="/#menu" class="btn btn--white btn--animated">Confira nossos sabores</a>
                 </div>
             </header>
         )

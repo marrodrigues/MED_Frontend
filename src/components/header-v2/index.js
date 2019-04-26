@@ -6,11 +6,11 @@ import styled from 'styled-components'
 import data from '../../data/components/header'
 
 // Styled Components
-const Header = styled.header`
+const Header = styled.div`
     position: fixed;
     top: 0px;
     // background: transparent;
-    background-color:rgba(220,0,0,0.4);
+    background-color:rgba(0,0,0,0.3);
     width: 100%;
     box-sizing: border-box;
     z-index: 1;
@@ -29,7 +29,6 @@ const LogoContainer = styled.div`
 const Logo = styled.img`
     height: auto;
     width: 5vw;
-
     object-fit: contain;
 `
 
@@ -47,7 +46,7 @@ export default class extends React.Component {
                     </LogoContainer>
                     <ul class="main-nav">
                         <li class="main-nav__item"><a href="/#about" class="main-nav__item__link">Sobre Nós</a></li>
-                        <li class="main-nav__item"><a href="#" class="main-nav__item__link">Menu</a></li>
+                        <li class="main-nav__item"><a href="/#menu" class="main-nav__item__link">Cardápio</a></li>
                         <li class="main-nav__item"><a href="/register/" class="main-nav__item__link">Cadastro</a></li>
                         <li class="main-nav__item"><a href="/login/" class="main-nav__item__link">Login</a></li>
                     </ul>

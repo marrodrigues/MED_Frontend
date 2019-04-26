@@ -1,29 +1,36 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import pizza1 from '../../assets/img/pizza-1.jpg'
 import pizza2 from '../../assets/img/pizza-2.jpg'
 import pizza3 from '../../assets/img/pizza-3.jpg'
 
+const AboutTextContainer = styled.div`
+    margin-top: 5rem 0 0;
+`
+
 class About extends React.Component {
 
     render() {
         return (
-            <section class="section-about" id='about'>
+            <section class="section-about">
                 <div class="u-center-text u-margin-bottom-big">
-                    <h2 class="heading-secondary">
+                    <h2 class="heading-secondary" id='about'>
                         Nossa história
                     </h2>
                 </div>
                 <div class="row">
                     <div class="col-1-of-2">
-                        <h3 class="heading-tertiary u-margin-bottom-small">
-                            O sonho que esta se realizando.
-                        </h3>
-                        <p class="paragraph">
-                            Mussum Ipsum, cacilds vidis litro abertis. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Per aumento de cachacis, eu reclamis. Suco de cevadiss deixa as pessoas mais interessantis. Quem num gosta di mim que vai caçá sua turmis!
-                            In elementis mé pra quem é amistosis quis leo. A ordem dos tratores não altera o pão duris. Quem num gosta di mé, boa gentis num é. Não sou faixa preta cumpadi, sou preto inteiris, inteiris.
-                            Mussum Ipsum, cacilds vidis litro abertis. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Manduma pindureta quium dia nois paga. Delegadis gente finis, bibendum egestas augue arcu ut est. Diuretics paradis num copo é motivis de denguis.
-                        </p>
+                        <AboutTextContainer>
+                            <h3 class="heading-tertiary u-margin-bottom-small">
+                                O sonho que esta se realizando.
+                            </h3>
+                            <p class="paragraph">
+                                A MED Pizzaria é uma empresa fundada por dois sócios no ano de 2018, tem como foco principal atender da melhor forma nossos clientes com nossas deliciosas pizzas dos mais variados sabores.<br/>
+                                Com ingredientes selecionados e de primeira qualidade nossos produtos traduzem a satisfação que é fazer parte desse bairro.<br/>
+                                Temos como visão de futuro, ser um local de referência de qualidade e de orgulho para nossos clientes, atendendo-os da melhor forma possível, pois sua alegria é nossa satisfação!
+                            </p>
+                        </AboutTextContainer>
                     </div>
                     <div class="col-1-of-2">
                         <div class="composition">

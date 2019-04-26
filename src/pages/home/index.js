@@ -15,7 +15,7 @@ render() {
             {/* <Hero /> */}
             <main>
                 <About />
-                <section class="section-menu">
+                <section class="section-menu" id='menu'>
                     <div class="u-center-text u-margin-bottom-big">
                         <h2 class="heading-secondary--white">
                             Cardápio
@@ -305,7 +305,6 @@ render() {
                         </div>
                     </div>
                 </section>
-                <Login/>
             </main>
             <Footer/>
         </React.Fragment>

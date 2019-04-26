@@ -8,7 +8,7 @@ const ContainerFooter = styled.footer`
     text-transform: uppercase;
     background-color: #F7F7F7;
     font-weight: bold;
-    padding-bottom: 4rem;
+    padding: 1rem 0;
 `
 
 export default () => {
