@@ -25,6 +25,7 @@ const FORM_INPUT_IDS = {
     LOGRADOURO: 'logradouro',
     BAIRRO: 'bairro',
     CIDADE: 'cidade',
+    COMPLEMENTO: 'complemento'
 }
 
 export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS }

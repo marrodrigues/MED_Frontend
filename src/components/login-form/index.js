@@ -9,11 +9,17 @@ import { FORM_INPUT_IDS } from '../../util/constants'
 import BaseInput from '../base/input'
 import BaseLabel from '../base/label'
 import BaseForm from '../base/form'
+import BaseButton from '../base/button'
+import Spinner from 'react-spinkit'
 
 import UserProvider from '../../providers/user'
 
 const LoginForm = styled(BaseForm)`
+    input {
+        max-width: 300px;
+    }
 `
+
 
 export default class extends React.Component {
     state = {
@@ -31,18 +37,21 @@ export default class extends React.Component {
     submit = async (e) => {
         e.preventDefault();
         e.stopPropagation()
-        this.setState({loading: true})
         const { login, senha } = this.state
-        const token = await UserProvider.login({login, senha})
+        if (login && senha) {
+            this.setState({loading: true})
+            const token = await UserProvider.login({login, senha})
             .then(() => {
                 this.setState({loading: false})
             })
+        } else {
+            alert('Preencha todos os campos')
+        }
     }
 
     render () {
         return (
             <LoginForm onSubmit={this.submit}>
-                {this.state.loading && <span>Carregando</span>}
                 <BaseLabel htmlFor={FORM_INPUT_IDS.LOGIN}>Login</BaseLabel>
                 <BaseInput
                     id={FORM_INPUT_IDS.LOGIN}
@@ -59,10 +68,12 @@ export default class extends React.Component {
                     onChange={this.handleChangeInput}
                     value={this.state[FORM_INPUT_IDS.SENHA]}
                 />
-                <input
+                <BaseButton
                     type='submit'
-                    value='Entrar'
-                />
+                >
+                    Entrar
+                </BaseButton>
+                {this.state.loading && <Spinner name='circle' />}
             </LoginForm>
         )
     }
