@@ -2,43 +2,57 @@ import axios from 'axios'
 import config from '../config'
 import { PATHS, KEYS } from '../util/constants'
 
-const createClienteObj = (data) => {
-    let clienteObj = {}
-
+const createClienteObj = ({
+        bairro,
+        // cep,
+        cidade,
+        // complemento,
+        cpf,
+        email,
+        login,
+        logradouro,
+        nascimento,
+        nome,
+        numero,
+        senha,
+        telefone,
+        uf 
+    }) => {
+        let clienteObj = { cpf: Number(cpf), pessoa: {} }
+        clienteObj.pessoa = {
+            dataNascimento: nascimento,
+            email,
+            login,
+            nome,
+            senha,
+            endereco: [{
+                logradouro,
+                numero,
+                complemento: '',
+                CEP: '22710-483',
+                bairro,
+                cidade,
+                uf
+            }],
+            telefone: [{
+                DDD: 21,
+                numero: telefone,
+                tipo: 'celular'
+            }]
+        }
+        return clienteObj
 }
 
-// {
-//     "cpf": 11111111111,
-//     "pessoa": {
-//         "nome": "Matheus",
-//         "login": "matheus",
-//         "senha": "123456",
-//         "email": "matheus_cxp@hotmail.com",
-//         "dataNascimento": "1993-03-09",
-//         "endereco": [
-//             {
-//                 "logradouro": "Rua Calmon",
-//                 "numero": "22",
-//                 "complemento": "Quadra 88",
-//                 "CEP": "22710560",
-//                 "bairro": "Curicica",
-//                 "cidade": "Rio de Janeiro",
-//                 "UF": "RJ"
-//             }
-//         ],
-//         "telefone": [
-//             {
-//                 "DDD": 21,
-//                 "numero": "99999-0399",
-//                 "tipo": "celular"
-//             }
-//         ]
-//     }
-// }
-
 const UserProvider = {
-    create: () => {
-
+    create: (formData) => {
+        
+        const clienteObj = createClienteObj(formData)
+        console.log(clienteObj, JSON.stringify(clienteObj))
+        axios.post(config.API_ENDPOINT + PATHS.USERS, clienteObj, { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkyLCJpYXQiOjE1NTYyODU2MTF9.c7mSyUxFaG-y2NL0ADHt5fgq1XPLk8sFtU0vBliUikg', "Content-Type": 'application/json'})
+            .then(result => {
+                debugger
+            })
+            .catch(error => { console.log(error)})
     },
     login: ({login, senha}) => {
         return axios.post(config.API_ENDPOINT + PATHS.LOGIN, {login, senha})

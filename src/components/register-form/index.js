@@ -14,6 +14,8 @@ import Spinner from 'react-spinkit'
 
 import { FORM_INPUT_IDS } from '../../util/constants'
 
+import UserProvider from '../../providers/user'
+
 const RegisterForm = styled(BaseForm)`
 `
 
@@ -52,6 +54,7 @@ export default class extends React.Component {
     submit = (e) => {
         // debugger
         e.preventDefault();
+        UserProvider.create(this.state)
         // console.log('Submit');
     }
 
@@ -82,6 +85,7 @@ export default class extends React.Component {
                                     noValidation
                                     onChange={this.handleChangeInput}
                                     value={this.state[FORM_INPUT_IDS.CPF]}
+                                    maxLength={11}
                                 />
                             </InputCol>
                             <InputCol>
@@ -109,6 +113,19 @@ export default class extends React.Component {
                                 />
                             </InputCol>
                             <InputCol>
+                                <BaseLabel htmlFor={FORM_INPUT_IDS.SENHA}>SENHA</BaseLabel>
+                                <BaseInput
+                                    id={FORM_INPUT_IDS.SENHA}
+                                    name={FORM_INPUT_IDS.SENHA}
+                                    noValidation
+                                    onChange={this.handleChangeInput}
+                                    value={this.state[FORM_INPUT_IDS.SENHA]}
+                                />
+                            </InputCol>
+                        </InputRow>
+                        
+                        <InputRow>
+                            <InputCol>
                                 <BaseLabel htmlFor={FORM_INPUT_IDS.NASCIMENTO}>NASCIMENTO</BaseLabel>
                                 <BaseInput
                                     id={FORM_INPUT_IDS.NASCIMENTO}
@@ -118,9 +135,7 @@ export default class extends React.Component {
                                     value={this.state[FORM_INPUT_IDS.NASCIMENTO]}
                                 />
                             </InputCol>
-                        </InputRow>
 
-                        <InputRow>
                             <InputCol>
                                 <BaseLabel htmlFor={FORM_INPUT_IDS.EMAIL}>EMAIL</BaseLabel>
                                 <BaseInput
@@ -131,12 +146,13 @@ export default class extends React.Component {
                                     value={this.state[FORM_INPUT_IDS.EMAIL]}
                                 />
                             </InputCol>
-                            <InputCol>
-                                <CepInput />  
-                            </InputCol>
+                            
                         </InputRow>
                         
                         <InputRow>
+                            <InputCol>
+                                <CepInput />  
+                            </InputCol>
                             <InputCol>
                                 <BaseLabel htmlFor={FORM_INPUT_IDS.LOGRADOURO}>LOGRADOURO</BaseLabel>
                                 <BaseInput
@@ -147,7 +163,13 @@ export default class extends React.Component {
                                     value={this.state[FORM_INPUT_IDS.LOGRADOURO]}
                                 />    
                             </InputCol>
-                            <InputCol>
+                            
+                        
+                        </InputRow>
+                        
+                        
+                        <InputRow>
+                        <InputCol>
                                 <BaseLabel htmlFor={FORM_INPUT_IDS.NUMERO}>NUMERO</BaseLabel>
                                 <BaseInput
                                     id={FORM_INPUT_IDS.NUMERO}
@@ -155,21 +177,6 @@ export default class extends React.Component {
                                     noValidation
                                     onChange={this.handleChangeInput}
                                     value={this.state[FORM_INPUT_IDS.NUMERO]}
-                                />
-                            </InputCol>
-                        
-                        </InputRow>
-                        
-                        
-                        <InputRow>
-                            <InputCol>
-                                <BaseLabel htmlFor={FORM_INPUT_IDS.COMPLEMENTO}>COMPLEMENTO</BaseLabel>
-                                <BaseInput
-                                    id={FORM_INPUT_IDS.COMPLEMENTO}
-                                    name={FORM_INPUT_IDS.COMPLEMENTO}
-                                    noValidation
-                                    onChange={this.handleChangeInput}
-                                    value={this.state[FORM_INPUT_IDS.COMPLEMENTO]}
                                 />
                             </InputCol>
                             
