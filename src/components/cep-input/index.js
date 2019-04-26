@@ -6,8 +6,11 @@ import { formatCep } from '../../util/string'
 import config from '../../config'
 import { ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS } from '../../util/constants'
 
-const CepInput = styled.input`
-    border: 2px solid ${props => props.isValid ? 'green' : 'red'};
+import BaseInput from '../base/input'
+import BaseLabel from '../base/label'
+
+const CepInput = styled(BaseInput)`
+    
 `
 
 export default class extends React.Component {
@@ -20,7 +23,6 @@ export default class extends React.Component {
         const cep = formatCep(event.target.value)
         this.setState({ cep })
         if (cep.length === 9) { this.validateCep(cep)}
-        console.log(event.target, event.target.id, event.target.name)
         event.preventDefault();
         event.stopPropagation();
     }
@@ -48,7 +50,7 @@ export default class extends React.Component {
     render () {
         return (
             <React.Fragment>
-                <label for={FORM_INPUT_IDS.CEP}>FORM_INPUT_IDS.CEP</label>
+                <BaseLabel htmlFor={FORM_INPUT_IDS.CEP}>CEP</BaseLabel>
                 <CepInput
                     maxLength={9}
                     value={this.state.cep}
