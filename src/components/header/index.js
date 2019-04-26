@@ -12,7 +12,7 @@ class Header extends React.Component {
                             <img src={logoMedBranco} alt="logo" class="header__logo"  onClick={() => {window.location.href = '/'}}/>
                         </div>
                         <ul class="main-nav">
-                            <li class="main-nav__item"><a href="#" class="main-nav__item__link">Sobre Nós</a></li>
+                            <li class="main-nav__item"><a href="#about" class="main-nav__item__link">Sobre Nós</a></li>
                             <li class="main-nav__item"><a href="#" class="main-nav__item__link">Menu</a></li>
                             <li class="main-nav__item"><a href="/login/" class="main-nav__item__link">Cadastro / Login</a></li>
                         </ul>

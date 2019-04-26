@@ -2,6 +2,7 @@ import React from 'react'
 
 import About from '../../components/about'
 import Header from '../../components/header'
+import Hero from '../../components/hero'
 import Login from '../../components/login'
 import Footer from '../../components/footer'
 
@@ -11,6 +12,7 @@ render() {
     return (
         <React.Fragment>
             <Header />
+            {/* <Hero /> */}
             <main>
                 <About />
                 <section class="section-menu">

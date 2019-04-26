@@ -8,7 +8,7 @@ class About extends React.Component {
 
     render() {
         return (
-            <section class="section-about">
+            <section class="section-about" id='about'>
                 <div class="u-center-text u-margin-bottom-big">
                     <h2 class="heading-secondary">
                         Nossa história

@@ -3,9 +3,10 @@ import './App.css';
 
 import Home from './pages/home'
 import NewHome from './pages/new-home'
+import Login from './pages/login';
+import Register from './pages/register'
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
 
 class App extends Component {
   render() {
@@ -13,6 +14,8 @@ class App extends Component {
       <Router>
         <Route exact path="/" component={Home} />
         <Route path="/home/" component={NewHome} />
+        <Route path="/login/" component={Login} />
+        <Route path="/register/" component={Register} />
       </Router>
     );
   }
