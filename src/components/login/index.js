@@ -64,10 +64,10 @@ export default class extends React.Component {
     changeFormToRender = () => {this.setState({showLoginForm: !this.state.showLoginForm})}
 
     render() {
-        const { showLoginForm } = this.state;
+        // const { showLoginForm } = this.state;
         return (
             <section class="section-book">
-                <div class="row">
+                {/* <div class="row">
                     <div class="book">
                         <div class="book__form">
                             <div class="row">
@@ -81,7 +81,7 @@ export default class extends React.Component {
 
                                         <div class="form__group">
                                             <input type="text" class="form__input" placeholder="CEP" id="CEP" required/>
-                                            <label for="CEPS" class="form__label">CEP</label>
+                                            <label for="CEP" class="form__label">CEP</label>
                                         </div>
 
                                         <div class="form__group">
@@ -109,7 +109,7 @@ export default class extends React.Component {
                                         </div>
 
                                         <div class="form__group">
-                                            <input type="senha" class="form__input" placeholder="Senha" id="password" type="password" required value={this.state.password}/>
+                                            <input class="form__input" placeholder="Senhaa" id="password" type="password" required value={this.state.password} onChange={(event) => {console.log(event.target.value);this.setState({password:event.target.value})}}/>
                                             <label for="senha" class="form__label">Senha</label>
                                         </div>
 
@@ -121,7 +121,7 @@ export default class extends React.Component {
                             </div>    
                         </div>
                     </div>
-                </div>
+                </div> */}
             </section>
         )
     }
