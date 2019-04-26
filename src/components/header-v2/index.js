@@ -5,6 +5,8 @@ import styled from 'styled-components'
 // Data
 import data from '../../data/components/header'
 
+import { KEYS } from '../../util/constants'
+
 // Styled Components
 const Header = styled.div`
     position: fixed;
@@ -33,8 +35,22 @@ const Logo = styled.img`
 `
 
 export default class extends React.Component {
+    state = {
+        hasToken: false
+    }
     onClickLogo = () => {
         window.location.href = '/'
+    }
+
+    componentDidMount () {
+        const token = window.localStorage.getItem(KEYS.TOKEN)
+        if (token) {
+            this.setState({hasToken: true})
+        }
+    }
+    onClickLogout = () => {
+        window.localStorage.removeItem(KEYS.TOKEN)
+        this.setState({hasToken: false})
     }
 
     render () {
@@ -48,7 +64,9 @@ export default class extends React.Component {
                         <li class="main-nav__item"><a href="/#about" class="main-nav__item__link">Sobre Nós</a></li>
                         <li class="main-nav__item"><a href="/#menu" class="main-nav__item__link">Cardápio</a></li>
                         <li class="main-nav__item"><a href="/register/" class="main-nav__item__link">Cadastro</a></li>
-                        <li class="main-nav__item"><a href="/login/" class="main-nav__item__link">Login</a></li>
+                        {this.state.hasToken 
+                        ? <li class="main-nav__item"><a href='/' onClick={this.onClickLogout} class="main-nav__item__link">Logout</a></li>
+                        : <li class="main-nav__item"><a href="/login/" class="main-nav__item__link">Login</a></li>}
                     </ul>
                 </Nav>
             </Header>
