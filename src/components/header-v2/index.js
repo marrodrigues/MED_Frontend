@@ -7,6 +7,7 @@ import data from '../../data/components/header'
 
 import { KEYS } from '../../util/constants'
 import Session from '../../providers/session'
+import UserProvider from '../../providers/user'
 
 // Styled Components
 const Header = styled.div`
@@ -49,6 +50,7 @@ export default class extends React.Component {
     onClickLogout = () => {
         window.localStorage.removeItem(KEYS.TOKEN)
         this.setState({hasToken: false})
+        UserProvider.logout()
     }
 
     render () {

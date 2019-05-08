@@ -1,6 +1,7 @@
 const PATHS = {
     LOGIN: 'login/',
-    USERS: 'clientes/'
+    LOGOUT: 'logout/',
+    USERS: 'clientes/',
 }
 
 const KEYS = {

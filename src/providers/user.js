@@ -70,6 +70,20 @@ const UserProvider = {
                 alert('Usuário ou senha inválidos')
             })
         
+    }, 
+    logout: () => {
+        // route signature 
+        // .get('/logout', (req, res) => {res.status(200).send({ auth: false, token: null })})
+        axios.get(config.API_ENDPOINT + PATHS.LOGOUT, { 
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkyLCJpYXQiOjE1NTYyODU2MTF9.c7mSyUxFaG-y2NL0ADHt5fgq1XPLk8sFtU0vBliUikg',
+            "Content-Type": 'application/json'
+        })
+            .then(result => {
+                console.log(result);
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 }
 
