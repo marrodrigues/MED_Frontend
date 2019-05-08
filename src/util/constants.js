@@ -10,7 +10,14 @@ const KEYS = {
 const ALLOWED_DISTRICTS = [
     'Curicica',
     'Jacarepaguá',
-    'Freguesia (Jacarepaguá)'
+    'Freguesia (Jacarepaguá)',
+    'Anil',
+    'Cidade de Deus',
+    'Gardênia Azul',
+    'Praça Seca',
+    'Pechincha',
+    'Tanque',
+    'Taquara',
 ]
 
 const ALLOWED_CITY = 'Rio de Janeiro'

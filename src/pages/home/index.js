@@ -3,12 +3,17 @@ import React from 'react'
 import About from '../../components/about'
 import Header from '../../components/header'
 import Hero from '../../components/hero'
-import Login from '../../components/login'
+import LoginForm from '../../components/login-form'
 import Footer from '../../components/footer'
 
+import Session from '../../providers/session'
+import { KEYS } from '../../util/constants';
+
 export default class extends React.Component {
+state = { hasToken: false }
 
 render() {
+    const renderLoginForm = !Session.checkKey(KEYS.TOKEN)
     return (
         <React.Fragment>
             <Header />
@@ -306,6 +311,12 @@ render() {
                     </div>
                 </section>
             </main>
+            {
+                renderLoginForm &&
+                (<div style={{background: "linear-gradient(to right bottom, #fc0000, #777777)"}}>
+                    <LoginForm />
+                </div>)
+            }
             <Footer/>
         </React.Fragment>
     )}

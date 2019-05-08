@@ -67,6 +67,7 @@ export default class extends React.Component {
                     noValidation
                     onChange={this.handleChangeInput}
                     value={this.state[FORM_INPUT_IDS.SENHA]}
+                    type="password"
                 />
                 <BaseButton
                     type='submit'

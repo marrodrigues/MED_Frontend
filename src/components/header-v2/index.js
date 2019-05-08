@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import data from '../../data/components/header'
 
 import { KEYS } from '../../util/constants'
+import Session from '../../providers/session'
 
 // Styled Components
 const Header = styled.div`
@@ -43,10 +44,7 @@ export default class extends React.Component {
     }
 
     componentDidMount () {
-        const token = window.localStorage.getItem(KEYS.TOKEN)
-        if (token) {
-            this.setState({hasToken: true})
-        }
+        this.setState({hasToken: Session.checkKey(KEYS.TOKEN)})  
     }
     onClickLogout = () => {
         window.localStorage.removeItem(KEYS.TOKEN)
@@ -65,8 +63,8 @@ export default class extends React.Component {
                         <li class="main-nav__item"><a href="/#menu" class="main-nav__item__link">Cardápio</a></li>
                         <li class="main-nav__item"><a href="/register/" class="main-nav__item__link">Cadastro</a></li>
                         {this.state.hasToken 
-                        ? <li class="main-nav__item"><a href='/' onClick={this.onClickLogout} class="main-nav__item__link">Logout</a></li>
-                        : <li class="main-nav__item"><a href="/login/" class="main-nav__item__link">Login</a></li>}
+                        ? <li key='logout' class="main-nav__item"><a href='/' onClick={this.onClickLogout} class="main-nav__item__link">Logout</a></li>
+                        : <li key='login' class="main-nav__item"><a href="/#login" class="main-nav__item__link">Login</a></li>}
                     </ul>
                 </Nav>
             </Header>
