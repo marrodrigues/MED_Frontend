@@ -63,10 +63,12 @@ export default class extends React.Component {
                     <ul class="main-nav">
                         <li class="main-nav__item"><a href="/#about" class="main-nav__item__link">Sobre Nós</a></li>
                         <li class="main-nav__item"><a href="/#menu" class="main-nav__item__link">Cardápio</a></li>
-                        <li class="main-nav__item"><a href="/register/" class="main-nav__item__link">Cadastro</a></li>
                         {this.state.hasToken 
                         ? <li key='logout' class="main-nav__item"><a href='/' onClick={this.onClickLogout} class="main-nav__item__link">Logout</a></li>
-                        : <li key='login' class="main-nav__item"><a href="/#login" class="main-nav__item__link">Login</a></li>}
+                        : <React.Fragment>
+                            <li class="main-nav__item"><a href="/#forms" class="main-nav__item__link">Cadastro</a></li>
+                            <li key='login' class="main-nav__item"><a href="/#forms" class="main-nav__item__link">Login</a></li>
+                        </React.Fragment>}
                     </ul>
                 </Nav>
             </Header>

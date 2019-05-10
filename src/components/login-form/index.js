@@ -10,6 +10,7 @@ import BaseInput from '../base/input'
 import BaseLabel from '../base/label'
 import BaseForm from '../base/form'
 import BaseButton from '../base/button'
+import BaseFormTitle from '../base/form-title'
 import Spinner from 'react-spinkit'
 
 import UserProvider from '../../providers/user'
@@ -52,6 +53,7 @@ export default class extends React.Component {
     render () {
         return (
             <LoginForm onSubmit={this.submit}>
+                <BaseFormTitle title='Entrar'/>
                 <BaseLabel htmlFor={FORM_INPUT_IDS.LOGIN}>Login</BaseLabel>
                 <BaseInput
                     id={FORM_INPUT_IDS.LOGIN}

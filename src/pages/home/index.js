@@ -5,6 +5,7 @@ import Header from '../../components/header'
 import Hero from '../../components/hero'
 import LoginForm from '../../components/login-form'
 import Footer from '../../components/footer'
+import LoginRegister from '../../components/register-login'
 
 import Session from '../../providers/session'
 import { KEYS } from '../../util/constants';
@@ -312,10 +313,7 @@ render() {
                 </section>
             </main>
             {
-                renderLoginForm &&
-                (<div style={{background: "linear-gradient(to right bottom, #fc0000, #777777)"}}>
-                    <LoginForm />
-                </div>)
+                renderLoginForm && <LoginRegister />
             }
             <Footer/>
         </React.Fragment>

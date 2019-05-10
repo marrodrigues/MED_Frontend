@@ -1,0 +1,76 @@
+Sucesso
+
+{
+  "data": {
+    "msg": "OK",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzIsImlhdCI6MTU1NzQ5MDQ2MH0.Q06yAZsLXGB40KyBfAENW6MgCo56pbH9tvVvI7iBa4Y",
+    "role": "Cliente"
+  },
+  "status": 200,
+  "statusText": "OK",
+  "headers": {
+    "content-type": "application/json; charset=utf-8"
+  },
+  "config": {
+    "transformRequest": {},
+    "transformResponse": {},
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json;charset=utf-8"
+    },
+    "method": "post",
+    "url": "https://med-backend-dev.herokuapp.com/login/",
+    "data": "{\"login\":\"arline\",\"senha\":\"teste\"}"
+  },
+  "request": {}
+}"
+
+
+Erro
+
+{
+  "config": {
+    "transformRequest": {},
+    "transformResponse": {},
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "headers": {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json;charset=utf-8"
+    },
+    "method": "post",
+    "url": "https://med-backend-dev.herokuapp.com/login/",
+    "data": "{\"login\":\"arline\",\"senha\":\"asdfasdfas\"}"
+  },
+  "request": {},
+  "response": {
+    "data": "Senha incorreta.",
+    "status": 401,
+    "statusText": "Unauthorized",
+    "headers": {
+      "content-type": "text/html; charset=utf-8"
+    },
+    "config": {
+      "transformRequest": {},
+      "transformResponse": {},
+      "timeout": 0,
+      "xsrfCookieName": "XSRF-TOKEN",
+      "xsrfHeaderName": "X-XSRF-TOKEN",
+      "maxContentLength": -1,
+      "headers": {
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json;charset=utf-8"
+      },
+      "method": "post",
+      "url": "https://med-backend-dev.herokuapp.com/login/",
+      "data": "{\"login\":\"arline\",\"senha\":\"asdfasdfas\"}"
+    },
+    "request": {}
+  }
+}

@@ -4,9 +4,9 @@ import { PATHS, KEYS } from '../util/constants'
 
 const createClienteObj = ({
         bairro,
-        // cep,
+        cep,
         cidade,
-        // complemento,
+        complemento,
         cpf,
         email,
         login,
@@ -18,8 +18,9 @@ const createClienteObj = ({
         telefone,
         uf 
     }) => {
-        let clienteObj = { cpf: Number(cpf), pessoa: {} }
+        let clienteObj = { pessoa: {} }
         clienteObj.pessoa = {
+            cpf,
             dataNascimento: nascimento,
             email,
             login,
@@ -28,8 +29,8 @@ const createClienteObj = ({
             endereco: [{
                 logradouro,
                 numero,
-                complemento: '',
-                CEP: '22710-483',
+                complemento,
+                CEP: cep,
                 bairro,
                 cidade,
                 uf
@@ -48,11 +49,14 @@ const UserProvider = {
         
         const clienteObj = createClienteObj(formData)
         console.log(clienteObj, JSON.stringify(clienteObj))
-        axios.post(config.API_ENDPOINT + PATHS.USERS, clienteObj, { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkyLCJpYXQiOjE1NTYyODU2MTF9.c7mSyUxFaG-y2NL0ADHt5fgq1XPLk8sFtU0vBliUikg', "Content-Type": 'application/json'})
+        axios.post(config.API_ENDPOINT + PATHS.USERS, clienteObj /*, { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkyLCJpYXQiOjE1NTYyODU2MTF9.c7mSyUxFaG-y2NL0ADHt5fgq1XPLk8sFtU0vBliUikg', "Content-Type": 'application/json'}*/)
             .then(result => {
                 debugger
             })
-            .catch(error => { console.log(error)})
+            .catch(error => {
+                debugger 
+                console.log(error)
+            })
     },
     login: ({login, senha}) => {
         return axios.post(config.API_ENDPOINT + PATHS.LOGIN, {login, senha})
