@@ -6,6 +6,7 @@ import axios from 'axios'
 // import {Header} from '../../components/header'
 
 import { FORM_INPUT_IDS } from '../../util/constants'
+import UserProvider from '../../providers/user'
 
 const Container = styled.main`
     display: flex;
@@ -48,19 +49,25 @@ export default class extends React.Component {
 
         this.state = {
             showLoginForm: true,
-            email: '',
-            password: ''
+            login: '',
+            senha: ''
         }
     }
 
-    handleLogin = () => {
-        if(!this.state.email || !this.state.password) {
-            // console.log('Preencha os campos')
-            return
+    handleLogin = async (e) => {
+        e.preventDefault();
+        e.stopPropagation()
+        const { login, senha } = this.state
+        if (login && senha) {
+            this.setState({loading: true})
+            const token = await UserProvider.login({login, senha})
+            .then(() => {
+                this.setState({loading: false})
+            })
+            console.log(token)
+        } else {
+            alert('Preencha todos os campos')
         }
-        axios.get('https://randomuser.me/api/')
-        .then(result => {debugger;console.log(result);})
-
     }
 
     changeFormToRender = () => {this.setState({showLoginForm: !this.state.showLoginForm})}
@@ -94,7 +101,7 @@ export default class extends React.Component {
                                                 // onChange={this.handleChange}
                                                 name={FORM_INPUT_IDS.CEP}
                                                 id={FORM_INPUT_IDS.CEP}
-                                                isValid={this.state.isCepValid}
+                                                // isValid={this.state.isCepValid}
                                             />
                                             <label for="CEP" class="form__label">CEP</label>
                                         </div>
@@ -127,12 +134,12 @@ export default class extends React.Component {
                                             </div>
 
                                         <div class="form__group">
-                                            <input type="text" class="form__input" placeholder="Login" id="name" required value={this.state.email} onChange={(event) => {console.log(event.target.value);this.setState({email:event.target.value})}}/>
+                                            <input type="text" class="form__input" placeholder="Login" id="name" required value={this.state.login} onChange={(event) => {console.log(event.target.value);this.setState({login:event.target.value})}}/>
                                             <label for="name" class="form__label">Login</label>
                                         </div>
 
                                         <div class="form__group">
-                                            <input class="form__input" placeholder="Senhaa" id="password" type="password" required value={this.state.password} onChange={(event) => {console.log(event.target.value);this.setState({password:event.target.value})}}/>
+                                            <input class="form__input" placeholder="Senhaa" id="password" type="password" required value={this.state.senha} onChange={(event) => {console.log(event.target.value);this.setState({senha:event.target.value})}}/>
                                             <label for="senha" class="form__label">Senha</label>
                                         </div>
 
