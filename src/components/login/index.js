@@ -5,6 +5,8 @@ import axios from 'axios'
 // import logoMedBranco from '../../assets/img/logo-med-branco.png'
 // import {Header} from '../../components/header'
 
+import { FORM_INPUT_IDS } from '../../util/constants'
+
 const Container = styled.main`
     display: flex;
     flex-direction: column;
@@ -73,7 +75,7 @@ export default class extends React.Component {
                         <div class="book__form">
                             <div class="row">
                                 <div class="col-1-of-2">
-                                    <form action="#" class="form">
+                                    <form action='/register' method='GET' class="form">
                                         <div class="u-margin-bottom-medium">
                                             <h2 class="heading-secondary--white">
                                                 Cadastre-se
@@ -81,17 +83,37 @@ export default class extends React.Component {
                                         </div>
 
                                         <div class="form__group">
-                                            <input type="text" class="form__input" placeholder="CEP" id="CEP" required/>
+                                            <input
+                                                type="text"
+                                                class="form__input"
+                                                placeholder="CEP"
+                                                // id="CEP"
+                                                required
+                                                maxLength={9}
+                                                // value={this.state.cep}
+                                                // onChange={this.handleChange}
+                                                name={FORM_INPUT_IDS.CEP}
+                                                id={FORM_INPUT_IDS.CEP}
+                                                isValid={this.state.isCepValid}
+                                            />
                                             <label for="CEP" class="form__label">CEP</label>
                                         </div>
 
                                         <div class="form__group">
-                                            <input type="number" class="form__input" placeholder="Número" min={1} id="number" required/>
+                                            <input
+                                                type="number"
+                                                class="form__input"
+                                                placeholder="Número"
+                                                min={1}
+                                                id={FORM_INPUT_IDS.NUMERO}
+                                                required
+                                                name={FORM_INPUT_IDS.NUMERO}
+                                            />
                                             <label for="number" class="form__label">Número</label>
                                         </div>
 
                                         <div class="form__group">
-                                            <button class="btn btn--green">Cadastre-se</button>
+                                            <button type='submit' class="btn btn--green">Cadastre-se</button>
                                         </div>
                                     </form>
                                 </div>
