@@ -18,7 +18,7 @@ const createClienteObj = ({
         telefone,
         uf 
     }) => {
-        let clienteObj = { pessoa: {} }
+        let clienteObj = { flag_bloqueado: 0, pessoa: {} }
         clienteObj.pessoa = {
             cpf,
             dataNascimento: nascimento,
@@ -37,7 +37,7 @@ const createClienteObj = ({
             }],
             telefone: [{
                 DDD: 21,
-                numero: telefone,
+                numero_telefone: telefone,
                 tipo: 'celular'
             }]
         }
@@ -46,8 +46,8 @@ const createClienteObj = ({
 
 const UserProvider = {
     create: (formData) => {
-        
         const clienteObj = createClienteObj(formData)
+        debugger
         console.log(clienteObj, JSON.stringify(clienteObj))
         axios.post(config.API_ENDPOINT + PATHS.USERS, clienteObj /*, { Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTkyLCJpYXQiOjE1NTYyODU2MTF9.c7mSyUxFaG-y2NL0ADHt5fgq1XPLk8sFtU0vBliUikg', "Content-Type": 'application/json'}*/)
             .then(result => {
@@ -62,11 +62,12 @@ const UserProvider = {
         return axios.post(config.API_ENDPOINT + PATHS.LOGIN, {login, senha})
             .then(result => {
                 // console.log(result)
-                // debugger
+                debugger
                 // return result.data.token
-                alert(`Login efetuado com sucesso\nToken: ${result.data.token}`)
+                // alert(`Login efetuado com sucesso\nToken: ${result.data.token}`)
                 window.localStorage.setItem(KEYS.TOKEN, result.data.token)
                 window.location.href = '/'
+                return result.data
             })
             .catch(error => { 
                 // debugger
@@ -84,6 +85,16 @@ const UserProvider = {
         })
             .then(result => {
                 console.log(result);
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    },
+    update: (id, formData) => {
+        const clienteObj = createClienteObj(formData)
+        axios.put(config.API_ENDPOINT + PATHS.USERS + id, clienteObj)
+            .then(result => {
+                console.log(result)
             })
             .catch(error => {
                 console.log(error)

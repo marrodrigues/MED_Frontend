@@ -3,7 +3,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 // components
-import CepInput from '../cep-input'
+import CepInput from '../inputs/cep-input'
+import EmailInput from '../inputs/email'
+import LoginInput from '../inputs/login'
+import CPFInput from '../inputs/cpf'
 import BaseInput from '../base/input'
 import BaseLabel from '../base/label'
 import BaseForm from '../base/form'
@@ -18,10 +21,6 @@ import { FORM_INPUT_IDS } from '../../util/constants'
 import UserProvider from '../../providers/user'
 
 const RegisterForm = styled(BaseForm)`
-`
-
-const FormContainer = styled.div`
-    padding-top: 10vh;
 `
 
 const InputRow = styled.div`
@@ -79,7 +78,7 @@ export default class extends React.Component {
                 />
                 <InputRow>
                     <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.CPF}>CPF</BaseLabel>
+                        {/* <BaseLabel htmlFor={FORM_INPUT_IDS.CPF}>CPF</BaseLabel>
                         <BaseInput
                             id={FORM_INPUT_IDS.CPF}
                             name={FORM_INPUT_IDS.CPF}
@@ -87,7 +86,8 @@ export default class extends React.Component {
                             onChange={this.handleChangeInput}
                             value={this.state[FORM_INPUT_IDS.CPF]}
                             maxLength={11}
-                        />
+                        /> */}
+                        <CPFInput onChange={this.handleChangeInput} />
                     </InputCol>
                     <InputCol>
                         <BaseLabel htmlFor={FORM_INPUT_IDS.TELEFONE}>TELEFONE</BaseLabel>
@@ -104,14 +104,15 @@ export default class extends React.Component {
 
                 <InputRow>
                     <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.LOGIN}>LOGIN</BaseLabel>
+                        {/* <BaseLabel htmlFor={FORM_INPUT_IDS.LOGIN}>LOGIN</BaseLabel>
                         <BaseInput
                             id={FORM_INPUT_IDS.LOGIN}
                             name={FORM_INPUT_IDS.LOGIN}
                             noValidation
                             onChange={this.handleChangeInput}
                             value={this.state[FORM_INPUT_IDS.LOGIN]}
-                        />
+                        /> */}
+                        <LoginInput onChange={this.handleChangeInput} />
                     </InputCol>
                     <InputCol>
                         <BaseLabel htmlFor={FORM_INPUT_IDS.SENHA}>SENHA</BaseLabel>
@@ -132,27 +133,32 @@ export default class extends React.Component {
                             id={FORM_INPUT_IDS.NASCIMENTO}
                             name={FORM_INPUT_IDS.NASCIMENTO}
                             noValidation
+                            type='date'
                             onChange={this.handleChangeInput}
                             value={this.state[FORM_INPUT_IDS.NASCIMENTO]}
                         />
                     </InputCol>
 
                     <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.EMAIL}>EMAIL</BaseLabel>
+                        {/* <BaseLabel htmlFor={FORM_INPUT_IDS.EMAIL}>EMAIL</BaseLabel>
                         <BaseInput
                             id={FORM_INPUT_IDS.EMAIL}
                             name={FORM_INPUT_IDS.EMAIL}
                             noValidation
                             onChange={this.handleChangeInput}
                             value={this.state[FORM_INPUT_IDS.EMAIL]}
-                        />
+                        /> */}
+                        <EmailInput onChange={this.handleChangeInput}/>
                     </InputCol>
 
                 </InputRow>
 
                 <InputRow>
                     <InputCol>
-                        <CepInput />
+                        <CepInput
+                            onChange={this.handleChangeInput}
+                            // value={this.state[FORM_INPUT_IDS.CEP]}
+                        />
                     </InputCol>
                     <InputCol>
                         <BaseLabel htmlFor={FORM_INPUT_IDS.LOGRADOURO}>LOGRADOURO</BaseLabel>

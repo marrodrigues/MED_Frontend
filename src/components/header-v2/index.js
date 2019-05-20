@@ -29,6 +29,9 @@ const Nav = styled.nav`
 `
 const LogoContainer = styled.div`
     width: fit-content;
+    :hover {
+        cursor: pointer;
+    }
 `
 const Logo = styled.img`
     height: auto;
@@ -58,16 +61,16 @@ export default class extends React.Component {
             <Header>
                 <Nav>
                     <LogoContainer>
-                        <Logo src={data.logoImg} alt="logo" class="header__logo"  onClick={this.onClickLogo}/>
+                        <Logo src={data.logoImg} alt="logo" className="header__logo"  onClick={this.onClickLogo}/>
                     </LogoContainer>
-                    <ul class="main-nav">
-                        <li class="main-nav__item"><a href="/#about" class="main-nav__item__link">Sobre Nós</a></li>
-                        <li class="main-nav__item"><a href="/#menu" class="main-nav__item__link">Cardápio</a></li>
+                    <ul className="main-nav">
+                        <li className="main-nav__item"><a href="/#about" className="main-nav__item__link">Sobre Nós</a></li>
+                        <li className="main-nav__item"><a href="/#menu" className="main-nav__item__link">Cardápio</a></li>
                         {this.state.hasToken 
-                        ? <li key='logout' class="main-nav__item"><a href='/' onClick={this.onClickLogout} class="main-nav__item__link">Logout</a></li>
+                        ? <li key='logout' className="main-nav__item"><a href='/' onClick={this.onClickLogout} className="main-nav__item__link">Logout</a></li>
                         : <React.Fragment>
-                            <li class="main-nav__item"><a href="/#forms" class="main-nav__item__link">Cadastro</a></li>
-                            <li key='login' class="main-nav__item"><a href="/#forms" class="main-nav__item__link">Login</a></li>
+                            <li className="main-nav__item"><a href="/#forms" className="main-nav__item__link">Cadastro</a></li>
+                            <li key='login' className="main-nav__item"><a href="/#forms" className="main-nav__item__link">Login</a></li>
                         </React.Fragment>}
                     </ul>
                 </Nav>

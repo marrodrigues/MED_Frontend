@@ -68,7 +68,7 @@ export default class extends React.Component {
         return (
             <section class="section-book">
                 
-                {/* <div class="row">
+                <div class="row">
                     <div class="book">
                         <div class="book__form">
                             <div class="row">
@@ -122,7 +122,7 @@ export default class extends React.Component {
                             </div>    
                         </div>
                     </div>
-                </div> */}
+                </div>
             </section>
         )
     }

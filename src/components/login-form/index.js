@@ -45,6 +45,7 @@ export default class extends React.Component {
             .then(() => {
                 this.setState({loading: false})
             })
+            console.log(token)
         } else {
             alert('Preencha todos os campos')
         }

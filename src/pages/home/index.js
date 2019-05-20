@@ -6,6 +6,8 @@ import Hero from '../../components/hero'
 import LoginForm from '../../components/login-form'
 import Footer from '../../components/footer'
 import LoginRegister from '../../components/register-login'
+import Login from '../../components/login'
+import PreRegisterForm from '../../components/pre-register-form'
 
 import Session from '../../providers/session'
 import { KEYS } from '../../util/constants';
@@ -312,9 +314,9 @@ render() {
                     </div>
                 </section>
             </main>
-            {
-                renderLoginForm && <LoginRegister />
-            }
+            {/* {renderLoginForm && <PreRegisterForm />} */}
+            {renderLoginForm && <LoginRegister />}
+            {/* {renderLoginForm && <Login />} */}
             <Footer/>
         </React.Fragment>
     )}
