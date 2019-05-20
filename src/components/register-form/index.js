@@ -254,7 +254,7 @@ export default class extends React.Component {
                     type='submit'
                 >
                     Cadastrar
-                        </BaseButton>
+                </BaseButton>
                 {this.state.loading && <Spinner name='circle' />}
             </RegisterForm>
         )

@@ -314,9 +314,9 @@ render() {
                     </div>
                 </section>
             </main>
-            {renderLoginForm && <PreRegisterAndLoginForm />}
+            {/* {renderLoginForm && <PreRegisterAndLoginForm />} */}
             {/* {renderLoginForm && <LoginRegister />} */}
-            {/* {renderLoginForm && <Login />} */}
+            {renderLoginForm && <Login />}
             <Footer/>
         </React.Fragment>
     )}

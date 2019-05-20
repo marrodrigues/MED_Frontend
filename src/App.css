@@ -508,8 +508,8 @@ body {
   margin-top: -8rem; }
 
 .section-book {
-  margin-top: -25vh;
-  padding: 10rem 0 10rem 0;
+  /* margin-top: -25vh; */
+  padding: 5rem 0;
   background-image: linear-gradient(to right bottom, #F7F7F7, #F7F7F7); }
 
 .book {

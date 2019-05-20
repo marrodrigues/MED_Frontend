@@ -90,16 +90,76 @@ const UserProvider = {
                 console.log(error)
             })
     },
-    update: (id, formData) => {
-        const clienteObj = createClienteObj(formData)
-        axios.put(config.API_ENDPOINT + PATHS.USERS + id, clienteObj)
+    update: (formData) => {
+        let updateObj = { pessoa: { endereco: [{}], telefone: [{}] } }
+        for (let key in formData) {
+            let splittedKey = key.split('-')
+            switch (splittedKey[0]) {
+                case 'endereco':
+                case 'telefone':
+                    updateObj.pessoa[splittedKey[0]][0][splittedKey[1]] = formData[key]
+                    break
+                case 'pessoa':
+                    updateObj.pessoa[splittedKey[1]] = formData[key]
+                    break
+                case 'user':
+                    updateObj[splittedKey[1]] = formData[key]
+                    break
+                default:
+                    break
+            }
+        }
+        console.log(updateObj);
+        
+        const params = { headers : {
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIyLCJpYXQiOjE1NTYxNzY5MDR9.pUgD6sXF_DlRnJSNIVqHlKe9lrqjDVkZSNEWZpjPiUE',
+            "Content-Type": 'application/json'
+        }}
+        const url = config.API_ENDPOINT + PATHS.USERS + updateObj.id
+        console.log(url);
+        debugger
+        axios.put(url, updateObj, params)
             .then(result => {
+                debugger
                 console.log(result)
+                window.location.reload()
             })
             .catch(error => {
+                debugger
                 console.log(error)
             })
     }
 }
+const rootObjs = ['endereco', 'pessoa', 'telefone', 'user']
+// {
+//     "id": 12,
+//     "pessoa": {
+//         "id": 32,-> pessoaid
+//         "cpf": "12731272312",
+//         "nome": "Alinne Breves Rodrigues",
+//         "login": "arline",
+//         "senha": "",
+//         "email": "alinne.bds@gmail.com",
+//         "dataNascimento": "1995-08-05",
+//         "endereco": [{
+//             "id": 32, -> pessoaid
+//             "logradouro": "Rua do Niquel",
+//             "numero": "25",
+//             "complemento": "Quadra 88",
+//             "CEP": "22711350",
+//             "bairro": "Curicica",
+//             "cidade": "Rio de Janeiro",
+//             "UF": "RJ",
+//             "pessoaId": 32 -> pessoaid
+//         }],
+//         "telefone": [{
+//             "id": 32, -> pessoaid
+//             "DDD": 21,
+//             "numero_telefone": "98788-0000",
+//             "tipo": "celular",
+//             "pessoaId": 32 -> pessoaid
+//         }]
+//     }
+// }
 
 export default UserProvider

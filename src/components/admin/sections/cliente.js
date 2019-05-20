@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import EditModal from './editModal'
+import EditModal from '../editModal'
 
 // const Container = styled.section`
 //     display: flex;
@@ -50,9 +50,9 @@ export default class ClientSection extends React.Component {
                 <ul className='name-list'>
                     { clientList.map(client => <li key={client.id} onClick={() => this.selectClient(client)}>{client.pessoa.nome}</li>) }
                 </ul>
-                <ul className='attr-list'>
+                {/* <ul className='attr-list'>
                     {this.state.selectedClient.id && this.renderClientInfo() }
-                </ul>
+                </ul> */}
                 <EditModal
                     onRequestClose={this.closeModal}
                     isOpen={this.state.openModal}
