@@ -21,6 +21,12 @@ export default class extends React.Component {
         bairro: '',
         localidade: '',
         uf: '',
+    }   
+
+    componentDidMount () {
+        if(this.props.value) {
+            this.setState({cep: this.props.value})
+        }
     }
 
     handleChange = (event) => {

@@ -19,6 +19,12 @@ export default class extends React.Component {
         isCPFValid: true
     }
 
+    componentDidMount () {
+        if(this.props.value) {
+            this.setState({cpf: this.props.value})
+        }
+    }
+
     handleChange = (event) => {
         this.setState({ cpf: event.target.value })
         if (this.props.onChange) {this.props.onChange(event)}

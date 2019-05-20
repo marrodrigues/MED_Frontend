@@ -19,6 +19,12 @@ export default class extends React.Component {
         isEmailValid: true
     }
 
+    componentDidMount() {
+        if(this.props.value) {
+            this.setState({email: this.props.value})
+        }
+    }
+
     handleChange = (event) => {
         this.setState({ email: event.target.value })
         if (this.props.onChange) {this.props.onChange(event)}

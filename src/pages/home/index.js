@@ -7,7 +7,7 @@ import LoginForm from '../../components/login-form'
 import Footer from '../../components/footer'
 import LoginRegister from '../../components/register-login'
 import Login from '../../components/login'
-import PreRegisterForm from '../../components/pre-register-form'
+import PreRegisterAndLoginForm from '../../components/pre-register-login'
 
 import Session from '../../providers/session'
 import { KEYS } from '../../util/constants';
@@ -314,8 +314,8 @@ render() {
                     </div>
                 </section>
             </main>
-            {/* {renderLoginForm && <PreRegisterForm />} */}
-            {renderLoginForm && <LoginRegister />}
+            {renderLoginForm && <PreRegisterAndLoginForm />}
+            {/* {renderLoginForm && <LoginRegister />} */}
             {/* {renderLoginForm && <Login />} */}
             <Footer/>
         </React.Fragment>

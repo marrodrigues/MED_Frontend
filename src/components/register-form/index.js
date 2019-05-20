@@ -34,20 +34,40 @@ const InputCol = styled.div`
 `
 
 export default class extends React.Component {
-    state = {
-        loading: false,
-        [FORM_INPUT_IDS.BAIRRO]: '',
-        [FORM_INPUT_IDS.CEP]: '',
-        [FORM_INPUT_IDS.CPF]: '',
-        [FORM_INPUT_IDS.EMAIL]: '',
-        [FORM_INPUT_IDS.LOGIN]: '',
-        [FORM_INPUT_IDS.LOGRADOURO]: '',
-        [FORM_INPUT_IDS.NASCIMENTO]: '',
-        [FORM_INPUT_IDS.NOME]: '',
-        [FORM_INPUT_IDS.NUMERO]: '',
-        [FORM_INPUT_IDS.SENHA]: '',
-        [FORM_INPUT_IDS.TELEFONE]: '',
-        [FORM_INPUT_IDS.UF]: '',
+    constructor(props) {
+        super(props)
+        this.state = {
+            loading: false,
+            [FORM_INPUT_IDS.BAIRRO]: '',
+            [FORM_INPUT_IDS.CEP]: '',
+            [FORM_INPUT_IDS.CPF]: '',
+            [FORM_INPUT_IDS.EMAIL]: '',
+            [FORM_INPUT_IDS.LOGIN]: '',
+            [FORM_INPUT_IDS.LOGRADOURO]: '',
+            [FORM_INPUT_IDS.NASCIMENTO]: '',
+            [FORM_INPUT_IDS.NOME]: '',
+            [FORM_INPUT_IDS.NUMERO]: '',
+            [FORM_INPUT_IDS.SENHA]: '',
+            [FORM_INPUT_IDS.TELEFONE]: '',
+            [FORM_INPUT_IDS.UF]: '',
+            ...this.getPreRegisterValues()
+        }
+    }
+
+    getPreRegisterValues() {
+        if (window.location.search) {
+            // const preRegisterValues = 
+            return window.location.search
+                .replace('?', '')
+                .split('&')
+                .reduce((acc, cur) => {
+                    const keyAndValue = cur.split('=')
+                    acc[keyAndValue[0]] = keyAndValue[1]
+                    return acc
+                }, {})
+            // this.setState({...preRegisterValues}, () => {console.log(this.state);
+        }
+        return {}
     }
 
 
@@ -67,7 +87,7 @@ export default class extends React.Component {
     render() {
         return (
             <RegisterForm onSubmit={this.submit}>
-                <BaseFormTitle title='Cadastre-se'/>
+                <BaseFormTitle title='Cadastre-se' />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.NOME}>NOME</BaseLabel>
                 <BaseInput
                     id={FORM_INPUT_IDS.NOME}
@@ -87,7 +107,10 @@ export default class extends React.Component {
                             value={this.state[FORM_INPUT_IDS.CPF]}
                             maxLength={11}
                         /> */}
-                        <CPFInput onChange={this.handleChangeInput} />
+                        <CPFInput
+                            onChange={this.handleChangeInput}
+                            value={this.state[FORM_INPUT_IDS.CPF]}
+                        />
                     </InputCol>
                     <InputCol>
                         <BaseLabel htmlFor={FORM_INPUT_IDS.TELEFONE}>TELEFONE</BaseLabel>
@@ -112,7 +135,10 @@ export default class extends React.Component {
                             onChange={this.handleChangeInput}
                             value={this.state[FORM_INPUT_IDS.LOGIN]}
                         /> */}
-                        <LoginInput onChange={this.handleChangeInput} />
+                        <LoginInput
+                            onChange={this.handleChangeInput}
+                            value={this.state[FORM_INPUT_IDS.LOGIN]}
+                        />
                     </InputCol>
                     <InputCol>
                         <BaseLabel htmlFor={FORM_INPUT_IDS.SENHA}>SENHA</BaseLabel>
@@ -148,7 +174,10 @@ export default class extends React.Component {
                             onChange={this.handleChangeInput}
                             value={this.state[FORM_INPUT_IDS.EMAIL]}
                         /> */}
-                        <EmailInput onChange={this.handleChangeInput}/>
+                        <EmailInput
+                            onChange={this.handleChangeInput}
+                            value={this.state[FORM_INPUT_IDS.EMAIL]}
+                        />
                     </InputCol>
 
                 </InputRow>
@@ -157,7 +186,7 @@ export default class extends React.Component {
                     <InputCol>
                         <CepInput
                             onChange={this.handleChangeInput}
-                            // value={this.state[FORM_INPUT_IDS.CEP]}
+                            value={this.state[FORM_INPUT_IDS.CEP]}
                         />
                     </InputCol>
                     <InputCol>

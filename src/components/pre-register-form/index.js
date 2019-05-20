@@ -36,7 +36,11 @@ export default class extends React.Component {
     
     render () {
         return (
-            <PreRegisterForm onSubmit={this.submit}>
+            <PreRegisterForm 
+                // onSubmit={this.submit}
+                action='/register'
+                method='GET'
+            >
                 <BaseFormTitle title='Cadastre-se' />
                 <CepInput
                     onChange={this.handleChangeInput}
