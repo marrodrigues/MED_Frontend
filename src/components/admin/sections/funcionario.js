@@ -42,9 +42,9 @@ export default class FuncionarioSection extends React.Component {
                 <ul className='name-list'>
                     { employeeList.map(employee => <li onClick={() => this.selectEmployee(employee)} key={employee.id}>{employee.pessoa.nome}</li>) }
                 </ul>
-                <ul className='attr-list'>
+                {/* <ul className='attr-list'>
                     {this.state.selectedEmployee.id && this.renderEmployeeInfo() }
-                </ul>
+                </ul> */}
             </React.Fragment>
         )
     }

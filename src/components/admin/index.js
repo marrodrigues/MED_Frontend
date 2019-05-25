@@ -3,9 +3,16 @@ import styled from 'styled-components'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ClienteProvider from '../../providers/cliente'
 import FuncionarioProvider from '../../providers/funcionario'
+import InsumoProvider from '../../providers/insumo'
+import PedidoProvider from '../../providers/pedido'
+import ProdutoProvider from '../../providers/produto'
+
 import Hamburger from './hamburger'
 import ClienteSection from './sections/cliente'
 import FuncionarioSection from './sections/funcionario'
+import InsumoSection from './sections/insumo'
+import PedidoSection from './sections/pedido'
+import ProdutoSection from './sections/produto'
 
 const Container = styled.main`
     display: flex;
@@ -69,30 +76,33 @@ const Content = styled.section`
     }
 `
 
-const data = [{
-    icon: 'user',
-    name: 'Clientes',
-    content: '<h1>Clientes</h1><ul><li>João Roberto Silva</li><li>Pedro Augusto</li><li>Maria Paula Machado</li></ul>'
-}, {
-    icon: 'pizza-slice',
-    name: 'Pedidos',
-    content: '<h1>Pedidos</h1><ul><li>Pizza Calabresa Gigante + Guaraná 2L</li><li>Pizza Quatro Queijos Brotinho</li></ul>'
-}, {
-    icon: 'hard-hat',
-    name: 'Funcionários',
-    content: '<h1>Funcionários</h1><ul><li>Mario</li><li>Estela</li><li>Diego</li></ul>'
-}]
+// const data = [{
+//     icon: 'user',
+//     name: 'Clientes',
+//     content: '<h1>Clientes</h1><ul><li>João Roberto Silva</li><li>Pedro Augusto</li><li>Maria Paula Machado</li></ul>'
+// }, {
+//     icon: 'pizza-slice',
+//     name: 'Pedidos',
+//     content: '<h1>Pedidos</h1><ul><li>Pizza Calabresa Gigante + Guaraná 2L</li><li>Pizza Quatro Queijos Brotinho</li></ul>'
+// }, {
+//     icon: 'hard-hat',
+//     name: 'Funcionários',
+//     content: '<h1>Funcionários</h1><ul><li>Mario</li><li>Estela</li><li>Diego</li></ul>'
+// }]
 
-const sections = ['Clientes', 'Pedidos','Produtos', 'Insumos', 'Funcionários']
+const sections = ['Clientes', 'Funcionários', 'Insumos', 'Pedidos', 'Produtos']
 
-const list = ['Joao', 'Maria', 'Jose', 'Mario']
+// const list = ['Joao', 'Maria', 'Jose', 'Mario']
 
 export default class extends React.Component {
     state = {
         selectedItem: sections[0],
         input: '',
         clientList: [],
-        employeeList: []
+        employeeList: [],
+        supplyList: [],
+        orderList: [],
+        productList: []
     }
 
     onClickNavItem(index){
@@ -106,10 +116,25 @@ export default class extends React.Component {
         FuncionarioProvider.getAll((employeeList) => {
             this.setState({employeeList})
         })
+        InsumoProvider.getAll((supplyList) => {
+            this.setState({supplyList})
+        })
+        // PedidoProvider.getAll((orderList) => {
+        //     this.setState({orderList})
+        // })
+        ProdutoProvider.getAll((productList) => {
+            this.setState({productList})
+        })
     }
     renderSection () {
         switch (this.state.selectedItem) {
             case sections[4]:
+                return <ProdutoSection productList={this.state.productList} />
+            case sections[3]:
+                return <PedidoSection orderList={this.state.orderList} />
+            case sections[2]:
+                return <InsumoSection supplyList={this.state.supplyList} />
+            case sections[1]:
                 return <FuncionarioSection employeeList={this.state.employeeList} />
             case sections[0]:
             default: 

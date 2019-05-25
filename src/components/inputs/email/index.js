@@ -43,6 +43,7 @@ export default class extends React.Component {
                 console.log(response)
             })
             .catch(error => { 
+                debugger
                 console.log(error)
                 this.setState({isEmailValid: false})
             })
