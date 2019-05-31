@@ -11,6 +11,7 @@ import Hamburger from './hamburger'
 import ClienteSection from './sections/cliente'
 import FuncionarioSection from './sections/funcionario'
 import InsumoSection from './sections/insumo'
+import LoteSection from './sections/lote'
 import PedidoSection from './sections/pedido'
 import ProdutoSection from './sections/produto'
 
@@ -76,6 +77,7 @@ const Content = styled.section`
     }
 `
 
+
 // const data = [{
 //     icon: 'user',
 //     name: 'Clientes',
@@ -90,23 +92,25 @@ const Content = styled.section`
 //     content: '<h1>Funcionários</h1><ul><li>Mario</li><li>Estela</li><li>Diego</li></ul>'
 // }]
 
-const sections = ['Clientes', 'Funcionários', 'Insumos', 'Pedidos', 'Produtos']
+const sections = { client: 'Clientes', employee: 'Funcionários', supply: 'Insumos', bundle: 'Lotes', order: 'Pedidos', product: 'Produtos'}
+
 
 // const list = ['Joao', 'Maria', 'Jose', 'Mario']
 
 export default class extends React.Component {
     state = {
-        selectedItem: sections[0],
-        input: '',
+        selectedItem: sections.client,
+        // input: '',
         clientList: [],
         employeeList: [],
         supplyList: [],
+        bundleList: [],
         orderList: [],
         productList: []
     }
 
-    onClickNavItem(index){
-        this.setState({selectedItem: sections[index]})
+    onClickNavItem(section){
+        this.setState({selectedItem: section})
     }
 
     componentDidMount = () => {
@@ -128,15 +132,17 @@ export default class extends React.Component {
     }
     renderSection () {
         switch (this.state.selectedItem) {
-            case sections[4]:
+            case sections.product:
                 return <ProdutoSection productList={this.state.productList} />
-            case sections[3]:
+            case sections.order:
                 return <PedidoSection orderList={this.state.orderList} />
-            case sections[2]:
+            case sections.bundle:
+                return <LoteSection bundleList={this.state.bundleList} />
+            case sections.supply:
                 return <InsumoSection supplyList={this.state.supplyList} />
-            case sections[1]:
+            case sections.employee:
                 return <FuncionarioSection employeeList={this.state.employeeList} />
-            case sections[0]:
+            case sections.client:
             default: 
                 return <ClienteSection clientList={this.state.clientList} />
         }
@@ -151,11 +157,11 @@ export default class extends React.Component {
                     MED Pizzaria
                     {/* <Hamburger /> */}
                     {
-                        sections.map((section, index) => 
+                        Object.values(sections).map((section, index) => 
                         <NavItem 
                             key={`${section}${section.index}`}
                             isSelected={this.state.selectedItem === section}
-                            onClick={() => this.onClickNavItem(index)}
+                            onClick={() => this.onClickNavItem(section)}
                         >
                             {/* <FontAwesomeIcon icon={'stroopwafel'} /> */}
                             {section}

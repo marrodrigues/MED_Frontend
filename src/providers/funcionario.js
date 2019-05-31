@@ -10,12 +10,12 @@ const FuncionarioProvider = {
             .then(result => result.data)
             .then(data => {
                 console.log(data)
-                // debugger
+                // // debugger
                 callback(data)
             })
             .catch(error => {
                 console.log(error)
-                // debugger
+                // // debugger
             })
     }
 }

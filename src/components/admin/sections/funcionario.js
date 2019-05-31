@@ -14,7 +14,7 @@ export default class FuncionarioSection extends React.Component {
         const { selectedEmployee } = this.state
         console.log(selectedEmployee)
         let employeeInfo = []
-        // debugger
+        // // debugger
         for(let prop of Object.keys(selectedEmployee)) {
             if (selectedEmployee[prop]) {
                 employeeInfo.push((<li>{`${prop}:${selectedEmployee[prop]}`}</li>))
@@ -29,7 +29,7 @@ export default class FuncionarioSection extends React.Component {
         return employeeInfo
     }
     selectEmployee(selectedEmployee) {
-        // debugger
+        // // debugger
         console.log(selectedEmployee)
         this.setState({selectedEmployee})
     }

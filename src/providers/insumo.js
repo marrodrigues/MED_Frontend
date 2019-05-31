@@ -1,21 +1,18 @@
 import axios from 'axios'
+import { params } from '../util/request'
 
 const InsumoProvider = {
     getAll: (callback) => {
-        const header ={ headers : {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIyLCJpYXQiOjE1NTYxNzY5MDR9.pUgD6sXF_DlRnJSNIVqHlKe9lrqjDVkZSNEWZpjPiUE',
-            "Content-Type": 'application/json'
-        }}
-        axios.get('https://med-backend-dev.herokuapp.com/insumos', header)
+        axios.get('https://med-backend-dev.herokuapp.com/insumos', params)
             .then(result => result.data)
             .then(data => {
                 console.log(data)
-                // debugger
+                // // debugger
                 callback(data)
             })
             .catch(error => {
                 console.log(error)
-                // debugger
+                // // debugger
             })
     }
 }

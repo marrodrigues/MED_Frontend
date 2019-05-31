@@ -29,19 +29,19 @@ export default class extends React.Component {
     validateLogin = (event) => {
         const login = event.target.value
         console.log(login)
-        debugger
-        axios.get('https://med-backend-dev.herokuapp.com/valida/login/' + login)
+        // debugger
+        axios.get('https://med-backend-dev.herokuapp.com/pessoas/login/' + login)
             .then(response => {
-                debugger
-                this.setState({isLoginValid: true})
+                // debugger
+                this.setState({isLoginValid: false})
                 console.log(response)
             })
             .catch(error => { 
                 console.log(error)
-                this.setState({isLoginValid: false})
+                this.setState({isLoginValid: true})
             })
     }
-
+    
     render () {
         return (
             <React.Fragment>

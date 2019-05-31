@@ -11,7 +11,6 @@ import BaseInput from '../base/input'
 import BaseLabel from '../base/label'
 import BaseForm from '../base/form'
 import BaseButton from '../base/button'
-import Hero from '../hero'
 import BaseFormTitle from '../base/form-title'
 
 import Spinner from 'react-spinkit'
@@ -21,16 +20,6 @@ import { FORM_INPUT_IDS } from '../../util/constants'
 import UserProvider from '../../providers/user'
 
 const RegisterForm = styled(BaseForm)`
-`
-
-const InputRow = styled.div`
-    display: flex;
-    justify-content: space-between;
-    min-width: 550px;
-`
-const InputCol = styled.div`
-    display: flex;
-    flex-direction: column;
 `
 
 export default class extends React.Component {
@@ -72,7 +61,7 @@ export default class extends React.Component {
 
 
     submit = (e) => {
-        // debugger
+        // // debugger
         e.preventDefault();
         UserProvider.create(this.state)
         // console.log('Submit');
@@ -88,6 +77,18 @@ export default class extends React.Component {
         return (
             <RegisterForm onSubmit={this.submit}>
                 <BaseFormTitle title='Cadastre-se' />
+                <EmailInput
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.EMAIL]}
+                />
+                <LoginInput
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.LOGIN]}
+                />
+                <CPFInput
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.CPF]}
+                />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.NOME}>NOME</BaseLabel>
                 <BaseInput
                     id={FORM_INPUT_IDS.NOME}
@@ -96,160 +97,36 @@ export default class extends React.Component {
                     onChange={this.handleChangeInput}
                     value={this.state[FORM_INPUT_IDS.NOME]}
                 />
-                <InputRow>
-                    <InputCol>
-                        {/* <BaseLabel htmlFor={FORM_INPUT_IDS.CPF}>CPF</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.CPF}
-                            name={FORM_INPUT_IDS.CPF}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.CPF]}
-                            maxLength={11}
-                        /> */}
-                        <CPFInput
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.CPF]}
-                        />
-                    </InputCol>
-                    <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.TELEFONE}>TELEFONE</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.TELEFONE}
-                            name={FORM_INPUT_IDS.TELEFONE}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.TELEFONE]}
-                        />
-                    </InputCol>
-                </InputRow>
-
-
-                <InputRow>
-                    <InputCol>
-                        {/* <BaseLabel htmlFor={FORM_INPUT_IDS.LOGIN}>LOGIN</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.LOGIN}
-                            name={FORM_INPUT_IDS.LOGIN}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.LOGIN]}
-                        /> */}
-                        <LoginInput
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.LOGIN]}
-                        />
-                    </InputCol>
-                    <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.SENHA}>SENHA</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.SENHA}
-                            name={FORM_INPUT_IDS.SENHA}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.SENHA]}
-                        />
-                    </InputCol>
-                </InputRow>
-
-                <InputRow>
-                    <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.NASCIMENTO}>NASCIMENTO</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.NASCIMENTO}
-                            name={FORM_INPUT_IDS.NASCIMENTO}
-                            noValidation
-                            type='date'
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.NASCIMENTO]}
-                        />
-                    </InputCol>
-
-                    <InputCol>
-                        {/* <BaseLabel htmlFor={FORM_INPUT_IDS.EMAIL}>EMAIL</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.EMAIL}
-                            name={FORM_INPUT_IDS.EMAIL}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.EMAIL]}
-                        /> */}
-                        <EmailInput
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.EMAIL]}
-                        />
-                    </InputCol>
-
-                </InputRow>
-
-                <InputRow>
-                    <InputCol>
-                        <CepInput
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.CEP]}
-                        />
-                    </InputCol>
-                    <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.LOGRADOURO}>LOGRADOURO</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.LOGRADOURO}
-                            name={FORM_INPUT_IDS.LOGRADOURO}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.LOGRADOURO]}
-                        />
-                    </InputCol>
-
-
-                </InputRow>
-
-
-                <InputRow>
-                    <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.NUMERO}>NUMERO</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.NUMERO}
-                            name={FORM_INPUT_IDS.NUMERO}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.NUMERO]}
-                        />
-                    </InputCol>
-
-                    <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.BAIRRO}>BAIRRO</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.BAIRRO}
-                            name={FORM_INPUT_IDS.BAIRRO}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.BAIRRO]}
-                        />
-                    </InputCol>
-                </InputRow>
-
-                <InputRow>
-                    <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.UF}>UF</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.UF}
-                            name={FORM_INPUT_IDS.UF}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.UF]}
-                        />
-                    </InputCol>
-                    <InputCol>
-                        <BaseLabel htmlFor={FORM_INPUT_IDS.CIDADE}>CIDADE</BaseLabel>
-                        <BaseInput
-                            id={FORM_INPUT_IDS.CIDADE}
-                            name={FORM_INPUT_IDS.CIDADE}
-                            noValidation
-                            onChange={this.handleChangeInput}
-                            value={this.state[FORM_INPUT_IDS.CIDADE]}
-                        />
-                    </InputCol>
-                </InputRow>
+                <BaseLabel htmlFor={FORM_INPUT_IDS.TELEFONE}>TELEFONE</BaseLabel>
+                <BaseInput
+                    id={FORM_INPUT_IDS.TELEFONE}
+                    name={FORM_INPUT_IDS.TELEFONE}
+                    noValidation
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.TELEFONE]}
+                />
+                
+                <BaseLabel htmlFor={FORM_INPUT_IDS.SENHA}>SENHA</BaseLabel>
+                <BaseInput
+                    id={FORM_INPUT_IDS.SENHA}
+                    name={FORM_INPUT_IDS.SENHA}
+                    noValidation
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.SENHA]}
+                />
+                <BaseLabel htmlFor={FORM_INPUT_IDS.NASCIMENTO}>NASCIMENTO</BaseLabel>
+                <BaseInput
+                    id={FORM_INPUT_IDS.NASCIMENTO}
+                    name={FORM_INPUT_IDS.NASCIMENTO}
+                    noValidation
+                    type='date'
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.NASCIMENTO]}
+                />
+                <CepInput
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.CEP]}
+                />
                 <BaseButton
                     type='submit'
                 >

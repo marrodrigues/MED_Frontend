@@ -11,6 +11,8 @@ const BaseButton = styled.button`
     margin: 5rem 0 0;
     padding: 1rem 2rem;
     background: transparent;
+    opacity: ${props => props.disabled ? 0.3 : 1};
+    transition: opacity ease 0.5s;
 `
 
 export default class extends React.Component {

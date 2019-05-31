@@ -35,15 +35,15 @@ export default class extends React.Component {
     validateEmail = (event) => {
         const email = event.target.value
         console.log(email)
-        debugger
-        axios.get('https://med-backend-dev.herokuapp.com/valida/email/' + email)
+        // debugger
+        axios.get('https://med-backend-dev.herokuapp.com/pessoas/email/' + email)
             .then(response => {
-                debugger
+                // debugger
                 this.setState({isEmailValid: true})
                 console.log(response)
             })
             .catch(error => { 
-                debugger
+                // debugger
                 console.log(error)
                 this.setState({isEmailValid: false})
             })

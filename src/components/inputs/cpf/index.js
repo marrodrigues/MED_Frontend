@@ -35,16 +35,16 @@ export default class extends React.Component {
     validateCPF = (event) => {
         const cpf = event.target.value
         console.log(cpf)
-        debugger
-        axios.get('https://med-backend-dev.herokuapp.com/valida/cpf/' + cpf)
+        // debugger
+        axios.get('https://med-backend-dev.herokuapp.com/pessoas/cpf/' + cpf)
             .then(response => {
-                debugger
-                this.setState({isCPFValid: true})
+                // debugger
+                this.setState({isCPFValid: false})
                 console.log(response)
             })
             .catch(error => { 
                 console.log(error)
-                this.setState({isCPFValid: false})
+                this.setState({isCPFValid: true})
             })
     }
 
