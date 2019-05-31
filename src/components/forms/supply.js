@@ -53,7 +53,11 @@ export default class extends React.Component {
                 console.log(error)
                 this.setState({
                     isNewSupply: true,
-                    isLocked: false
+                    isLocked: false,
+                    [FORM_INPUT_IDS.QTD_UNID]: '',
+                    [FORM_INPUT_IDS.UNIDADE]: '',
+                    [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
+                    id: null
                 })
             })
     }
