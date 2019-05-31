@@ -42,6 +42,9 @@ const FORM_INPUT_IDS = {
     QTD_UNID: 'qtd_unid',
     UNIDADE: 'unidade',
     VALOR_UNITARIO: 'valor_unitario',
+    VALIDADE: 'validade',
+    QUANTIDADE: 'qtd',
+    LOTE: 'lote',
 }
 
 export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS, KEYS }

@@ -1,0 +1,187 @@
+import React from 'react'
+import styled from 'styled-components'
+import InsumoProvider from '../../providers/insumo'
+import ProdutoProvider from '../../providers/produto'
+import LoteProvider from '../../providers/lote'
+
+import BaseFormTitle from '../base/form-title'
+import BaseLabel from '../base/label'
+import BaseInput from '../base/input'
+import BaseSelect from '../base/select'
+import BaseButton from '../base/button'
+import BaseRadio from '../base/radio'
+
+
+import { FORM_INPUT_IDS } from '../../util/constants'
+
+const BundleForm = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vh 5vw;
+    background: gray;
+`
+const ButtonsContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+`
+const Message = styled.span`
+    color: white;
+    font-size: 18px;
+`
+const RadioContainer = styled.div`
+    display: flex;
+`
+
+export default class extends React.Component {
+    state = {
+        [FORM_INPUT_IDS.LOTE]: '',
+        [FORM_INPUT_IDS.VALIDADE]: '',
+        [FORM_INPUT_IDS.QUANTIDADE]: '',
+        productList: [],
+        supplyList: [],
+        productOrSupplyObject: {},
+        productOrSupply: '',
+        id: null,
+        isLocked: false,
+        isNewBundle: true,
+        message: '',
+    }
+    componentDidMount() {
+        InsumoProvider.getAll((supplyList) => {this.setState({supplyList})})
+        ProdutoProvider.getAll((productList) => {this.setState({productList})})
+    }
+    handleChangeInput = (event) => {
+        this.setState({ [event.target.name]: event.target.value })
+    }
+    clearInputs = () => {
+        this.setState({
+            isNewBundle: true,
+            isLocked: false,
+            [FORM_INPUT_IDS.VALIDADE]: '',
+            [FORM_INPUT_IDS.QUANTIDADE]: '',
+            productOrSupply: '',
+            id: null,
+        })
+    }
+    setMessage = (message) => {
+        this.setState({message})
+        setTimeout(() => { this.setState({message: ''}) }, 3000) 
+    }
+    bundleExistsCallback = (bundle) => {
+        this.setState({
+            isNewBundle: false,
+            isLocked: false,
+            ...bundle,
+        })
+        this.setMessage('Lote encontrado')
+    }
+    bundleDoesNotExistCallback = () => {
+        this.clearInputs()
+    }
+    errorCallback = () => {
+        this.setMessage('Erro inesperado')
+        setTimeout(() => { window.location.reload() }, 1000)
+    }
+    getBundle = (event) => {
+        this.setState({ isLocked: true })
+        const lote = event.target.value
+        console.log(lote)
+        // debugger
+        LoteProvider.getByBundle(
+            lote,
+            this.bundleExistsCallback,
+            this.bundleDoesNotExistCallback,
+            this.errorCallback
+        )
+    }
+
+    render() {
+        const options = 
+            this.state.productOrSupply === 'Produto'
+            ? this.state.productList.map(product => product.nome)
+            : this.state.productOrSupply === 'Insumo' 
+            ? this.state.supplyList.map(supply => supply.descricao)
+            : []
+        const label = this.state.productOrSupply
+        return (
+            <BundleForm id='bundle-form' onSubmit={this.submit}>
+                <BaseFormTitle title='Lote' />
+                <BaseLabel htmlFor={FORM_INPUT_IDS.LOTE}>LOTE</BaseLabel>
+                <BaseInput
+                    id={FORM_INPUT_IDS.LOTE}
+                    name={FORM_INPUT_IDS.LOTE}
+                    noValidation
+                    onChange={this.handleChangeInput}
+                    onBlur={this.getBundle}
+                    value={this.state[FORM_INPUT_IDS.LOTE]}
+                    disabled={this.state.isLocked}
+                />
+                <BaseLabel htmlFor={FORM_INPUT_IDS.VALIDADE}>VALIDADE</BaseLabel>
+                <BaseInput
+                    id={FORM_INPUT_IDS.VALIDADE}
+                    name={FORM_INPUT_IDS.VALIDADE}
+                    noValidation
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.VALIDADE]}
+                    type='date'
+                    disabled={this.state.isLocked}
+                />
+                <BaseLabel htmlFor={FORM_INPUT_IDS.QUANTIDADE}>QUANTIDADE</BaseLabel>
+                <BaseInput
+                    id={FORM_INPUT_IDS.QUANTIDADE}
+                    name={FORM_INPUT_IDS.QUANTIDADE}
+                    noValidation
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.QUANTIDADE]}
+                    type='number'
+                    min={1}
+                    disabled={this.state.isLocked}
+                />
+                <RadioContainer>
+                    <BaseRadio 
+                        name='productOrSupply'
+                        value='Insumo'
+                        onClick={this.handleChangeInput}
+                    /> 
+                    <BaseRadio 
+                        name='productOrSupply'
+                        value='Produto'
+                        onClick={this.handleChangeInput}
+                    />
+                </RadioContainer>
+                {label && <BaseLabel htmlFor='productOrSupply'>{label}</BaseLabel>}
+                <BaseSelect 
+                    form='bundle-form'
+                    name='productOrSupplyObject'
+                    options={options}
+                    onChange={this.handleChangeInput}
+                    disabled={this.state.isLocked || !this.state.productOrSupply}
+                    value={this.state[FORM_INPUT_IDS.UNIDADE]}
+                    placeholderMessage='Escolha a unidade'
+                />
+                <Message>{this.state.message}</Message>
+                {
+                    this.state.isNewBundle
+                    ? (<BaseButton
+                            type='submit'
+                        >
+                           Cadastrar
+                        </BaseButton>)
+                    : ( <ButtonsContainer>
+                        <BaseButton
+                            type='submit'
+                        >
+                            Atualizar
+                        </BaseButton>
+                        <BaseButton
+                            onClick={this.deleteBundle}
+                        >
+                            Deletar
+                        </BaseButton>
+                    </ButtonsContainer>)
+                }
+            </BundleForm>
+        )
+    }
+}

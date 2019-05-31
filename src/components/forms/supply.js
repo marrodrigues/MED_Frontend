@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
-import { params } from '../../util/request'
 import InsumoProvider from '../../providers/insumo'
 
 import BaseFormTitle from '../base/form-title'
@@ -33,7 +31,7 @@ export default class extends React.Component {
     state = {
         [FORM_INPUT_IDS.DESCRICAO]: '',
         [FORM_INPUT_IDS.QTD_UNID]: '',
-        [FORM_INPUT_IDS.UNIDADE]: '',
+        [FORM_INPUT_IDS.UNIDADE]: options[0],
         [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
         id: null,
         isLocked: false,
@@ -70,7 +68,7 @@ export default class extends React.Component {
     }
     errorCallback = () => {
         this.setMessage('Erro inesperado')
-        window.location.reload()
+        setTimeout(() => { window.location.reload() }, 1000)
     }
 
     getSupply = (event) => {
