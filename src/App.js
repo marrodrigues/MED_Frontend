@@ -7,6 +7,7 @@ import Home from './pages/home'
 import Register from './pages/register'
 import Admin from './pages/admin'
 import Cliente from './pages/cliente'
+import Forms from './pages/forms'
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -20,6 +21,7 @@ class App extends Component {
         {/* <Route path="/login/" component={Login} /> */}
         <Route path="/register/" component={Register} />
         <Route path='/cliente/' component={Cliente} />
+        <Route path='/forms/' component={Forms} />
       </Router>
     );
   }

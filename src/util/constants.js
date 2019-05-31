@@ -28,16 +28,20 @@ const FORM_INPUT_IDS = {
     CEP: 'cep',
     CPF: 'cpf',
     LOGIN: 'login',
-    NASCIMENTO: 'nascimento',
+    NASCIMENTO: 'dataNascimento',
     NUMERO: 'numero',
     UF: 'uf',
-    TELEFONE: 'telefone',
+    TELEFONE: 'numero_telefone',
     SENHA: 'senha',
     EMAIL: 'email',
     LOGRADOURO: 'logradouro',
     BAIRRO: 'bairro',
     CIDADE: 'cidade',
-    COMPLEMENTO: 'complemento'
+    COMPLEMENTO: 'complemento',
+    DESCRICAO: 'descricao',
+    QTD_UNID: 'qtd_unid',
+    UNIDADE: 'unidade',
+    VALOR_UNITARIO: 'valor_unitario',
 }
 
 export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS, KEYS }

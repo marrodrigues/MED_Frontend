@@ -39,13 +39,13 @@ export default class extends React.Component {
         axios.get('https://med-backend-dev.herokuapp.com/pessoas/email/' + email)
             .then(response => {
                 // debugger
-                this.setState({isEmailValid: true})
+                this.setState({isEmailValid: false})
                 console.log(response)
             })
             .catch(error => { 
                 // debugger
                 console.log(error)
-                this.setState({isEmailValid: false})
+                this.setState({isEmailValid: true})
             })
     }
 

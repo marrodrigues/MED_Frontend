@@ -14,7 +14,27 @@ const InsumoProvider = {
                 console.log(error)
                 // // debugger
             })
-    }
+    },
+    createOrUpdate: (data, callback) => {
+        if (data.id) {
+            axios.put('https://med-backend-dev.herokuapp.com/insumos/' + data.id, data ,params)
+                .then(response => {
+                    debugger
+                })
+                .catch(error => {
+                    debugger
+                })
+        } else {
+            axios.post('https://med-backend-dev.herokuapp.com/insumos/', data ,params)
+            .then(response => {
+                debugger
+            })
+            .catch(error => {
+                debugger
+            })
+        }
+    },
+
 }
 
 
