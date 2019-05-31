@@ -8,7 +8,7 @@ const BaseButton = styled.button`
     max-width: 300px;
     border: 2px solid white;
     border-radius: 20px;
-    margin: 5rem 0 0;
+    margin: 2rem 2rem 0;
     padding: 1rem 2rem;
     background: transparent;
     opacity: ${props => props.disabled ? 0.3 : 1};

@@ -19,6 +19,14 @@ const SupplyForm = styled.form`
     padding: 2vh 5vw;
     background: gray;
 `
+const ButtonsContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+`
+const Message = styled.span`
+    color: white;
+    font-size: 18px;
+`
 const options = ['grama', 'litro', 'unidade']
 
 export default class extends React.Component {
@@ -27,39 +35,55 @@ export default class extends React.Component {
         [FORM_INPUT_IDS.QTD_UNID]: '',
         [FORM_INPUT_IDS.UNIDADE]: '',
         [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
+        id: null,
         isLocked: false,
         isNewSupply: true,
+        message: '',
     }
     handleChangeInput = (event) => {
         this.setState({ [event.target.name]: event.target.value })
     }
+    clearInputs = () => {
+        this.setState({
+            isNewSupply: true,
+            isLocked: false,
+            [FORM_INPUT_IDS.QTD_UNID]: '',
+            [FORM_INPUT_IDS.UNIDADE]: '',
+            [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
+            id: null
+        })
+    }
+    setMessage = (message) => {
+        this.setState({message})
+        setTimeout(() => { this.setState({message: ''}) }, 3000) 
+    }
+    supplyExistsCallback = (supply) => {
+        this.setState({
+            isNewSupply: false,
+            isLocked: false,
+            ...supply,
+        })
+        this.setMessage('Insumo encontrado')
+    }
+    supplyDoesNotExistCallback = () => {
+        this.clearInputs()
+    }
+    errorCallback = () => {
+        this.setMessage('Erro inesperado')
+        window.location.reload()
+    }
+
     getSupply = (event) => {
         this.setState({ isLocked: true })
         const descricao = event.target.value
         console.log(descricao)
         // debugger
-        axios.get('https://med-backend-dev.herokuapp.com/insumos/descricao/' + descricao, params)
-            .then(response => response.data)
-            .then(data => {
-                debugger
-                this.setState({
-                    isNewSupply: false,
-                    isLocked: false,
-                    ...data
-                })
-            })
-            .catch(error => { 
-                // debugger
-                console.log(error)
-                this.setState({
-                    isNewSupply: true,
-                    isLocked: false,
-                    [FORM_INPUT_IDS.QTD_UNID]: '',
-                    [FORM_INPUT_IDS.UNIDADE]: '',
-                    [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
-                    id: null
-                })
-            })
+        InsumoProvider.getByDescription(
+            descricao,
+            this.supplyExistsCallback,
+            this.supplyDoesNotExistCallback,
+            this.errorCallback
+        )
     }
     submit = (event) => {
         event.preventDefault()
@@ -86,7 +110,7 @@ export default class extends React.Component {
                     value={this.state[FORM_INPUT_IDS.DESCRICAO]}
                     disabled={this.state.isLocked}
                 />
-                <BaseLabel htmlFor={FORM_INPUT_IDS.UNIDADE}>UNIDADE</BaseLabel>
+                <BaseLabel htmlFor={FORM_INPUT_IDS.UNIDADE}>UNIDADE de Medida</BaseLabel>
                 {/* <BaseInput
                     id={FORM_INPUT_IDS.UNIDADE}
                     name={FORM_INPUT_IDS.UNIDADE}
@@ -101,6 +125,8 @@ export default class extends React.Component {
                     options={options}
                     onChange={this.handleChangeInput}
                     disabled={this.state.isLocked}
+                    value={this.state[FORM_INPUT_IDS.UNIDADE]}
+                    placeholderMessage='Escolha a unidade'
                 />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.QTD_UNID}>Quantidade por unidade</BaseLabel>
                 <BaseInput
@@ -125,6 +151,7 @@ export default class extends React.Component {
                     step={0.01}
                     disabled={this.state.isLocked}
                 />
+                <Message>{this.state.message}</Message>
                 {
                     this.state.isNewSupply
                     ? (<BaseButton
@@ -132,7 +159,7 @@ export default class extends React.Component {
                         >
                            Cadastrar
                         </BaseButton>)
-                    : ( <React.Fragment>
+                    : ( <ButtonsContainer>
                         <BaseButton
                             type='submit'
                         >
@@ -143,9 +170,8 @@ export default class extends React.Component {
                         >
                             Deletar
                         </BaseButton>
-                    </React.Fragment>)
+                    </ButtonsContainer>)
                 }
-                
             </SupplyForm>
         )
     }

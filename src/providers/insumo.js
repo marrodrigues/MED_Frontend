@@ -42,6 +42,21 @@ const InsumoProvider = {
             .catch(error => {
                 debugger
             })
+    },
+    getByDescription: (description, supplyExistsCallback, supplyDoesNotExistCallback, errorCallback) => {
+        axios.get('https://med-backend-dev.herokuapp.com/insumos/descricao/' + description, params)
+            .then(response => response.data)
+            .then(data => {
+                supplyExistsCallback(data)
+            })
+            .catch(error => { 
+                // debugger
+                if (error.response.status === 404) {
+                    supplyDoesNotExistCallback()
+                } else {
+                    errorCallback('Erro inesperado')
+                }
+            })
     }
 }
 
