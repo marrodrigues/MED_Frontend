@@ -66,6 +66,11 @@ export default class extends React.Component {
         event.stopPropagation()
         InsumoProvider.createOrUpdate(this.state)
     }
+    deleteSupply = (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        InsumoProvider.delete(this.state.id)
+    }
 
     render() {
         return (
@@ -120,11 +125,27 @@ export default class extends React.Component {
                     step={0.01}
                     disabled={this.state.isLocked}
                 />
-                <BaseButton
-                    type='submit'
-                >
-                    {this.state.isNewSupply ? 'Cadastrar' : 'Atualizar'}
-                </BaseButton>
+                {
+                    this.state.isNewSupply
+                    ? (<BaseButton
+                            type='submit'
+                        >
+                           Cadastrar
+                        </BaseButton>)
+                    : ( <React.Fragment>
+                        <BaseButton
+                            type='submit'
+                        >
+                            Atualizar
+                        </BaseButton>
+                        <BaseButton
+                            onClick={this.deleteSupply}
+                        >
+                            Deletar
+                        </BaseButton>
+                    </React.Fragment>)
+                }
+                
             </SupplyForm>
         )
     }

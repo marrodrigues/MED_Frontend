@@ -26,15 +26,23 @@ const InsumoProvider = {
                 })
         } else {
             axios.post('https://med-backend-dev.herokuapp.com/insumos/', data ,params)
+                .then(response => {
+                    debugger
+                })
+                .catch(error => {
+                    debugger
+                })
+        }
+    },
+    delete: (id, callback) => {
+        axios.delete('https://med-backend-dev.herokuapp.com/insumos/' + id, params)
             .then(response => {
                 debugger
             })
             .catch(error => {
                 debugger
             })
-        }
-    },
-
+    }
 }
 
 
