@@ -43,6 +43,8 @@ export default class extends React.Component {
         productOrSupplyObject: {},
         productOrSupply: '',
         id: null,
+        produtoId: null,
+        insumoId: null,
         isLocked: false,
         isNewBundle: true,
         message: '',
@@ -52,7 +54,27 @@ export default class extends React.Component {
         ProdutoProvider.getAll((productList) => {this.setState({productList})})
     }
     handleChangeInput = (event) => {
-        this.setState({ [event.target.name]: event.target.value })
+        if (event.target.name === 'productOrSupplyObject') {
+            let productOrSupplyObject = {}
+            let produtoId = null
+            let insumoId = null
+            if (this.state.productOrSupply === 'Insumo') {
+                productOrSupplyObject = this.state.supplyList.find(supply => supply.descricao === event.target.value)
+                insumoId = productOrSupplyObject.id
+            } else {
+                productOrSupplyObject = this.state.productList.find(product => product.nome === event.target.value)
+                produtoId = productOrSupplyObject.id
+            }
+            debugger
+            this.setState({
+                [event.target.name]: event.target.value,
+                productOrSupplyObject,
+                produtoId,
+                insumoId
+            })
+        } else {
+            this.setState({ [event.target.name]: event.target.value })
+        }
     }
     clearInputs = () => {
         this.setState({
@@ -61,7 +83,10 @@ export default class extends React.Component {
             [FORM_INPUT_IDS.VALIDADE]: '',
             [FORM_INPUT_IDS.QUANTIDADE]: '',
             productOrSupply: '',
+            productOrSupplyObject: {},
             id: null,
+            produtoId: null,
+            insumoId: null,
         })
     }
     setMessage = (message) => {
@@ -69,9 +94,22 @@ export default class extends React.Component {
         setTimeout(() => { this.setState({message: ''}) }, 3000) 
     }
     bundleExistsCallback = (bundle) => {
+        // debugger
+        let productOrSupplyObject = {}
+        let productOrSupply = ''
+        if (bundle.insumoId) {
+            productOrSupply = 'Insumo'
+            productOrSupplyObject = this.state.supplyList.find(supply => supply.id === bundle.insumoId)
+        }
+        if (bundle.produtoId) {
+            productOrSupply = 'Produto'
+            productOrSupplyObject = this.state.productList.find(product => product.id === bundle.produtoId)
+        }
         this.setState({
             isNewBundle: false,
             isLocked: false,
+            productOrSupply,
+            productOrSupplyObject,
             ...bundle,
         })
         this.setMessage('Lote encontrado')
@@ -94,6 +132,16 @@ export default class extends React.Component {
             this.bundleDoesNotExistCallback,
             this.errorCallback
         )
+    }
+    deleteBundle = (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        LoteProvider.delete(this.state.id)
+    }
+    submit = (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+        LoteProvider.createOrUpdate(this.state)
     }
 
     render() {
@@ -142,11 +190,13 @@ export default class extends React.Component {
                     <BaseRadio 
                         name='productOrSupply'
                         value='Insumo'
+                        checked={this.state.productOrSupply === 'Insumo'}
                         onClick={this.handleChangeInput}
                     /> 
                     <BaseRadio 
                         name='productOrSupply'
                         value='Produto'
+                        checked={this.state.productOrSupply === 'Produto'}
                         onClick={this.handleChangeInput}
                     />
                 </RadioContainer>

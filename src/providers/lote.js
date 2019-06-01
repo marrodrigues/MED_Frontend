@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { params } from '../util/request'
 
-const InsumoProvider = {
+const LoteProvider = {
     getAll: (callback) => {
         axios.get('https://med-backend-dev.herokuapp.com/lotes/', params)
             .then(result => result.data)
@@ -29,7 +29,36 @@ const InsumoProvider = {
                     errorCallback('Erro inesperado')
                 }
             })
-    }
+    },
+    delete: (id, callback) => {
+        axios.delete('https://med-backend-dev.herokuapp.com/lotes/' + id, params)
+            .then(response => {
+                debugger
+            })
+            .catch(error => {
+                debugger
+            })
+    },
+    createOrUpdate: (data, callback) => {
+        debugger
+        if (data.id) {
+            axios.put('https://med-backend-dev.herokuapp.com/lotes/' + data.id, data ,params)
+                .then(response => {
+                    debugger
+                })
+                .catch(error => {
+                    debugger
+                })
+        } else {
+            axios.post('https://med-backend-dev.herokuapp.com/lotes/', data ,params)
+                .then(response => {
+                    debugger
+                })
+                .catch(error => {
+                    debugger
+                })
+        }
+    },
 }
 
-export default InsumoProvider
+export default LoteProvider
