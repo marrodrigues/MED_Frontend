@@ -45,6 +45,8 @@ const FORM_INPUT_IDS = {
     VALIDADE: 'validade',
     QUANTIDADE: 'qtd',
     LOTE: 'lote',
+    TAMANHO: 'tamanho',
+    VALOR: 'valor',
 }
 
 export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS, KEYS }

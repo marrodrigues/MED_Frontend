@@ -11,7 +11,6 @@ import BaseSelect from '../base/select'
 import BaseButton from '../base/button'
 import BaseRadio from '../base/radio'
 
-
 import { FORM_INPUT_IDS } from '../../util/constants'
 
 const BundleForm = styled.form`
