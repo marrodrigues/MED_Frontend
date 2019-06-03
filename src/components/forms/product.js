@@ -65,6 +65,20 @@ export default class extends React.Component {
     }
     componentDidMount() {
         InsumoProvider.getAll((supplyList) => { this.setState({ supplyList }) })
+        if (this.props.selectedProduct && this.props.selectedProduct.id) {
+            const insumos = this.props.selectedProduct.insumosProdutos.map(supply => { 
+                console.log(supply)
+                return {
+                    id: supply.insumoId,
+                    qtd: supply.qtd
+                } 
+            })
+            this.setState({
+                ...this.props.selectedProduct,
+                insumos,
+                isNewProduct: false,
+            })
+        }
     }
     handleChangeInput = (event) => {
         if (event.target.name === FORM_INPUT_IDS.TAMANHO) {
@@ -151,6 +165,7 @@ export default class extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <ProductForm id='product-form' onSubmit={this.submit}>
                 <BaseFormTitle title='Produto' />
