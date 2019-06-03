@@ -77,6 +77,16 @@ export default class extends React.Component {
     }
     componentDidMount() {
         FuncionarioProvider.getAll((employeeList) => { this.setState({ employeeList }) })
+        if (this.props.selectedEmployee && this.props.selectedEmployee.id) { 
+            debugger
+            this.setState({
+                ...this.props.selectedEmployee.pessoa.endereco[0],
+                ...this.props.selectedEmployee.pessoa.telefone[0],
+                ...this.props.selectedEmployee.pessoa,
+                cargo: this.props.selectedEmployee.cargo,
+                isNewEmployee: false,
+            })
+        }
     }
     handleChangeInput = (event) => {
         this.setState({ [event.target.name]: event.target.value })
