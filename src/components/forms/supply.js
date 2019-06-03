@@ -38,6 +38,14 @@ export default class extends React.Component {
         isNewSupply: true,
         message: '',
     }
+    componentDidMount() {
+        if (this.props.selectedSupply && this.props.selectedSupply.id) {
+            this.setState({
+                ...this.props.selectedSupply,
+                isNewSupply: false,
+            })
+        }
+    }
     handleChangeInput = (event) => {
         this.setState({ [event.target.name]: event.target.value })
     }
