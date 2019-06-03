@@ -1,6 +1,28 @@
+// {
+//     "cargo": "Admin",
+//     "pessoa":{
+// 		"cpf": "89382723623",
+// 	    "nome": "Matheus Correa",
+// 	    "login": "mc_da20",
+// 	    "senha": "teste",
+// 	    "email": "mc_da20@gmail.com",
+// 	    "dataNascimento": "1990-11-03"	,
+// 	    "endereco":[{
+// 	    	"logradouro": "Rua Canelinha",
+// 	    	"numero": "71",
+// 	    	"CEP": "22710560",
+// 	    	"bairro": "Curicica"
+// 	    }],
+// 	    "telefone":[{
+// 	    	"numero_telefone": "99223-0022",
+// 	    	"tipo": "celular"
+// 	    }]
+//     }
+// }
+
 import React from 'react'
 import styled from 'styled-components'
-import ClienteProvider from '../../providers/cliente'
+import FuncionarioProvider from '../../providers/funcionario'
 
 import BaseFormTitle from '../base/form-title'
 import BaseLabel from '../base/label'
@@ -14,7 +36,7 @@ import CPFInput from '../inputs/cpf'
 
 import { FORM_INPUT_IDS } from '../../util/constants'
 
-const ClientForm = styled.form`
+const EmployeeForm = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,13 +51,14 @@ const Message = styled.span`
     color: white;
     font-size: 18px;
 `
-// const roles = ['cliente', 'funcionário', 'admin']
+const roles = ['Admin', 'Funcionario']
 
 export default class extends React.Component {
     state = {
         [FORM_INPUT_IDS.CPF]: '',
         [FORM_INPUT_IDS.LOGIN]: '',
         [FORM_INPUT_IDS.EMAIL]: '',
+        [FORM_INPUT_IDS.CARGO]: roles[0],
         [FORM_INPUT_IDS.NOME]: '',
         [FORM_INPUT_IDS.SENHA]: '',
         [FORM_INPUT_IDS.NASCIMENTO]: '',
@@ -48,12 +71,12 @@ export default class extends React.Component {
         [FORM_INPUT_IDS.TELEFONE]: '',
         id: null,
         isLocked: false,
-        isNewClient: true,
-        clientList: [],
+        isNewEmployee: true,
+        employeeList: [],
         message: '',
     }
     componentDidMount() {
-        ClienteProvider.getAll((clientList) => { this.setState({ clientList }) })
+        FuncionarioProvider.getAll((employeeList) => { this.setState({ employeeList }) })
     }
     handleChangeInput = (event) => {
         this.setState({ [event.target.name]: event.target.value })
@@ -73,7 +96,7 @@ export default class extends React.Component {
             [FORM_INPUT_IDS.TELEFONE]: '',
             id: null,
             isLocked: false,
-            isNewClient: true,
+            isNewEmployee: true,
             message: '',
         })
     }
@@ -81,20 +104,22 @@ export default class extends React.Component {
         this.setState({ message })
         setTimeout(() => { this.setState({ message: '' }) }, 3000)
     }
-    clientExistsCallback = (client) => {
+    employeeExistsCallback = (employee) => {
+        const fullEmployee = this.state.employeeList.find(_employee => _employee.pessoa.id === employee.id)
         // debugger
         this.setState({
-            ...client.endereco[0],
-            ...client.telefone[0],
-            ...client,
-            isNewClient: false,
+            ...employee.endereco[0],
+            ...employee.telefone[0],
+            ...employee,
+            cargo: fullEmployee.cargo,
+            isNewEmployee: false,
             isLocked: false
         })
         console.log(this.state);
         
-        this.setMessage('Cliente encontrado')
+        this.setMessage('Funcionario encontrado')
     }
-    clientDoesNotExistCallback = () => {
+    employeeDoesNotExistCallback = () => {
         this.clearInputs()
     }
     errorCallback = () => {
@@ -107,33 +132,33 @@ export default class extends React.Component {
     cepCallback = (data) => {
         this.setState({ ...data })
     }
-    deleteClient = (event) => {
+    deleteEmployee = (event) => {
         event.preventDefault()
         event.stopPropagation()
-        ClienteProvider.delete(this.state.clientList.find(client => client.pessoa.id === this.state.id).id)
+        FuncionarioProvider.delete(this.state.employeeList.find(employee => employee.pessoa.id === this.state.id).id)
     }
     submit = (event) => {
         event.preventDefault()
         event.stopPropagation()
-        if (this.state.isNewClient) {
-            ClienteProvider.createOrUpdate(this.state)
+        if (this.state.isNewEmployee) {
+            FuncionarioProvider.createOrUpdate(this.state)
         } else {
-            const fullClient = this.state.clientList.find(client => client.pessoa.id === this.state.id)
-            ClienteProvider.createOrUpdate({...this.state, id: fullClient.id, pessoaId: this.state.id})
+            const fullEmployee = this.state.employeeList.find(employee => employee.pessoa.id === this.state.id)
+            FuncionarioProvider.createOrUpdate({...this.state, id: fullEmployee.id, pessoaId: this.state.id})
         }
     }
 
     render() {
         return (
-            <ClientForm id='client-form' onSubmit={this.submit}>
-                <BaseFormTitle title='Cliente' />
+            <EmployeeForm id='employee-form' onSubmit={this.submit}>
+                <BaseFormTitle title='Funcionario' />
                 <EmailInput
                     onChange={this.handleChangeInput}
                     value={this.state[FORM_INPUT_IDS.EMAIL] || ''}
                     disabled={this.state.isLocked}
                     lockForm={this.lockForm}
-                    existsCallback={this.clientExistsCallback}
-                    doesNotExistCallback={this.clientDoesNotExistCallback}
+                    existsCallback={this.employeeExistsCallback}
+                    doesNotExistCallback={this.employeeDoesNotExistCallback}
                     errorCallback={this.errorCallback}
                     noValidation
                 />
@@ -142,8 +167,8 @@ export default class extends React.Component {
                     value={this.state[FORM_INPUT_IDS.LOGIN] || ''}
                     disabled={this.state.isLocked}
                     lockForm={this.lockForm}
-                    existsCallback={this.clientExistsCallback}
-                    doesNotExistCallback={this.clientDoesNotExistCallback}
+                    existsCallback={this.employeeExistsCallback}
+                    doesNotExistCallback={this.employeeDoesNotExistCallback}
                     errorCallback={this.errorCallback}
                     noValidation
                 />
@@ -152,10 +177,21 @@ export default class extends React.Component {
                     value={this.state[FORM_INPUT_IDS.CPF] || ''}
                     disabled={this.state.isLocked}
                     lockForm={this.lockForm}
-                    existsCallback={this.clientExistsCallback}
-                    doesNotExistCallback={this.clientDoesNotExistCallback}
+                    existsCallback={this.employeeExistsCallback}
+                    doesNotExistCallback={this.employeeDoesNotExistCallback}
                     errorCallback={this.errorCallback}
                     noValidation
+                />
+                <BaseLabel htmlFor={FORM_INPUT_IDS.CARGO}>CARGO</BaseLabel>
+                <BaseSelect
+                    form='product-form'
+                    name={FORM_INPUT_IDS.CARGO}
+                    options={roles}
+                    onChange={this.handleChangeInput}
+                    disabled={this.state.isLocked}
+                    value={this.state[FORM_INPUT_IDS.CARGO]}
+                    placeholderMessage='Escolha a tamanho'
+                    onBlur={this.getProduct}
                 />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.NOME}>NOME</BaseLabel>
                 <BaseInput
@@ -211,7 +247,7 @@ export default class extends React.Component {
 
                 <Message>{this.state.message}</Message>
                 {
-                    this.state.isNewClient
+                    this.state.isNewEmployee
                         ? (<BaseButton
                             type='submit'
                         >
@@ -224,13 +260,13 @@ export default class extends React.Component {
                                 Atualizar
                         </BaseButton>
                             <BaseButton
-                                onClick={this.deleteClient}
+                                onClick={this.deleteEmployee}
                             >
                                 Deletar
                         </BaseButton>
                         </ButtonsContainer>)
                 }
-            </ClientForm>
+            </EmployeeForm>
         )
     }
 }

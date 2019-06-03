@@ -52,7 +52,7 @@ export default class extends React.Component {
         axios.get(config.VIA_CEP_ENDPOINT + cep + config.VIA_CEP_JSON)
             .then(response => response.data)
             .then(data => {
-                // debugger
+                // // debugger
                 if (data.erro) {
                     // invalid cep
                     this.setState({isCepValid: false})

@@ -7,40 +7,40 @@ const InsumoProvider = {
             .then(result => result.data)
             .then(data => {
                 console.log(data)
-                // // debugger
+                // // // debugger
                 callback(data)
             })
             .catch(error => {
                 console.log(error)
-                // // debugger
+                // // // debugger
             })
     },
     createOrUpdate: (data, callback) => {
         if (data.id) {
             axios.put('https://med-backend-dev.herokuapp.com/insumos/' + data.id, data, params)
                 .then(response => {
-                    debugger
+                    // debugger
                 })
                 .catch(error => {
-                    debugger
+                    // debugger
                 })
         } else {
             axios.post('https://med-backend-dev.herokuapp.com/insumos/', data, params)
                 .then(response => {
-                    debugger
+                    // debugger
                 })
                 .catch(error => {
-                    debugger
+                    // debugger
                 })
         }
     },
     delete: (id, callback) => {
         axios.delete('https://med-backend-dev.herokuapp.com/insumos/' + id, params)
             .then(response => {
-                debugger
+                // debugger
             })
             .catch(error => {
-                debugger
+                // debugger
             })
     },
     getByDescription: (description, supplyExistsCallback, supplyDoesNotExistCallback, errorCallback) => {
@@ -50,7 +50,7 @@ const InsumoProvider = {
                 supplyExistsCallback(data)
             })
             .catch(error => { 
-                // debugger
+                // // debugger
                 if (error.response.status === 404) {
                     supplyDoesNotExistCallback()
                 } else {

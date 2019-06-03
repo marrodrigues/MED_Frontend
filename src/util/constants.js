@@ -47,6 +47,7 @@ const FORM_INPUT_IDS = {
     LOTE: 'lote',
     TAMANHO: 'tamanho',
     VALOR: 'valor',
+    CARGO: 'cargo',
 }
 
 export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS, KEYS }

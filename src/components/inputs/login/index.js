@@ -29,19 +29,19 @@ export default class extends React.Component {
     validateLogin = (event) => {
         const login = event.target.value
         console.log(login)
-        // debugger
+        // // debugger
         this.props.lockForm()
         axios.get('https://med-backend-dev.herokuapp.com/pessoas/login/' + login)
             .then(response => {
-                debugger
+                // debugger
                 this.setState({isLoginValid: false})
-                this.props.clientExistsCallback(response.data)
+                this.props.existsCallback(response.data)
                 console.log(response)
             })
             .catch(error => { 
                 console.log(error)
                 this.setState({isLoginValid: true})
-                this.props.clientDoesNotExistCallback()
+                this.props.doesNotExistCallback()
             })
     }
     

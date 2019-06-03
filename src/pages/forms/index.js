@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import BundleForm from '../../components/forms/bundle'
 import ClientForm from '../../components/forms/client'
+import EmployeeForm from '../../components/forms/employee'
 import SupplyForm from '../../components/forms/supply'
 import ProductFrom from '../../components/forms/product'
 
@@ -37,7 +38,7 @@ const Tab = styled.span`
 
 export default class extends React.Component {
     state = {
-        selectedTab: tabs[0]
+        selectedTab: tabs[1]
     }
     selectTab(tab) {
         this.setState({selectedTab: tab})
@@ -55,7 +56,7 @@ export default class extends React.Component {
             case tabs[2]:
                 return <SupplyForm />
             case tabs[1]:
-                return <div>Funcionário Form</div>
+                return <EmployeeForm />
             case tabs[0]:
             default: 
                 return <ClientForm />
