@@ -91,7 +91,7 @@ export default class extends React.Component {
         if (this.isChecked(supply)) {
             insumos = insumos.filter(_supply => _supply.id !== supply.id)
         } else {
-            insumos.push({ id: supply.id, qtd: 0 })
+            insumos.push({ id: supply.id, qtd: 1 })
         }
         this.setState({ insumos })
         debugger
@@ -206,7 +206,7 @@ export default class extends React.Component {
                         <BaseLabel>Insumos</BaseLabel>
                         {this.state.supplyList.map((supply, index) => {
                             const isChecked = this.isChecked(supply)
-                            const qtd = isChecked ? this.getSupplyQuantity(supply) : 0
+                            const qtd = isChecked ? this.getSupplyQuantity(supply) : ''
                             return (<CheckBoxContainer key={`${supply}-${index}`}>
                                 <Checkbox type='checkbox' checked={isChecked} onChange={() => { this.handleCheckClick(supply) }} />
                                 <CheckBoxLabel>{supply.descricao}</CheckBoxLabel>
