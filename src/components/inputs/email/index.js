@@ -27,25 +27,28 @@ export default class extends React.Component {
 
     handleChange = (event) => {
         this.setState({ email: event.target.value })
-        if (this.props.onChange) {this.props.onChange(event)}
+        if (this.props.onChange) { this.props.onChange(event) }
         event.preventDefault();
         event.stopPropagation();
     }
 
     validateEmail = (event) => {
         const email = event.target.value
-        console.log(email)
+        // console.log(email)
         // debugger
+        this.props.lockForm()
         axios.get('https://med-backend-dev.herokuapp.com/pessoas/email/' + email)
             .then(response => {
                 // debugger
                 this.setState({isEmailValid: false})
+                this.props.clientExistsCallback(response.data)
                 console.log(response)
             })
             .catch(error => { 
                 // debugger
                 console.log(error)
                 this.setState({isEmailValid: true})
+                this.props.clientDoesNotExistCallback()
             })
     }
 
@@ -54,13 +57,15 @@ export default class extends React.Component {
             <React.Fragment>
                 <BaseLabel htmlFor={FORM_INPUT_IDS.EMAIL}>EMAIL</BaseLabel>
                 <EmailInput
-                    value={this.state.email}
+                    value={this.props.value}
                     onChange={this.handleChange}
                     onBlur={this.validateEmail}
                     name={FORM_INPUT_IDS.EMAIL}
                     id={FORM_INPUT_IDS.EMAIL}
                     isValid={this.state.isEmailValid}
                     type='email'
+                    disabled={this.props.disabled}
+                    noValidation={this.props.noValidation}
                 />
             </React.Fragment>
         )

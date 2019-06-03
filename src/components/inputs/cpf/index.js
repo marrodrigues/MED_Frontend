@@ -36,15 +36,18 @@ export default class extends React.Component {
         const cpf = event.target.value
         console.log(cpf)
         // debugger
+        this.props.lockForm()
         axios.get('https://med-backend-dev.herokuapp.com/pessoas/cpf/' + cpf)
             .then(response => {
                 // debugger
                 this.setState({isCPFValid: false})
+                this.props.clientExistsCallback(response.data)
                 console.log(response)
             })
             .catch(error => { 
                 console.log(error)
                 this.setState({isCPFValid: true})
+                this.props.clientDoesNotExistCallback()
             })
     }
 
@@ -53,13 +56,14 @@ export default class extends React.Component {
             <React.Fragment>
                 <BaseLabel htmlFor={FORM_INPUT_IDS.CPF}>CPF</BaseLabel>
                 <CPFInput
-                    value={this.state.cpf}
+                    value={this.props.value}
                     onChange={this.handleChange}
                     onBlur={this.validateCPF}
                     name={FORM_INPUT_IDS.CPF}
                     id={FORM_INPUT_IDS.CPF}
                     isValid={this.state.isCPFValid}
-                    type='cpf'
+                    disabled={this.props.disabled}
+                    noValidation={this.props.noValidation}
                 />
             </React.Fragment>
         )

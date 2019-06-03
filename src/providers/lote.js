@@ -42,7 +42,7 @@ const LoteProvider = {
     createOrUpdate: (data, callback) => {
         debugger
         if (data.id) {
-            axios.put('https://med-backend-dev.herokuapp.com/lotes/' + data.id, data ,params)
+            axios.put('https://med-backend-dev.herokuapp.com/lotes/' + data.id, data, params)
                 .then(response => {
                     debugger
                 })
@@ -50,7 +50,7 @@ const LoteProvider = {
                     debugger
                 })
         } else {
-            axios.post('https://med-backend-dev.herokuapp.com/lotes/', data ,params)
+            axios.post('https://med-backend-dev.herokuapp.com/lotes/', data, params)
                 .then(response => {
                     debugger
                 })

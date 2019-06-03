@@ -43,6 +43,7 @@ export default class extends React.Component {
         event.preventDefault()
         event.stopPropagation()
         this.setState({ [event.target.name]: event.target.value })
+        if (this.props.onChange) {this.props.onChange(event)}
     }
 
     validateCep = (cep) => {
@@ -57,13 +58,11 @@ export default class extends React.Component {
                     this.setState({isCepValid: false})
                 } else {
                     const { logradouro, bairro, localidade, uf } = data
+                    const cepObj = { logradouro, bairro, cidade: localidade, uf }
                     this.setState({
                         isCepValid: this.isLocationValid(data), 
-                        logradouro,
-                        bairro,
-                        cidade: localidade,
-                        uf
-                    })
+                        ...cepObj
+                    }, () => {this.props.successCallback(cepObj)})
                 } 
             })
             .catch(error => { console.log(error) })
@@ -73,13 +72,22 @@ export default class extends React.Component {
         return localidade === ALLOWED_CITY && ALLOWED_DISTRICTS.includes(bairro)
     }
 
+    // shouldComponentUpdate(nextProps) {
+    //     if (nextProps.value === this.props.value) {
+    //         return false
+    //     }
+    //     this.validateCep(nextProps.value)
+    //     return true
+    // }
+
     render () {
         return (
             <React.Fragment>
                 <BaseLabel htmlFor={FORM_INPUT_IDS.CEP}>CEP</BaseLabel>
                 <CepInput
+                    {...this.props}
                     maxLength={9}
-                    value={this.state.cep}
+                    value={this.props.value}
                     onChange={this.handleChange}
                     name={FORM_INPUT_IDS.CEP}
                     id={FORM_INPUT_IDS.CEP}
@@ -91,25 +99,27 @@ export default class extends React.Component {
                     name={FORM_INPUT_IDS.LOGRADOURO}
                     noValidation
                     onChange={this.handleChangeInput}
-                    value={this.state[FORM_INPUT_IDS.LOGRADOURO]}
+                    value={this.props.logradouroValue}
                     disabled
                 />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.NUMERO}>NUMERO</BaseLabel>
                 <BaseInput
+                    {...this.props}
                     id={FORM_INPUT_IDS.NUMERO}
                     name={FORM_INPUT_IDS.NUMERO}
                     noValidation
                     onChange={this.handleChangeInput}
-                    value={this.state[FORM_INPUT_IDS.NUMERO]}
+                    value={this.props.numeroValue}
                     type='number'
                 />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.COMPLEMENTO}>COMPLEMENTO</BaseLabel>
                 <BaseInput
+                    {...this.props}
                     id={FORM_INPUT_IDS.COMPLEMENTO}
                     name={FORM_INPUT_IDS.COMPLEMENTO}
                     noValidation
                     onChange={this.handleChangeInput}
-                    value={this.state[FORM_INPUT_IDS.COMPLEMENTO]}
+                    value={this.props.complementoValue}
                 />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.BAIRRO}>BAIRRO</BaseLabel>
                 <BaseInput
@@ -117,7 +127,7 @@ export default class extends React.Component {
                     name={FORM_INPUT_IDS.BAIRRO}
                     noValidation
                     onChange={this.handleChangeInput}
-                    value={this.state[FORM_INPUT_IDS.BAIRRO]}
+                    value={this.props.bairroValue}
                     disabled
                 />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.UF}>UF</BaseLabel>
@@ -126,7 +136,7 @@ export default class extends React.Component {
                     name={FORM_INPUT_IDS.UF}
                     noValidation
                     onChange={this.handleChangeInput}
-                    value={this.state[FORM_INPUT_IDS.UF]}
+                    value={this.props.ufValue}
                     disabled
                 />
                 <BaseLabel htmlFor={FORM_INPUT_IDS.CIDADE}>CIDADE</BaseLabel>
@@ -135,7 +145,7 @@ export default class extends React.Component {
                     name={FORM_INPUT_IDS.CIDADE}
                     noValidation
                     onChange={this.handleChangeInput}
-                    value={this.state[FORM_INPUT_IDS.CIDADE]}
+                    value={this.props.cidadeValue}
                     disabled
                 />
             </React.Fragment>

@@ -17,7 +17,7 @@ const InsumoProvider = {
     },
     createOrUpdate: (data, callback) => {
         if (data.id) {
-            axios.put('https://med-backend-dev.herokuapp.com/insumos/' + data.id, data ,params)
+            axios.put('https://med-backend-dev.herokuapp.com/insumos/' + data.id, data, params)
                 .then(response => {
                     debugger
                 })
@@ -25,7 +25,7 @@ const InsumoProvider = {
                     debugger
                 })
         } else {
-            axios.post('https://med-backend-dev.herokuapp.com/insumos/', data ,params)
+            axios.post('https://med-backend-dev.herokuapp.com/insumos/', data, params)
                 .then(response => {
                     debugger
                 })

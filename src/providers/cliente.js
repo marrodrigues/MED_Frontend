@@ -22,7 +22,37 @@ const ClienteProvider = {
     },
     changePassword: (formData, callback) => {
         console.log('Change Password')
-    }
+    },
+    createOrUpdate: (data, callback) => {
+        const clienteObj = ClienteFactory.createCliente(data)
+        debugger
+        if (clienteObj.id) {
+            axios.put('https://med-backend-dev.herokuapp.com/clientes/' + clienteObj.id, clienteObj, params)
+                .then(response => {
+                    debugger
+                })
+                .catch(error => {
+                    debugger
+                })
+        } else {
+            axios.post('https://med-backend-dev.herokuapp.com/clientes/', clienteObj, params)
+                .then(response => {
+                    debugger
+                })
+                .catch(error => {
+                    debugger
+                })
+        }
+    },
+    delete: (id, callback) => {
+        axios.delete('https://med-backend-dev.herokuapp.com/clientes/' + id, params)
+            .then(response => {
+                debugger
+            })
+            .catch(error => {
+                debugger
+            })
+    },
 }
 
 

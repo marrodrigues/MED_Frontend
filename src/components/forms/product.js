@@ -52,19 +52,6 @@ const CheckBoxLabel = styled(BaseLabel)`
 const sizes = ['Brotinho', 'Média', 'Grande', 'Gigante', 'Único']
 
 export default class extends React.Component {
-    //     {
-    //         "nome": "4 Queijos",
-    //         "tamanho": "Media",
-    //         "valor": 12,
-    //         "lote": null,
-    //         "validade": null,
-    //         "insumos": [
-    //             {
-    //                 "id": 12,
-    //                 "qtd": 3
-    //             }
-    //         ]
-    // }
     state = {
         [FORM_INPUT_IDS.NOME]: '',
         [FORM_INPUT_IDS.TAMANHO]: sizes[0],

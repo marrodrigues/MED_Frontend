@@ -30,15 +30,18 @@ export default class extends React.Component {
         const login = event.target.value
         console.log(login)
         // debugger
+        this.props.lockForm()
         axios.get('https://med-backend-dev.herokuapp.com/pessoas/login/' + login)
             .then(response => {
-                // debugger
+                debugger
                 this.setState({isLoginValid: false})
+                this.props.clientExistsCallback(response.data)
                 console.log(response)
             })
             .catch(error => { 
                 console.log(error)
                 this.setState({isLoginValid: true})
+                this.props.clientDoesNotExistCallback()
             })
     }
     
@@ -47,13 +50,14 @@ export default class extends React.Component {
             <React.Fragment>
                 <BaseLabel htmlFor={FORM_INPUT_IDS.LOGIN}>LOGIN</BaseLabel>
                 <LoginInput
-                    value={this.state.login}
+                    value={this.props.value}
                     onChange={this.handleChange}
                     onBlur={this.validateLogin}
                     name={FORM_INPUT_IDS.LOGIN}
                     id={FORM_INPUT_IDS.LOGIN}
                     isValid={this.state.isLoginValid}
-                    type='login'
+                    disabled={this.props.disabled}
+                    noValidation={this.props.noValidation}
                 />
             </React.Fragment>
         )

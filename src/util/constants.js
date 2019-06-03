@@ -25,7 +25,7 @@ const ALLOWED_CITY = 'Rio de Janeiro'
 
 const FORM_INPUT_IDS = {
     NOME: 'nome',
-    CEP: 'cep',
+    CEP: 'CEP',
     CPF: 'cpf',
     LOGIN: 'login',
     NASCIMENTO: 'dataNascimento',

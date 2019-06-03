@@ -42,7 +42,7 @@ const ProdutoProvider = {
     createOrUpdate: (data, callback) => {
         debugger
         if (data.id) {
-            axios.put('https://med-backend-dev.herokuapp.com/produtos/' + data.id, data ,params)
+            axios.put('https://med-backend-dev.herokuapp.com/produtos/' + data.id, data, params)
                 .then(response => {
                     debugger
                 })
@@ -50,7 +50,7 @@ const ProdutoProvider = {
                     debugger
                 })
         } else {
-            axios.post('https://med-backend-dev.herokuapp.com/produtos/', data ,params)
+            axios.post('https://med-backend-dev.herokuapp.com/produtos/', data, params)
                 .then(response => {
                     debugger
                 })
