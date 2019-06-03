@@ -39,6 +39,7 @@ export default class extends React.Component {
         [FORM_INPUT_IDS.QUANTIDADE]: '',
         productList: [],
         supplyList: [],
+        productOrSupplyValue: '',
         productOrSupplyObject: {},
         productOrSupply: '',
         id: null,
@@ -52,17 +53,26 @@ export default class extends React.Component {
         InsumoProvider.getAll((supplyList) => {this.setState({supplyList})})
         ProdutoProvider.getAll((productList) => {this.setState({productList})})
         if (this.props.selectedBundle && this.props.selectedBundle.id) {
-            debugger
-            this.bundleExistsCallback(this.props.selectedBundle)
-            // const productOrSupply = 
-            //     this.props.selectedBundle.insumoId
-            //     ? 'Insumo'
-            //     : 
-            // this.setState({
-            //     ...this.props.selectedBundle,
-            //     productOrSupply: this.props.selectedBundle.insumoId
-            //     isNewBundle: false,
-            // })
+            // debugger
+            // this.bundleExistsCallback(this.props.selectedBundle)
+            const productOrSupply = 
+                this.props.selectedBundle.insumoId
+                ? 'Insumo'
+                : this.props.selectedBundle.produtoId
+                ? 'Produto'
+                : ''
+            // const productOrSupplyValue = 
+            //     productOrSupply === 'Insumo'
+            //     ? this.state.supplyList.find(supply => supply.id === this.props.selectedBundle.insumoId).descricao
+            //     : productOrSupply === 'Produto'
+            //     ? this.state.productList.find(product => product.id === this.props.selectedBundle.produtoId)
+            //     : ''
+            this.setState({
+                ...this.props.selectedBundle,
+                productOrSupply,
+                // productOrSupplyValue,
+                isNewBundle: false,
+            })
         }
     }
     handleChangeInput = (event) => {
@@ -111,11 +121,11 @@ export default class extends React.Component {
         let productOrSupply = ''
         if (bundle.insumoId) {
             productOrSupply = 'Insumo'
-            productOrSupplyObject = this.state.supplyList.find(supply => supply.id === bundle.insumoId)
+            productOrSupplyObject = this.state.supplyList.find(supply => supply.id === bundle.insumoId) || {}
         }
         if (bundle.produtoId) {
             productOrSupply = 'Produto'
-            productOrSupplyObject = this.state.productList.find(product => product.id === bundle.produtoId)
+            productOrSupplyObject = this.state.productList.find(product => product.id === bundle.produtoId) || {}
         }
         this.setState({
             isNewBundle: false,
@@ -163,6 +173,10 @@ export default class extends React.Component {
             : this.state.productOrSupply === 'Insumo' 
             ? this.state.supplyList.map(supply => supply.descricao)
             : []
+        const selectedOption = this.state.productOrSupplyObject.nome || this.state.productOrSupplyObject.descricao
+        console.log('>>>>>', selectedOption);
+        console.log(this.state)
+        
         const label = this.state.productOrSupply
         return (
             <BundleForm id='bundle-form' onSubmit={this.submit}>
@@ -219,8 +233,7 @@ export default class extends React.Component {
                     options={options}
                     onChange={this.handleChangeInput}
                     disabled={this.state.isLocked || !this.state.productOrSupply}
-                    value={this.state[FORM_INPUT_IDS.UNIDADE]}
-                    placeholderMessage='Escolha a unidade'
+                    value={this.state.productOrSupplyValue}
                 />
                 <Message>{this.state.message}</Message>
                 {
