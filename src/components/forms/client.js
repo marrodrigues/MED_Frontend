@@ -54,6 +54,13 @@ export default class extends React.Component {
     }
     componentDidMount() {
         ClienteProvider.getAll((clientList) => { this.setState({ clientList }) })
+        if (this.props.selectedClient && this.props.selectedClient.id) { 
+            this.setState({
+                ...this.props.selectedClient.pessoa.endereco[0],
+                ...this.props.selectedClient.pessoa.telefone[0],
+                ...this.props.selectedClient.pessoa
+            })
+        }
     }
     handleChangeInput = (event) => {
         this.setState({ [event.target.name]: event.target.value })

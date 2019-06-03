@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import EditModal from '../editModal'
 import RegisterForm from '../../register-form'
+import ClientForm from '../../forms/client'
 
 // const Container = styled.section`
 //     display: flex;
@@ -48,7 +49,7 @@ export default class ClientSection extends React.Component {
     selectClient(selectedClient) {
         // // // debugger
         console.log(selectedClient)
-        this.setState({selectedClient, openModal: true})
+        this.setState({selectedClient, selectedTab: 'Formulário'})
     }
     selectTab(tab) {
         console.log(tab)
@@ -95,25 +96,24 @@ export default class ClientSection extends React.Component {
                 </Tabs>
                 {
                     this.state.selectedTab === 'Formulário' && 
-                    <FormContainer>
-                        <RegisterForm />
-                    </FormContainer>
+                    <ClientForm selectedClient={this.state.selectedClient} />
                 }
                 {
                     this.state.selectedTab === 'Lista' &&
                     <ul className='name-list'>
-                        { clientList.map(client => <li key={client.id} onClick={() => this.selectClient(client)}>{client.pessoa.nome}</li>) }
+                        { clientList.map(client => 
+                            <li key={client.id} onClick={() => { this.selectClient(client) }}>{client.pessoa.nome}</li>) }
                     </ul>
                 }
                 {/* <ul className='attr-list'>
                     {this.state.selectedClient.id && this.renderClientInfo() }
                 </ul> */}
-                <EditModal
+                {/* <EditModal
                     onRequestClose={this.closeModal}
                     isOpen={this.state.openModal}
                     contentLabel='Edição de cliente'
                     user={this.state.selectedClient}
-                />
+                /> */}
             </React.Fragment>
         )
     }

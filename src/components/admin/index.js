@@ -52,6 +52,10 @@ const Content = styled.section`
     display: flex;
     flex-direction: column;
     padding: 1vh 3vw;
+    min-width: fit-content;
+    min-height: fit-content;
+    width: 100%;
+    height: 100%;
     h1 {
         font-size: 28px;
         padding: 2vh 0;
