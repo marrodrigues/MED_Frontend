@@ -51,6 +51,19 @@ export default class extends React.Component {
     componentDidMount() {
         InsumoProvider.getAll((supplyList) => {this.setState({supplyList})})
         ProdutoProvider.getAll((productList) => {this.setState({productList})})
+        if (this.props.selectedBundle && this.props.selectedBundle.id) {
+            debugger
+            this.bundleExistsCallback(this.props.selectedBundle)
+            // const productOrSupply = 
+            //     this.props.selectedBundle.insumoId
+            //     ? 'Insumo'
+            //     : 
+            // this.setState({
+            //     ...this.props.selectedBundle,
+            //     productOrSupply: this.props.selectedBundle.insumoId
+            //     isNewBundle: false,
+            // })
+        }
     }
     handleChangeInput = (event) => {
         if (event.target.name === 'productOrSupplyObject') {

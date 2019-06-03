@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import ClienteProvider from '../../providers/cliente'
 import FuncionarioProvider from '../../providers/funcionario'
 import InsumoProvider from '../../providers/insumo'
+import LoteProvider from '../../providers/lote'
 import PedidoProvider from '../../providers/pedido'
 import ProdutoProvider from '../../providers/produto'
 
@@ -126,6 +127,9 @@ export default class extends React.Component {
         })
         InsumoProvider.getAll((supplyList) => {
             this.setState({supplyList})
+        })
+        LoteProvider.getAll(bundleList => {
+            this.setState({bundleList})
         })
         // PedidoProvider.getAll((orderList) => {
         //     this.setState({orderList})
