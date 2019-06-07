@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import EditModal from '../editModal'
 import RegisterForm from '../../register-form'
 import ClientForm from '../../forms/client'
-import Table from '../../table'
 
 // const Container = styled.section`
 //     display: flex;
