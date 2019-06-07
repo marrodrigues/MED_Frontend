@@ -41,9 +41,11 @@ const LoteProvider = {
             })
     },
     createOrUpdate: (data, callback) => {
+        const loteObj = LoteFactory.createLote(data)
+        // console.log(loteObj)
         // debugger
-        if (data.id) {
-            axios.put('https://med-backend-dev.herokuapp.com/lotes/' + data.id, data, params)
+        if (loteObj.id) {
+            axios.put('https://med-backend-dev.herokuapp.com/lotes/' + loteObj.id, loteObj, params)
                 .then(response => {
                     // debugger
                 })
@@ -51,7 +53,7 @@ const LoteProvider = {
                     // debugger
                 })
         } else {
-            axios.post('https://med-backend-dev.herokuapp.com/lotes/', data, params)
+            axios.post('https://med-backend-dev.herokuapp.com/lotes/', loteObj, params)
                 .then(response => {
                     // debugger
                 })

@@ -17,8 +17,9 @@ const InsumoProvider = {
             })
     },
     createOrUpdate: (data, callback) => {
-        if (data.id) {
-            axios.put('https://med-backend-dev.herokuapp.com/insumos/' + data.id, data, params)
+        const supplyObj = InsumoFactory.createInsumo(data)
+        if (supplyObj.id) {
+            axios.put('https://med-backend-dev.herokuapp.com/insumos/' + supplyObj.id, supplyObj, params)
                 .then(response => {
                     // debugger
                 })
@@ -26,7 +27,7 @@ const InsumoProvider = {
                     // debugger
                 })
         } else {
-            axios.post('https://med-backend-dev.herokuapp.com/insumos/', data, params)
+            axios.post('https://med-backend-dev.herokuapp.com/insumos/', supplyObj, params)
                 .then(response => {
                     // debugger
                 })
