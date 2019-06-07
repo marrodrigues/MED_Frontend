@@ -25,6 +25,16 @@ const Tab = styled.span`
     : ''
     };
 `
+const BundleTable = styled.table`
+   tr {
+    font-size: 18px;
+    :hover {
+        cursor: pointer;
+        color: black;
+        // font-weight: bold;
+        background-color: #CCC9F7;
+    }
+`
 
 const tabs = ['Formulário', 'Lista']
 
@@ -46,6 +56,16 @@ export default class LoteSection extends React.Component {
     selectTab(tab) {
         console.log(tab)
         this.setState({selectedTab: tab})
+    }
+    getProductOrSupplyName(bundle) {
+        if (bundle.insumoId) {
+            const { supplyList } = this.props
+            return supplyList.length && supplyList.find(supply => supply.id === bundle.insumoId).descricao
+        }
+        if (bundle.produtoId) {
+            const { productList } = this.props
+            return productList.length && productList.find(product => product.id === bundle.produtoId).nome
+        }
     }
     render() {
         const { bundleList } = this.props || []
@@ -69,11 +89,34 @@ export default class LoteSection extends React.Component {
                     <BundleForm selectedBundle={this.state.selectedBundle} />
                 }
                 {
+                    bundleList.length && this.state.selectedTab === 'Lista' &&
+                    <BundleTable>
+                        <thead>
+                            <tr>
+                                <th>Lote</th>
+                                <th>Insumo/Produto</th>
+                                <th>Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                bundleList.map(bundle => (
+                                    <tr key={bundle.id} onClick={() => { this.selectBundle(bundle) }}>
+                                        <td>{bundle.lote}</td>
+                                        <td>{this.getProductOrSupplyName(bundle)}</td>
+                                        <td>{bundle.qtd}</td>
+                                    </tr>        
+                                ))
+                            }
+                        </tbody>
+                    </BundleTable>
+                }
+                {/* {
                     this.state.selectedTab === 'Lista' &&
                     <ul className='name-list'>
                         { bundleList.map(bundle => <li onClick={() => this.selectBundle(bundle)} key={bundle.id}>{bundle.lote}</li>) }
                     </ul>
-                }
+                } */}
                 
                 {/* <ul className='attr-list'>
                     {this.state.selectedBundle.id && this.renderBundleInfo() }

@@ -25,6 +25,16 @@ const Tab = styled.span`
     : ''
     };
 `
+const ClientTable = styled.table`
+   tr {
+    font-size: 18px;
+    :hover {
+        cursor: pointer;
+        color: black;
+        // font-weight: bold;
+        background-color: #CCC9F7;
+    }
+`
 
 const tabs = ['Formulário', 'Lista']
 
@@ -69,11 +79,32 @@ export default class InsumoSection extends React.Component {
                     <ProductForm selectedProduct={this.state.selectedProduct} />
                 }
                 {
+                    productList.length && this.state.selectedTab === 'Lista' &&
+                    <ClientTable>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Tamanho</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                productList.map(product => (
+                                    <tr key={product.id} onClick={() => { this.selectClient(product) }}>
+                                        <td>{product.nome}</td>
+                                        <td>{product.tamanho}</td>
+                                    </tr>        
+                                ))
+                            }
+                        </tbody>
+                    </ClientTable>
+                }
+                {/* {
                     this.state.selectedTab === 'Lista' &&
                     <ul className='name-list'>
                         { productList.map(product => <li onClick={() => this.selectProduct(product)} key={product.id}>{product.nome}</li>) }
                     </ul>
-                }
+                } */}
                 
                 {/* <ul className='attr-list'>
                     {this.state.selectedProduct.id && this.renderProductInfo() }

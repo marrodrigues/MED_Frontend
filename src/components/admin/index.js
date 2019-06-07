@@ -145,7 +145,7 @@ export default class extends React.Component {
             case sections.order:
                 return <PedidoSection orderList={this.state.orderList} />
             case sections.bundle:
-                return <LoteSection bundleList={this.state.bundleList} />
+                return <LoteSection bundleList={this.state.bundleList} supplyList={this.state.supplyList} productList={this.state.productList} />
             case sections.supply:
                 return <InsumoSection supplyList={this.state.supplyList} />
             case sections.employee:

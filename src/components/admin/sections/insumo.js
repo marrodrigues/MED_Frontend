@@ -25,6 +25,17 @@ const Tab = styled.span`
     : ''
     };
 `
+const SupplyTable = styled.table`
+   tr {
+    font-size: 18px;
+    text-transform: capitalize;
+    :hover {
+        cursor: pointer;
+        color: black;
+        // font-weight: bold;
+        background-color: #CCC9F7;
+    }
+`
 
 const tabs = ['Formulário', 'Lista']
 
@@ -69,11 +80,34 @@ export default class InsumoSection extends React.Component {
                     <SupplyForm selectedSupply={this.state.selectedSupply} />
                 }
                 {
+                    supplyList.length && this.state.selectedTab === 'Lista' &&
+                    <SupplyTable>
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Unidade</th>
+                                <th>Quantidade por Unidade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                supplyList.map(supply => (
+                                    <tr key={supply.id} onClick={() => { this.selectSupply(supply) }}>
+                                        <td>{supply.descricao}</td>
+                                        <td>{supply.unidade}</td>
+                                        <td>{supply.qtd_unid}</td>
+                                    </tr>        
+                                ))
+                            }
+                        </tbody>
+                    </SupplyTable>
+                }
+                {/* {
                     this.state.selectedTab === 'Lista' &&
                     <ul className='name-list'>
                         { supplyList.map(supply => <li onClick={() => this.selectSupply(supply)} key={supply.id}>{supply.descricao}</li>) }
                     </ul>
-                }
+                } */}
                 
                 {/* <ul className='attr-list'>
                     {this.state.selectedSupply.id && this.renderSupplyInfo() }
