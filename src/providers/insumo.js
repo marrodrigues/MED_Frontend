@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { params } from '../util/request'
+import InsumoFactory from '../factories/insumo'
 
 const InsumoProvider = {
     getAll: (callback) => {

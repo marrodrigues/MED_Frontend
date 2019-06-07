@@ -25,14 +25,14 @@ const Message = styled.span`
     color: white;
     font-size: 18px;
 `
-const options = ['grama', 'litro', 'unidade']
+const options = ['gramas', 'litro', 'unidade']
 
 export default class extends React.Component {
     state = {
         [FORM_INPUT_IDS.DESCRICAO]: '',
         [FORM_INPUT_IDS.QTD_UNID]: '',
         [FORM_INPUT_IDS.UNIDADE]: options[0],
-        [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
+        // [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
         id: null,
         isLocked: false,
         isNewSupply: true,
@@ -54,8 +54,8 @@ export default class extends React.Component {
             isNewSupply: true,
             isLocked: false,
             [FORM_INPUT_IDS.QTD_UNID]: '',
-            [FORM_INPUT_IDS.UNIDADE]: '',
-            [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
+            [FORM_INPUT_IDS.UNIDADE]: options[0],
+            // [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
             id: null
         })
     }
@@ -145,7 +145,7 @@ export default class extends React.Component {
                     min={1}
                     disabled={this.state.isLocked}
                 />
-                <BaseLabel htmlFor={FORM_INPUT_IDS.VALOR_UNITARIO}>VALOR UNITARIO (em R$)</BaseLabel>
+                {/* <BaseLabel htmlFor={FORM_INPUT_IDS.VALOR_UNITARIO}>VALOR UNITARIO (em R$)</BaseLabel>
                 <BaseInput
                     id={FORM_INPUT_IDS.VALOR_UNITARIO}
                     name={FORM_INPUT_IDS.VALOR_UNITARIO}
@@ -156,7 +156,7 @@ export default class extends React.Component {
                     min={0}
                     step={0.01}
                     disabled={this.state.isLocked}
-                />
+                /> */}
                 <Message>{this.state.message}</Message>
                 {
                     this.state.isNewSupply

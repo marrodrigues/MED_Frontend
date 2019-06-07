@@ -37,6 +37,7 @@ export default class extends React.Component {
         [FORM_INPUT_IDS.LOTE]: '',
         [FORM_INPUT_IDS.VALIDADE]: '',
         [FORM_INPUT_IDS.QUANTIDADE]: '',
+        [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
         productList: [],
         supplyList: [],
         productOrSupplyValue: '',
@@ -104,6 +105,7 @@ export default class extends React.Component {
             isLocked: false,
             [FORM_INPUT_IDS.VALIDADE]: '',
             [FORM_INPUT_IDS.QUANTIDADE]: '',
+            [FORM_INPUT_IDS.VALOR_UNITARIO]: '',
             productOrSupply: '',
             productOrSupplyObject: {},
             id: null,
@@ -234,6 +236,18 @@ export default class extends React.Component {
                     onChange={this.handleChangeInput}
                     disabled={this.state.isLocked || !this.state.productOrSupply}
                     value={this.state.productOrSupplyValue}
+                />
+                <BaseLabel htmlFor={FORM_INPUT_IDS.VALOR_UNITARIO}>VALOR UNITARIO (em R$)</BaseLabel>
+                <BaseInput
+                    id={FORM_INPUT_IDS.VALOR_UNITARIO}
+                    name={FORM_INPUT_IDS.VALOR_UNITARIO}
+                    noValidation
+                    onChange={this.handleChangeInput}
+                    value={this.state[FORM_INPUT_IDS.VALOR_UNITARIO]}
+                    type='number'
+                    min={0}
+                    step={0.01}
+                    disabled={this.state.isLocked}
                 />
                 <Message>{this.state.message}</Message>
                 {
