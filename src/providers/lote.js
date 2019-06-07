@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { params } from '../util/request'
+import LoteFactory from '../factories/lote'
 
 const LoteProvider = {
     getAll: (callback) => {

@@ -51,8 +51,10 @@ export default class extends React.Component {
         message: '',
     }
     componentDidMount() {
-        InsumoProvider.getAll((supplyList) => {this.setState({supplyList})})
-        ProdutoProvider.getAll((productList) => {this.setState({productList})})
+        InsumoProvider.getAll((supplyList) => {this.setState({supplyList}, () => {this.processBundleSelection()})})
+        ProdutoProvider.getAll((productList) => {this.setState({productList}, () => {this.processBundleSelection()})})
+    }
+    processBundleSelection = () => {
         if (this.props.selectedBundle && this.props.selectedBundle.id) {
             // debugger
             // this.bundleExistsCallback(this.props.selectedBundle)
@@ -62,22 +64,23 @@ export default class extends React.Component {
                 : this.props.selectedBundle.produtoId
                 ? 'Produto'
                 : ''
-            // const productOrSupplyValue = 
-            //     productOrSupply === 'Insumo'
-            //     ? this.state.supplyList.find(supply => supply.id === this.props.selectedBundle.insumoId).descricao
-            //     : productOrSupply === 'Produto'
-            //     ? this.state.productList.find(product => product.id === this.props.selectedBundle.produtoId)
-            //     : ''
+            const productOrSupplyValue = 
+                productOrSupply === 'Insumo'
+                ? this.state.supplyList.length && this.state.supplyList.find(supply => supply.id === this.props.selectedBundle.insumoId).descricao
+                : productOrSupply === 'Produto'
+                ? this.state.productList.length && this.state.productList.find(product => product.id === this.props.selectedBundle.produtoId).nome
+                : ''
+            debugger
             this.setState({
                 ...this.props.selectedBundle,
                 productOrSupply,
-                // productOrSupplyValue,
+                productOrSupplyValue,
                 isNewBundle: false,
             })
         }
     }
     handleChangeInput = (event) => {
-        if (event.target.name === 'productOrSupplyObject') {
+        if (event.target.name === 'productOrSupplyValue') {
             let productOrSupplyObject = {}
             let produtoId = null
             let insumoId = null
@@ -231,7 +234,7 @@ export default class extends React.Component {
                 {label && <BaseLabel htmlFor='productOrSupply'>{label}</BaseLabel>}
                 <BaseSelect 
                     form='bundle-form'
-                    name='productOrSupplyObject'
+                    name='productOrSupplyValue'
                     options={options}
                     onChange={this.handleChangeInput}
                     disabled={this.state.isLocked || !this.state.productOrSupply}
