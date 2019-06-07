@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import EditModal from '../editModal'
 import RegisterForm from '../../register-form'
 import ClientForm from '../../forms/client'
+import Table from '../../table'
 
 // const Container = styled.section`
 //     display: flex;
@@ -38,7 +39,23 @@ const FormContainer = styled.div`
     width: 100%;
     height: 100%;
 `
+const ClientTable = styled.table`
+   tr {
+    font-size: 18px;
+    :hover {
+        cursor: pointer;
+        color: black;
+        // font-weight: bold;
+        background-color: #CCC9F7;
+    }
+`
+
 const tabs = ['Formulário', 'Lista']
+const metaData = [
+    {dataKey: 'pessoa.nome', dataName: ''},
+    {dataKey: '', dataName: ''},
+    {dataKey: '', dataName: ''},
+]
 
 export default class ClientSection extends React.Component {
     state = {
@@ -99,12 +116,35 @@ export default class ClientSection extends React.Component {
                     <ClientForm selectedClient={this.state.selectedClient} />
                 }
                 {
+                    clientList.length && this.state.selectedTab === 'Lista' &&
+                    <ClientTable>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>CPF</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                clientList.map(client => (
+                                    <tr  key={client.pessoa.cpf} onClick={() => { this.selectClient(client) }}>
+                                        <td>{client.pessoa.nome}</td>
+                                        <td>{client.pessoa.email}</td>
+                                        <td>{client.pessoa.cpf}</td>
+                                    </tr>        
+                                ))
+                            }
+                        </tbody>
+                    </ClientTable>
+                }
+                {/* {
                     this.state.selectedTab === 'Lista' &&
                     <ul className='name-list'>
                         { clientList.map(client => 
                             <li key={client.id} onClick={() => { this.selectClient(client) }}>{client.pessoa.nome}</li>) }
                     </ul>
-                }
+                } */}
                 {/* <ul className='attr-list'>
                     {this.state.selectedClient.id && this.renderClientInfo() }
                 </ul> */}

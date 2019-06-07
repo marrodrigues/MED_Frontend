@@ -25,6 +25,16 @@ const Tab = styled.span`
     : ''
     };
 `
+const EmployeeTable = styled.table`
+   tr {
+    font-size: 18px;
+    :hover {
+        cursor: pointer;
+        color: black;
+        // font-weight: bold;
+        background-color: #CCC9F7;
+    }
+`
 
 const tabs = ['Formulário', 'Lista']
 
@@ -87,11 +97,36 @@ export default class FuncionarioSection extends React.Component {
                     <EmployeeForm selectedEmployee={this.state.selectedEmployee} />
                 }
                 {
+                    employeeList.length && this.state.selectedTab === 'Lista' &&
+                    <EmployeeTable>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Email</th>
+                                <th>CPF</th>
+                                <th>Cargo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                employeeList.map(employee => (
+                                    <tr  key={employee.pessoa.cpf} onClick={() => { this.selectEmployee(employee) }}>
+                                        <td>{employee.pessoa.nome}</td>
+                                        <td>{employee.pessoa.email}</td>
+                                        <td>{employee.pessoa.cpf}</td>
+                                        <td>{employee.cargo}</td>
+                                    </tr>        
+                                ))
+                            }
+                        </tbody>
+                    </EmployeeTable>
+                }
+                {/* {
                     this.state.selectedTab === 'Lista' &&
                     <ul className='name-list'>
                         { employeeList.map(employee => <li onClick={() => this.selectEmployee(employee)} key={employee.id}>{employee.pessoa.nome}</li>) }
                     </ul>
-                }
+                } */}
                 
                 {/* <ul className='attr-list'>
                     {this.state.selectedEmployee.id && this.renderEmployeeInfo() }
