@@ -16,7 +16,7 @@ export default {
         funcionario.pessoa.telefone = [{
             ...{ DDD, numero_telefone, tipo }
         }]
-        // debugger
+        // // debugger
         return funcionario
     }
 }

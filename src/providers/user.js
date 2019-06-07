@@ -51,10 +51,10 @@ const UserProvider = {
         console.log(clienteObj, JSON.stringify(clienteObj))
         axios.post(config.API_ENDPOINT + PATHS.USERS, clienteObj )
             .then(result => {
-                // // debugger
+                // // // debugger
             })
             .catch(error => {
-                // // debugger 
+                // // // debugger 
                 console.log(error)
             })
     },
@@ -62,7 +62,7 @@ const UserProvider = {
         return axios.post(config.API_ENDPOINT + PATHS.LOGIN, {login, senha})
             .then(result => {
                 // console.log(result)
-                // // debugger
+                // // // debugger
                 // return result.data.token
                 // alert(`Login efetuado com sucesso\nToken: ${result.data.token}`)
                 window.localStorage.setItem(KEYS.TOKEN, result.data.token)
@@ -70,7 +70,7 @@ const UserProvider = {
                 return result.data
             })
             .catch(error => { 
-                // // // debugger
+                // // // // debugger
                 // console.log(error)
                 alert('Usuário ou senha inválidos')
             })
@@ -110,15 +110,15 @@ const UserProvider = {
         
         const url = config.API_ENDPOINT + PATHS.USERS + updateObj.id
         console.log(url);
-        // // debugger
+        // // // debugger
         axios.put(url, updateObj, params)
             .then(result => {
-                // // debugger
+                // // // debugger
                 console.log(result)
                 window.location.reload()
             })
             .catch(error => {
-                // // debugger
+                // // // debugger
                 console.log(error)
             })
     }

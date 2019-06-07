@@ -8,12 +8,12 @@ const FuncionarioProvider = {
             .then(result => result.data)
             .then(data => {
                 console.log(data)
-                // // // debugger
+                // // // // debugger
                 callback(data)
             })
             .catch(error => {
                 console.log(error)
-                // // // debugger
+                // // // // debugger
             })
     },
     newClient: (formData, callback) => {
@@ -25,32 +25,32 @@ const FuncionarioProvider = {
     },
     createOrUpdate: (data, callback) => {
         const funcionarioObj = FuncionarioFactory.createFuncionario(data)
-        // debugger
+        // // debugger
         if (funcionarioObj.id) {
             axios.put('https://med-backend-dev.herokuapp.com/funcionarios/' + funcionarioObj.id, funcionarioObj, params)
                 .then(response => {
-                    // debugger
+                    // // debugger
                 })
                 .catch(error => {
-                    // debugger
+                    // // debugger
                 })
         } else {
             axios.post('https://med-backend-dev.herokuapp.com/funcionarios/', funcionarioObj, params)
                 .then(response => {
-                    // debugger
+                    // // debugger
                 })
                 .catch(error => {
-                    // debugger
+                    // // debugger
                 })
         }
     },
     delete: (id, callback) => {
         axios.delete('https://med-backend-dev.herokuapp.com/funcionarios/' + id, params)
             .then(response => {
-                // debugger
+                // // debugger
             })
             .catch(error => {
-                // debugger
+                // // debugger
             })
     },
 }

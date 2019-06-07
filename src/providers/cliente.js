@@ -8,12 +8,12 @@ const ClienteProvider = {
             .then(result => result.data)
             .then(data => {
                 console.log(data)
-                // // // debugger
+                // // // // debugger
                 callback(data)
             })
             .catch(error => {
                 console.log(error)
-                // // // debugger
+                // // // // debugger
             })
     },
     newClient: (formData, callback) => {
@@ -25,32 +25,32 @@ const ClienteProvider = {
     },
     createOrUpdate: (data, callback) => {
         const clienteObj = ClienteFactory.createCliente(data)
-        // debugger
+        // // debugger
         if (clienteObj.id) {
             axios.put('https://med-backend-dev.herokuapp.com/clientes/' + clienteObj.id, clienteObj, params)
                 .then(response => {
-                    // debugger
+                    // // debugger
                 })
                 .catch(error => {
-                    // debugger
+                    // // debugger
                 })
         } else {
             axios.post('https://med-backend-dev.herokuapp.com/clientes/', clienteObj, params)
                 .then(response => {
-                    // debugger
+                    // // debugger
                 })
                 .catch(error => {
-                    // debugger
+                    // // debugger
                 })
         }
     },
     delete: (id, callback) => {
         axios.delete('https://med-backend-dev.herokuapp.com/clientes/' + id, params)
             .then(response => {
-                // debugger
+                // // debugger
             })
             .catch(error => {
-                // debugger
+                // // debugger
             })
     },
 }

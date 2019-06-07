@@ -7,12 +7,12 @@ const ProdutoProvider = {
             .then(result => result.data)
             .then(data => {
                 console.log(data)
-                // // // debugger
+                // // // // debugger
                 callback(data)
             })
             .catch(error => {
                 console.log(error)
-                // // // debugger
+                // // // // debugger
             })
     },
     getByNameAndSize: (product, productExistsCallback, productDoesNotExistCallback, errorCallback) => {
@@ -22,7 +22,7 @@ const ProdutoProvider = {
                 productExistsCallback(data)
             })
             .catch(error => { 
-                // // debugger
+                // // // debugger
                 if (error.response.status === 404) {
                     productDoesNotExistCallback()
                 } else {
@@ -33,29 +33,29 @@ const ProdutoProvider = {
     delete: (id, callback) => {
         axios.delete('https://med-backend-dev.herokuapp.com/produtos/' + id, params)
             .then(response => {
-                // debugger
+                // // debugger
             })
             .catch(error => {
-                // debugger
+                // // debugger
             })
     },
     createOrUpdate: (data, callback) => {
-        // debugger
+        // // debugger
         if (data.id) {
             axios.put('https://med-backend-dev.herokuapp.com/produtos/' + data.id, data, params)
                 .then(response => {
-                    // debugger
+                    // // debugger
                 })
                 .catch(error => {
-                    // debugger
+                    // // debugger
                 })
         } else {
             axios.post('https://med-backend-dev.herokuapp.com/produtos/', data, params)
                 .then(response => {
-                    // debugger
+                    // // debugger
                 })
                 .catch(error => {
-                    // debugger
+                    // // debugger
                 })
         }
     },

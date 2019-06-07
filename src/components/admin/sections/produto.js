@@ -52,7 +52,7 @@ export default class InsumoSection extends React.Component {
     }
     
     selectProduct(selectedProduct) {
-        // // // debugger
+        // // // // debugger
         console.log(selectedProduct)
         this.setState({selectedProduct, selectedTab: 'Formulário'})
     }

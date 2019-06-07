@@ -83,7 +83,7 @@ export default class extends React.Component {
         this.setState({ isLocked: true })
         const descricao = event.target.value
         console.log(descricao)
-        // // debugger
+        // // // debugger
         InsumoProvider.getByDescription(
             descricao,
             this.supplyExistsCallback,

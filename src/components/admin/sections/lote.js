@@ -52,7 +52,7 @@ export default class LoteSection extends React.Component {
     }
     
     selectBundle(selectedBundle) {
-        // // // debugger
+        // // // // debugger
         console.log(selectedBundle)
         this.setState({selectedBundle, selectedTab: 'Formulário'})
     }

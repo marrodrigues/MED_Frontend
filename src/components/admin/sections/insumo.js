@@ -53,7 +53,7 @@ export default class InsumoSection extends React.Component {
     }
     
     selectSupply(selectedSupply) {
-        // // // debugger
+        // // // // debugger
         console.log(selectedSupply)
         this.setState({selectedSupply, selectedTab: 'Formulário'})
     }

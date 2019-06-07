@@ -62,7 +62,7 @@ export default class ClientSection extends React.Component {
         selectedTab: tabs[0],
     }
     selectClient(selectedClient) {
-        // // // debugger
+        // // // // debugger
         console.log(selectedClient)
         this.setState({selectedClient, selectedTab: 'Formulário'})
     }
@@ -77,7 +77,7 @@ export default class ClientSection extends React.Component {
         const { selectedClient } = this.state
         console.log(selectedClient)
         let clientInfo = []
-        // // // debugger
+        // // // // debugger
         for(let prop of Object.keys(selectedClient)) {
             if (selectedClient[prop]) {
                 clientInfo.push((<li key={`${prop}-${selectedClient[prop]}`}>{`${prop}: ${selectedClient[prop]}`}</li>))

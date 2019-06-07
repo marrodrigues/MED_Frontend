@@ -35,17 +35,17 @@ export default class extends React.Component {
     validateEmail = (event) => {
         const email = event.target.value
         // console.log(email)
-        // // debugger
+        // // // debugger
         this.props.lockForm()
         axios.get('https://med-backend-dev.herokuapp.com/pessoas/email/' + email)
             .then(response => {
-                // // debugger
+                // // // debugger
                 this.setState({isEmailValid: false})
                 this.props.existsCallback(response.data)
                 console.log(response)
             })
             .catch(error => { 
-                // // debugger
+                // // // debugger
                 console.log(error)
                 this.setState({isEmailValid: true})
                 this.props.doesNotExistCallback()

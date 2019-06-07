@@ -78,7 +78,7 @@ export default class extends React.Component {
     componentDidMount() {
         FuncionarioProvider.getAll((employeeList) => { this.setState({ employeeList }) })
         if (this.props.selectedEmployee && this.props.selectedEmployee.id) { 
-            debugger
+            // debugger
             this.setState({
                 ...this.props.selectedEmployee.pessoa.endereco[0],
                 ...this.props.selectedEmployee.pessoa.telefone[0],
@@ -116,7 +116,7 @@ export default class extends React.Component {
     }
     employeeExistsCallback = (employee) => {
         const fullEmployee = this.state.employeeList.find(_employee => _employee.pessoa.id === employee.id)
-        // debugger
+        // // debugger
         this.setState({
             ...employee.endereco[0],
             ...employee.telefone[0],

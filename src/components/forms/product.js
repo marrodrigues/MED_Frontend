@@ -95,7 +95,7 @@ export default class extends React.Component {
             insumos.push({ id: supply.id, qtd: 1 })
         }
         this.setState({ insumos })
-        // debugger
+        // // debugger
     }
     isChecked = (supply) => {
         let { insumos = [] } = this.state
@@ -144,7 +144,7 @@ export default class extends React.Component {
         this.setState({ isLocked: true })
         let nome = this.state[FORM_INPUT_IDS.NOME]
         let tamanho = this.state[FORM_INPUT_IDS.TAMANHO]
-        // debugger
+        // // debugger
         ProdutoProvider.getByNameAndSize(
             { nome, tamanho },
             this.productExistsCallback,

@@ -45,7 +45,7 @@ export default class extends React.Component {
     }
 
     initializeState(propName, obj, rootObj) {
-        // // // debugger
+        // // // // debugger
         let fields = {}
         if (typeof obj === 'object') {
             if (Array.isArray(obj)) {
@@ -100,7 +100,7 @@ export default class extends React.Component {
                 )
             }
         }
-        // // // debugger
+        // // // // debugger
         return inputs
     }
 
@@ -108,7 +108,7 @@ export default class extends React.Component {
         // console.log(e, this.state)
         e.preventDefault();
         UserProvider.update(this.state)
-        // // // debugger
+        // // // // debugger
     }
 
     render() {

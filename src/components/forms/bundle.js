@@ -56,7 +56,7 @@ export default class extends React.Component {
     }
     processBundleSelection = () => {
         if (this.props.selectedBundle && this.props.selectedBundle.id) {
-            // debugger
+            // // debugger
             // this.bundleExistsCallback(this.props.selectedBundle)
             const productOrSupply = 
                 this.props.selectedBundle.insumoId
@@ -70,7 +70,7 @@ export default class extends React.Component {
                 : productOrSupply === 'Produto'
                 ? this.state.productList.length && this.state.productList.find(product => product.id === this.props.selectedBundle.produtoId).nome
                 : ''
-            debugger
+            // debugger
             this.setState({
                 ...this.props.selectedBundle,
                 productOrSupply,
@@ -91,7 +91,7 @@ export default class extends React.Component {
                 productOrSupplyObject = this.state.productList.find(product => product.nome === event.target.value)
                 produtoId = productOrSupplyObject.id
             }
-            // debugger
+            // // debugger
             this.setState({
                 [event.target.name]: event.target.value,
                 productOrSupplyObject,
@@ -121,7 +121,7 @@ export default class extends React.Component {
         setTimeout(() => { this.setState({message: ''}) }, 3000) 
     }
     bundleExistsCallback = (bundle) => {
-        // // debugger
+        // // // debugger
         let productOrSupplyObject = {}
         let productOrSupply = ''
         if (bundle.insumoId) {
@@ -152,7 +152,7 @@ export default class extends React.Component {
         this.setState({ isLocked: true })
         const lote = event.target.value
         console.log(lote)
-        // // debugger
+        // // // debugger
         LoteProvider.getByBundle(
             lote,
             this.bundleExistsCallback,
