@@ -25,7 +25,7 @@ const Tab = styled.span`
     : ''
     };
 `
-const ClientTable = styled.table`
+const ProductTable = styled.table`
    tr {
     font-size: 18px;
     :hover {
@@ -33,6 +33,9 @@ const ClientTable = styled.table`
         color: black;
         // font-weight: bold;
         background-color: #CCC9F7;
+    }
+    :nth-child(even){
+        background-color: #f2f2f2;
     }
 `
 
@@ -80,7 +83,7 @@ export default class InsumoSection extends React.Component {
                 }
                 {
                     productList.length && this.state.selectedTab === 'Lista' &&
-                    <ClientTable>
+                    <ProductTable>
                         <thead>
                             <tr>
                                 <th>Nome</th>
@@ -90,14 +93,14 @@ export default class InsumoSection extends React.Component {
                         <tbody>
                             {
                                 productList.map(product => (
-                                    <tr key={product.id} onClick={() => { this.selectClient(product) }}>
+                                    <tr key={product.id} onClick={() => { this.selectProduct(product) }}>
                                         <td>{product.nome}</td>
                                         <td>{product.tamanho}</td>
                                     </tr>        
                                 ))
                             }
                         </tbody>
-                    </ClientTable>
+                    </ProductTable>
                 }
                 {/* {
                     this.state.selectedTab === 'Lista' &&

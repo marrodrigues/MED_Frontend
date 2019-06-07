@@ -35,6 +35,9 @@ const SupplyTable = styled.table`
         // font-weight: bold;
         background-color: #CCC9F7;
     }
+    :nth-child(even){
+        background-color: #f2f2f2;
+    }
 `
 
 const tabs = ['Formulário', 'Lista']
