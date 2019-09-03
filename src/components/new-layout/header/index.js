@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import logo from './logo.png'
+
 const Header = styled.header`
 // position: fixed;
     position: absolute;
@@ -29,13 +31,20 @@ const NavLink = styled.a`
     color: white;
     font: Bold 12px Helvetica;
 ` 
-const NavLogo = styled.div`
+const NavLogoContainer = styled.div`
     background-color: #FFD27C;
     min-height: 180px;
     min-width: 250px;
     height: 20vh;
     width: 10vw;
     border-radius: 0px 0px 30px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+`
+const NavLogo = styled.img`
+    padding-top: 5vh;
+    width: 10vw;
 `
 
 const HeaderComponent = () => (
@@ -43,7 +52,7 @@ const HeaderComponent = () => (
         <Nav>
             <NavItem><NavLink>Sobre nós</NavLink></NavItem>
             <NavItem><NavLink>Cardápio</NavLink></NavItem>
-            <NavItem><NavLogo></NavLogo></NavItem>
+            <NavItem><NavLogoContainer><NavLogo src={logo} /></NavLogoContainer></NavItem>
             <NavItem><NavLink>Cadastro/Login</NavLink></NavItem>
             <NavItem><NavLink>Contato</NavLink></NavItem>
         </Nav>

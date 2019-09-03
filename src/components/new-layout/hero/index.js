@@ -6,6 +6,7 @@ import bg from './hero-bg.jpeg'
 const Container = styled.main`
     min-height: 100vh;
     min-width: 100vw;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,8 +32,9 @@ const Button = styled.button`
     font: Bold 22px Helvetica;
     color: white;
     position: absolute;
-    bottom: 60px;
+    bottom: 120px;
     border: none;
+    z-index: 2;
 `
 
 const HeroComponent = () => (
