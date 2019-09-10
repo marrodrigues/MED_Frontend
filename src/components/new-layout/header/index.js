@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import logo from './logo.png'
-
 const Header = styled.header`
 // position: fixed;
     position: absolute;
@@ -29,18 +27,24 @@ const NavLink = styled.a`
     text-transform: uppercase;
     text-align: center;
     color: white;
-    font: Bold 12px Helvetica;
+    font: Bold calc(6px + 1vw) Helvetica;
+    text-decoration: none;
 ` 
 const NavLogoContainer = styled.div`
     background-color: #FFD27C;
-    min-height: 180px;
-    min-width: 250px;
+    min-height: 150px;
+    min-width: 200px;
+    margin-top: 10vh;
     height: 20vh;
     width: 10vw;
     border-radius: 0px 0px 30px 30px;
     display: flex;
     justify-content: center;
     align-items: center
+    background-image: url('/image/logo.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 `
 const NavLogo = styled.img`
     padding-top: 5vh;
@@ -50,11 +54,11 @@ const NavLogo = styled.img`
 const HeaderComponent = () => (
     <Header>
         <Nav>
-            <NavItem><NavLink>Sobre nós</NavLink></NavItem>
-            <NavItem><NavLink>Cardápio</NavLink></NavItem>
-            <NavItem><NavLogoContainer><NavLogo src={logo} /></NavLogoContainer></NavItem>
-            <NavItem><NavLink>Cadastro/Login</NavLink></NavItem>
-            <NavItem><NavLink>Contato</NavLink></NavItem>
+            <NavItem><NavLink href='/#about'>Sobre nós</NavLink></NavItem>
+            <NavItem><NavLink href='/coming-soon/'>Cardápio</NavLink></NavItem>
+            <NavItem><NavLink href='/'><NavLogoContainer /></NavLink></NavItem>
+            <NavItem><NavLink href='/#footer'>Cadastro/Login</NavLink></NavItem>
+            <NavItem><NavLink href='/coming-soon/'>Contato</NavLink></NavItem>
         </Nav>
     </Header>
 )

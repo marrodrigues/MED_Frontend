@@ -1,7 +1,7 @@
 import  React from 'react'
 import styled from 'styled-components'
 
-import map from './map.png'
+import ActionButton from '../button'
 
 const Footer = styled.footer`
     display: flex;
@@ -77,10 +77,16 @@ class FooterComponent extends React.Component {
         state[event.target.id] = event.target.value
         this.setState({...state})
     }
+    handleLogin = () => {
+        window.location.href = '/coming-soon'
+    }
+    handleRegister = () => {
+        window.location.href = '/coming-soon'
+    }
 
     render() {
         return (
-            <Footer>
+            <Footer id='footer'>
                 <LoginAndRegisterContainer>
                     <LoginContainer>
                         <Label>Login</Label>
@@ -94,8 +100,10 @@ class FooterComponent extends React.Component {
                             id='password'
                             type='password'
                             value={this.state.password}
-                            onChange={this.handleChange}   placeholder='senha'                     
+                            onChange={this.handleChange}
+                            placeholder='senha'                     
                         />
+                        <ActionButton action={this.handleLogin} buttonText='Entrar'/>
                     </LoginContainer>
                     <RegisterContainer>
                         <Label>Cadastro</Label>
@@ -114,10 +122,11 @@ class FooterComponent extends React.Component {
                                 type='number'
                             />
                         </InputsContainer>
+                        <ActionButton action={this.handleRegister} buttonText ='Registrar'/>
                     </RegisterContainer>
                 </LoginAndRegisterContainer>
                 <ContactInfo>
-                    <Map src={map}/>
+                    <Map src={'/image/map.png'}/>
                     <Contact dangerouslySetInnerHTML={{__html: contact}} />
                 </ContactInfo>
             </Footer>
