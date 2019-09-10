@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Button = styled.div`
+const Button = styled.button`
     margin-top: 5px;
     margin-left: auto;
     width: 30%;

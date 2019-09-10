@@ -2,6 +2,7 @@ import  React from 'react'
 import styled from 'styled-components'
 
 import ActionButton from '../button'
+import UserProvider from '../../../providers/user'
 
 const Footer = styled.footer`
     display: flex;
@@ -21,7 +22,7 @@ const LoginContainer = styled.div`
     justify-content: space-evenly;
 `
 
-const RegisterContainer = styled.div`
+const RegisterForm = styled.form`
     display: flex;
     flex-direction: column;
     padding-top: 3vh;
@@ -46,6 +47,7 @@ const Input = styled.input`
     border-left: 2px solid yellow;
     border-radius: 5px;
     padding: 5px 10px;
+    margin-top: 5px;
 `
 
 const ContactInfo = styled.div`
@@ -77,8 +79,24 @@ class FooterComponent extends React.Component {
         state[event.target.id] = event.target.value
         this.setState({...state})
     }
-    handleLogin = () => {
-        window.location.href = '/coming-soon'
+    handleLogin = async (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        const { login, password } = this.state
+        if (this.state.loading) return
+        if (login && password) {
+            this.setState({loading: true})
+            const token = await UserProvider.login({login, senha: password})
+            .then((token) => {
+                debugger
+                this.setState({loading: false})
+                this.props.setLoggedUser(token)
+                window.location.href = '/#header'
+            })
+            console.log(token)
+        } else {
+            alert('Preencha todos os campos')
+        }
     }
     handleRegister = () => {
         window.location.href = '/coming-soon'
@@ -95,17 +113,19 @@ class FooterComponent extends React.Component {
                             value={this.state.login}
                             onChange={this.handleChange}
                             placeholder='login'
+                            name='login'
                         />
                         <Input 
                             id='password'
                             type='password'
                             value={this.state.password}
                             onChange={this.handleChange}
-                            placeholder='senha'                     
+                            placeholder='senha'       
+                            name='senha'              
                         />
-                        <ActionButton action={this.handleLogin} buttonText='Entrar'/>
+                        <ActionButton type='button' action={this.handleLogin} buttonText='Entrar'/>
                     </LoginContainer>
-                    <RegisterContainer>
+                    <RegisterForm action='/register' method='GET'>
                         <Label>Cadastro</Label>
                         <InputsContainer>
                             <Input 
@@ -113,6 +133,7 @@ class FooterComponent extends React.Component {
                                 value={this.state.cep}
                                 onChange={this.handleChange}
                                 placeholder='cep'
+                                name='CEP'
                             />
                             <Input 
                                 id='number'
@@ -120,10 +141,11 @@ class FooterComponent extends React.Component {
                                 onChange={this.handleChange}
                                 placeholder='número'
                                 type='number'
+                                name='numero'
                             />
                         </InputsContainer>
-                        <ActionButton action={this.handleRegister} buttonText ='Registrar'/>
-                    </RegisterContainer>
+                        <ActionButton type='submit' buttonText ='Registrar'/>
+                    </RegisterForm>
                 </LoginAndRegisterContainer>
                 <ContactInfo>
                     <Map src={'/image/map.png'}/>
