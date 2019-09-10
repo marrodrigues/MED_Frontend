@@ -51,16 +51,22 @@ const NavLogo = styled.img`
     width: 10vw;
 `
 
-const HeaderComponent = () => (
-    <Header>
-        <Nav>
-            <NavItem><NavLink href='/#about'>Sobre nós</NavLink></NavItem>
-            <NavItem><NavLink href='/coming-soon/'>Cardápio</NavLink></NavItem>
-            <NavItem><NavLink href='/'><NavLogoContainer /></NavLink></NavItem>
-            <NavItem><NavLink href='/#footer'>Cadastro/Login</NavLink></NavItem>
-            <NavItem><NavLink href='/coming-soon/'>Contato</NavLink></NavItem>
-        </Nav>
-    </Header>
-)
+const HeaderComponent = ({ loggedUser, setLoggedUser }) => {
+    return (
+        <Header id='header'>
+            <Nav>
+                <NavItem><NavLink href='/#about'>Sobre nós</NavLink></NavItem>
+                <NavItem><NavLink href='/coming-soon/'>Cardápio</NavLink></NavItem>
+                <NavItem><NavLink href='/'><NavLogoContainer /></NavLink></NavItem>
+                <NavItem>{
+                    loggedUser
+                    ? <NavLink href='' onClick={() => setLoggedUser(null)}>Logout</NavLink>
+                    : <NavLink href='/#footer'>Cadastro/Login</NavLink>}
+                </NavItem>
+                <NavItem><NavLink href='/coming-soon/'>Contato</NavLink></NavItem>
+            </Nav>
+        </Header>
+    )
+}
 
 export default HeaderComponent

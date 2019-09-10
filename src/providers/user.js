@@ -66,7 +66,7 @@ const UserProvider = {
                 // return result.data.token
                 // alert(`Login efetuado com sucesso\nToken: ${result.data.token}`)
                 window.localStorage.setItem(KEYS.TOKEN, result.data.token)
-                window.location.href = '/'
+                // window.location.href = '/'
                 return result.data
             })
             .catch(error => { 
