@@ -46,6 +46,7 @@ const Input = styled.input`
     border-left: 2px solid yellow;
     border-radius: 5px;
     padding: 5px 10px;
+    margin-top: 5px;
 `
 
 const ContactInfo = styled.div`

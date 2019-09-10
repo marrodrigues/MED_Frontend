@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from 'react';
 
 import Home from './pages/home'
 // import NewHome from './pages/new-home'
@@ -12,21 +11,19 @@ import ComingSoon from './pages/coming-soon'
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-class App extends Component {
-  render() {
-    return (
-      <Router>
-        <Route exact path="/" component={Home} />
-        <Route path='/admin' component={Admin} />
-        {/* <Route path="/home/" component={NewHome} /> */}
-        {/* <Route path="/login/" component={Login} /> */}
-        <Route path="/register/" component={Register} />
-        <Route path='/cliente/' component={Cliente} />
-        <Route path='/forms/' component={Forms} />
-        <Route path='/coming-soon/' component={ComingSoon} />
-      </Router>
-    );
-  }
+const App = () => {
+  return (
+    <Router>
+      <Route exact path="/" component={Home} />
+      <Route path='/admin' component={Admin} />
+      {/* <Route path="/home/" component={NewHome} /> */}
+      {/* <Route path="/login/" component={Login} /> */}
+      <Route path="/register/" component={Register} />
+      <Route path='/cliente/' component={Cliente} />
+      <Route path='/forms/' component={Forms} />
+      <Route path='/coming-soon/' component={ComingSoon} />
+    </Router>
+  );
 }
 
 export default App;
