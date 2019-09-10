@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import bg from './hero-bg.jpeg'
-
 const Container = styled.main`
     min-height: 100vh;
     min-width: 100vw;
@@ -19,7 +17,7 @@ const Container = styled.main`
 const Background = styled.img`
     // object-fit: contain;
     // height: auto;
-    width: 100vw;
+    width: 100%;
 `
 
 const Button = styled.button`
@@ -39,7 +37,7 @@ const Button = styled.button`
 
 const HeroComponent = () => (
     <Container>
-        <Background src={bg} />
+        <Background src={'/image/hero-bg.jpeg'} />
         <Button>Confira nossos sabores</Button>
     </Container>
 )

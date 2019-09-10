@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import bg from './about.jpeg'
-
 const AboutContainer = styled.section`
     margin-top: 5vh;
     min-height: 50vh;
@@ -57,9 +55,9 @@ const Text = styled.p`
 const firstColumnText = 'O sonho que esta se realizando. A MED Pizzaria é uma empresa fundada por dois sócios no ano de 2018, tem como foco principal atender da melhor forma nossos clientes com nossas deliciosas pizzas dos mais variados sabores.<br /><br />Com ingredientes selecionados e de primeira qualidade nossos produtos traduzem a satisfação que é fazer parte desse bairro.<br /><br />Temos como visão de futuro, ser um local de referência de qualidade e de orgulho para nossos clientes, atendendo-os da melhor forma possível, pois sua alegria é nossa satisfação!'
 
 const AboutComponent = () => (
-    <AboutContainer>
+    <AboutContainer id='about'>
         <PictureAndCTAContainer>
-            <Picture src={bg}/>
+            <Picture src={'./image/about-bg.jpeg'}/>
             <CTA>Conheça nossa história</CTA>
         </PictureAndCTAContainer>
         <TextContainer>

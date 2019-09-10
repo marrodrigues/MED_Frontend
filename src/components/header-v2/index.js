@@ -61,7 +61,7 @@ export default class extends React.Component {
             <Header>
                 <Nav>
                     <LogoContainer>
-                        <Logo src={data.logoImg} alt="logo" className="header__logo"  onClick={this.onClickLogo}/>
+                        <Logo src={'/image/logo.png'} alt="logo" className="header__logo"  onClick={this.onClickLogo}/>
                     </LogoContainer>
                     <ul className="main-nav">
                         <li className="main-nav__item"><a href="/#about" className="main-nav__item__link">Sobre Nós</a></li>
