@@ -84,7 +84,7 @@ export default class extends React.Component {
 
     getPreRegisterValues() {
         if (window.location.search) {
-            return window.location.search
+            let fromQS = window.location.search
                 .replace('?', '')
                 .split('&')
                 .reduce((acc, cur) => {
@@ -92,6 +92,10 @@ export default class extends React.Component {
                     acc[keyAndValue[0]] = keyAndValue[1]
                     return acc
                 }, {})
+            if (fromQS.CEP) {
+                this.handleChange({target: {value: fromQS.CEP}})
+            }
+            return fromQS
         }
         return {}
     }
@@ -119,8 +123,8 @@ export default class extends React.Component {
         const CEP = formatCep(event.target.value)
         this.setState({ CEP })
         if (CEP.length === 9) { this.validateCep(CEP)}
-        event.preventDefault();
-        event.stopPropagation();
+        event.preventDefault && event.preventDefault();
+        event.stopPropagation && event.stopPropagation();
     }
 
     validateCep = (cep) => {
