@@ -213,6 +213,7 @@ export default class extends React.Component {
                         name={FORM_INPUT_IDS.CEP}
                         onChange={this.handleChange}
                         value={this.state[FORM_INPUT_IDS.CEP]}
+                        isValid={this.state.isCepValid}
                         placeholder='CEP'
                     />
                     <BaseInput 
