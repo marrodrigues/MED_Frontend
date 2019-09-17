@@ -5,40 +5,40 @@ import { params } from '../util/request'
 
 const createClienteObj = ({
         bairro,
-        cep,
+        CEP,
         cidade,
         complemento,
         cpf,
         email,
         login,
         logradouro,
-        nascimento,
+        dataNascimento,
         nome,
         numero,
         senha,
-        telefone,
+        numero_telefone,
         uf 
     }) => {
         let clienteObj = { flag_bloqueado: 0, pessoa: {} }
         clienteObj.pessoa = {
             cpf,
-            dataNascimento: nascimento,
+            dataNascimento,
             email,
-            login,
+            login: login || email,
             nome,
             senha,
             endereco: [{
                 logradouro,
                 numero,
                 complemento,
-                CEP: cep,
+                CEP,
                 bairro,
                 cidade,
                 uf
             }],
             telefone: [{
                 DDD: 21,
-                numero_telefone: telefone,
+                numero_telefone,
                 tipo: 'celular'
             }]
         }
@@ -48,6 +48,7 @@ const createClienteObj = ({
 const UserProvider = {
     create: (formData) => {
         const clienteObj = createClienteObj(formData)
+        debugger
         console.log(clienteObj, JSON.stringify(clienteObj))
         axios.post(config.API_ENDPOINT + PATHS.USERS, clienteObj )
             .then(result => {
@@ -107,7 +108,7 @@ const UserProvider = {
             }
         }
         console.log(updateObj);
-        
+        debugger
         const url = config.API_ENDPOINT + PATHS.USERS + updateObj.id
         console.log(url);
         // // // debugger

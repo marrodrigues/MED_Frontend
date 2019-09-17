@@ -1,11 +1,25 @@
-import React from 'react'
+// import React from 'react'
 
-import Client from '../../components/cliente'
+// import Client from '../../components/cliente'
+
+// export default class extends React.Component {
+//     render () {
+//         return (
+//             <Client />
+//         )
+//     }
+// }
+
+import React from 'react'
+import RegisterForm from '../../components/new-layout/register-form';
 
 export default class extends React.Component {
     render () {
         return (
-            <Client />
+            <React.Fragment>
+                {/* <Header /> */}
+                <RegisterForm update/>
+            </React.Fragment>
         )
     }
 }

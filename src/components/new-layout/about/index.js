@@ -42,14 +42,13 @@ const TextContainer = styled.div`
     display: flex;
     padding: 5vh 20vw;
     background-color: #FFFFFF;
-    >:first-child {
-        margin-right: 2vw;
-    }
+    justify-content: center;
 `
 
 const Text = styled.p`
     font: 18px Helvetica;
     color: #3F3F3F;
+    max-width: 400px;
 `
 
 const firstColumnText = 'O sonho que esta se realizando. A MED Pizzaria é uma empresa fundada por dois sócios no ano de 2018, tem como foco principal atender da melhor forma nossos clientes com nossas deliciosas pizzas dos mais variados sabores.<br /><br />Com ingredientes selecionados e de primeira qualidade nossos produtos traduzem a satisfação que é fazer parte desse bairro.<br /><br />Temos como visão de futuro, ser um local de referência de qualidade e de orgulho para nossos clientes, atendendo-os da melhor forma possível, pois sua alegria é nossa satisfação!'
@@ -61,7 +60,6 @@ const AboutComponent = () => (
             <CTA>Conheça nossa história</CTA>
         </PictureAndCTAContainer>
         <TextContainer>
-            <Text dangerouslySetInnerHTML={{__html: firstColumnText}} />
             <Text dangerouslySetInnerHTML={{__html: firstColumnText}} />
         </TextContainer>
     </AboutContainer>

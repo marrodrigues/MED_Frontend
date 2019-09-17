@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import ActionButton from '../button'
 import UserProvider from '../../../providers/user'
+import LoginRegister from '../login-register'
+import { FORM_INPUT_IDS } from '../../../util/constants'
 
 const Footer = styled.footer`
     display: flex;
@@ -67,12 +69,16 @@ const Contact = styled.p`
     color: #FFFFFF;
 `
 const contact = 'Rua: São Fco. Xavier - N: 20<br />Maracanã - Rio de Janeiro / RJ<br /><br />Tel.: 21- 3456-8976 / 8763-0912'
+
+const initialState = {
+    [FORM_INPUT_IDS.LOGIN]: '',
+    [FORM_INPUT_IDS.SENHA]: '',
+    [FORM_INPUT_IDS.CEP]: '',
+    [FORM_INPUT_IDS.NUMERO]: ''
+}
 class FooterComponent extends React.Component {
     state = {
-        login: '',
-        password: '',
-        cep: '',
-        number: '',
+        ...initialState
     }
     handleChange = (event) => {
         const { state } = this
@@ -82,71 +88,36 @@ class FooterComponent extends React.Component {
     handleLogin = async (e) => {
         e.preventDefault()
         e.stopPropagation()
-        const { login, password } = this.state
+        const { login, senha } = this.state
         if (this.state.loading) return
-        if (login && password) {
+        if (login && senha) {
             this.setState({loading: true})
-            const token = await UserProvider.login({login, senha: password})
+            const token = await UserProvider.login({ login, senha })
             .then((token) => {
                 debugger
                 this.setState({loading: false})
                 this.props.setLoggedUser(token)
-                window.location.href = '/#header'
+                window.location.href = '/cliente?login=' + login
             })
             console.log(token)
         } else {
-            alert('Preencha todos os campos')
+            alert('Preencha todos os campos', JSON.stringify(this.state))
         }
     }
     handleRegister = () => {
+        debugger
         window.location.href = '/coming-soon'
     }
 
     render() {
         return (
             <Footer id='footer'>
-                <LoginAndRegisterContainer>
-                    <LoginContainer>
-                        <Label>Login</Label>
-                        <Input 
-                            id='login'
-                            value={this.state.login}
-                            onChange={this.handleChange}
-                            placeholder='login'
-                            name='login'
-                        />
-                        <Input 
-                            id='password'
-                            type='password'
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                            placeholder='senha'       
-                            name='senha'              
-                        />
-                        <ActionButton type='button' action={this.handleLogin} buttonText='Entrar'/>
-                    </LoginContainer>
-                    <RegisterForm action='/register' method='GET'>
-                        <Label>Cadastro</Label>
-                        <InputsContainer>
-                            <Input 
-                                id='cep'
-                                value={this.state.cep}
-                                onChange={this.handleChange}
-                                placeholder='cep'
-                                name='CEP'
-                            />
-                            <Input 
-                                id='number'
-                                value={this.state.number}
-                                onChange={this.handleChange}
-                                placeholder='número'
-                                type='number'
-                                name='numero'
-                            />
-                        </InputsContainer>
-                        <ActionButton type='submit' buttonText ='Registrar'/>
-                    </RegisterForm>
-                </LoginAndRegisterContainer>
+                <LoginRegister
+                    handleChange={this.handleChange}
+                    handleLogin={this.handleLogin}
+                    handleRegister={this.handleRegister}
+                    {...this.state}
+                />
                 <ContactInfo>
                     <Map src={'/image/map.png'}/>
                     <Contact dangerouslySetInnerHTML={{__html: contact}} />
