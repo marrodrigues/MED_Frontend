@@ -17,6 +17,10 @@ const FooterForm = styled(BaseForm)`
 const StyledInput = styled(BaseInput)`
     margin-top: 15px;
     width: 320px;
+    :focus {
+        border: 1.2px #FFC74A solid;
+        margin-top: 15px;
+    }
 `
 
 const TabsContainer = styled.div`
@@ -65,12 +69,14 @@ export default class LoginRegister extends React.Component {
                     name={FORM_INPUT_IDS.LOGIN}
                     onChange={this.props.handleChange}
                     value={this.props[FORM_INPUT_IDS.LOGIN]}
+                    placeholder='Login'
                 />
                 <StyledInput
                     id={FORM_INPUT_IDS.SENHA}
                     name={FORM_INPUT_IDS.SENHA}
                     onChange={this.props.handleChange}
                     value={this.props[FORM_INPUT_IDS.SENHA]}
+                    placeholder='Senha'
                     type="password"
                 />
                 <ActionButton type='button' action={this.props.handleLogin} buttonText='Entrar'/>
@@ -86,12 +92,14 @@ export default class LoginRegister extends React.Component {
                     name={FORM_INPUT_IDS.CEP}
                     onChange={this.props.handleChange}
                     value={this.props[FORM_INPUT_IDS.CEP]}
+                    placeholder='CEP'
                 />
                 <StyledInput
                     id={FORM_INPUT_IDS.NUMERO}
                     name={FORM_INPUT_IDS.NUMERO}
                     onChange={this.props.handleChange}
                     value={this.props[FORM_INPUT_IDS.NUMERO]}
+                    placeholder='Número'
                     type="number"
                 />
                 <ActionButton type='submit' buttonText ='Registrar'/>
@@ -110,7 +118,6 @@ export default class LoginRegister extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <Container>
                 <TabsContainer>

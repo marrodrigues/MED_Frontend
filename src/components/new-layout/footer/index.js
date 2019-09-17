@@ -13,45 +13,6 @@ const Footer = styled.footer`
     justify-content: space-around;
 `
 
-const LoginAndRegisterContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-`
-const LoginContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 120px;
-    justify-content: space-evenly;
-`
-
-const RegisterForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    padding-top: 3vh;
-`
-
-const InputsContainer = styled.div`
-    display: flex;
-    justify-content: space-evenly;
-
-    >:first-child {
-        margin-right: 2vw;
-    }
-`
-
-const Label = styled.span`
-    font: 22px Helvetica;
-    color: #FFFFFF;
-`
-
-const Input = styled.input`
-    font: 14px Helvetica;
-    border-left: 2px solid yellow;
-    border-radius: 5px;
-    padding: 5px 10px;
-    margin-top: 5px;
-`
-
 const ContactInfo = styled.div`
     display: flex;
     flex-direction: column;
@@ -68,7 +29,7 @@ const Contact = styled.p`
     border-left: solid 1px yellow;
     color: #FFFFFF;
 `
-const contact = 'Rua: São Fco. Xavier - N: 20<br />Maracanã - Rio de Janeiro / RJ<br /><br />Tel.: 21- 3456-8976 / 8763-0912'
+const contact = 'Rua Calmon - N: 22<br />Curicica - Rio de Janeiro / RJ<br /><br />Tel.: 21- 3456-8976 / 8763-0912'
 
 const initialState = {
     [FORM_INPUT_IDS.LOGIN]: '',
