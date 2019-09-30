@@ -4,7 +4,10 @@ import styled from 'styled-components'
 import ActionButton from '../button'
 import UserProvider from '../../../providers/user'
 import LoginRegister from '../login-register'
-import { FORM_INPUT_IDS } from '../../../util/constants'
+import { FORM_INPUT_IDS, ALLOWED_CITY, ALLOWED_DISTRICTS } from '../../../util/constants'
+import { formatCep } from '../../../util/string'
+import axios from 'axios'
+import config from '../../../config'
 
 const Footer = styled.footer`
     display: flex;
@@ -48,8 +51,46 @@ class FooterComponent extends React.Component {
     }
     handleChange = (event) => {
         const { state } = this
-        state[event.target.id] = event.target.value
-        this.setState({...state})
+        if (event.target.id === 'CEP') {
+            this.handleCepChange(event.target.value)
+        } else {
+            state[event.target.id] = event.target.value
+            this.setState({...state})    
+        }
+    }
+    handleCepChange = (cep) => {
+        const CEP = formatCep(cep);
+        this.validateCep(CEP)
+        console.log(CEP)
+        this.setState({CEP})
+    }
+    isLocationValid = ({ localidade, bairro }) => {
+        return localidade === ALLOWED_CITY && ALLOWED_DISTRICTS.includes(bairro)
+    }
+    validateCep = (cep) => {
+        if (cep.length < 9) { return }
+
+        axios.get(config.VIA_CEP_ENDPOINT + cep + config.VIA_CEP_JSON)
+            .then(response => response.data)
+            .then(data => {
+                debugger
+                if (data.erro) {
+                    // invalid cep
+                    alert('CEP inválido')
+                } else {
+                    if (this.isLocationValid(data)) {
+                        const { logradouro, bairro, localidade, uf } = data
+                        const cepObj = { logradouro, bairro, cidade: localidade, uf }
+                        this.setState({
+                            ...cepObj
+                        })
+                    } else {
+                        alert('Desculpe, não entregamos nessa região.')
+                        this.setState({CEP: ''})
+                    }
+                } 
+            })
+            .catch(error => { console.log(error) })
     }
     handleLogin = async (e) => {
         e.preventDefault()
@@ -70,10 +111,10 @@ class FooterComponent extends React.Component {
             alert('Preencha todos os campos', JSON.stringify(this.state))
         }
     }
-    handleRegister = () => {
-        debugger
-        window.location.href = '/coming-soon'
-    }
+    // handleRegister = () => {
+    //     debugger
+    //     window.location.href = '/coming-soon'
+    // }
 
     openMapTab = () => {
         window.open(mapLink, '_blank')

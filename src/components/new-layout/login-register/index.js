@@ -9,6 +9,10 @@ import ActionButton from '../button'
 const Container = styled.div`
     display: flex;
     flex-direction: column;
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
 `
 
 const FooterForm = styled(BaseForm)`
@@ -26,7 +30,7 @@ const StyledInput = styled(BaseInput)`
 const TabsContainer = styled.div`
     box-shadow: 0px 1px 3px #0000001C;
     display: flex;
-    border: 1px solid #95989A;
+    // border: 1px solid #95989A;
     border-radius: 4px;
 `
 const Tab = styled.div`
@@ -43,7 +47,10 @@ const Tab = styled.div`
         border-radius: 4px;
     `
     : `
-        margin: 2px;
+        // margin: 2px;
+        background-color: #354B0C;
+        border: 2px solid gray;
+        border-radius: 4px;
     `}
     &:hover {
         cursor: pointer;
@@ -55,6 +62,7 @@ const Tabs = ['Login', 'Cadastro']
 export default class LoginRegister extends React.Component {
     state = {
         selectedTab: Tabs[0],
+        isCepValid: false,
     }
 
     onClickTab = (tab) => {
@@ -93,6 +101,7 @@ export default class LoginRegister extends React.Component {
                     onChange={this.props.handleChange}
                     value={this.props[FORM_INPUT_IDS.CEP]}
                     placeholder='CEP'
+                    maxLength={9}
                 />
                 <StyledInput
                     id={FORM_INPUT_IDS.NUMERO}
