@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import EditModal from '../editModal'
 import RegisterForm from '../../register-form'
+import RegisterForm2 from '../../new-layout/register-form'
 import ClientForm from '../../forms/client'
 
 // const Container = styled.section`
@@ -41,14 +42,14 @@ const FormContainer = styled.div`
 const ClientTable = styled.table`
    tr {
     font-size: 18px;
+    :nth-child(even) {
+        background-color: #f2f2f2;
+    }
     :hover {
         cursor: pointer;
         color: black;
         // font-weight: bold;
         background-color: #CCC9F7;
-    }
-    :nth-child(even){
-        background-color: #f2f2f2;
     }
 `
 
@@ -110,17 +111,20 @@ export default class ClientSection extends React.Component {
                 </Tabs>
                 {
                     this.state.selectedTab === 'Formulário' && 
-                    <ClientForm selectedClient={this.state.selectedClient} />
+                    <React.Fragment>
+                        <RegisterForm2 update selectedClient={this.state.selectedClient}/>
+                        {/* <ClientForm selectedClient={this.state.selectedClient} /> */}
+                    </React.Fragment>
                 }
                 {
                     clientList.length && this.state.selectedTab === 'Lista' &&
                     <ClientTable>
                         <thead>
-                            <tr>
+                            {/* <tr> */}
                                 <th>Nome</th>
                                 <th>Email</th>
                                 <th>CPF</th>
-                            </tr>
+                            {/* </tr> */}
                         </thead>
                         <tbody>
                             {

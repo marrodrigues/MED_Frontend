@@ -15,12 +15,10 @@ const NavBar = styled.nav`
     flex-direction: column;
     height: 100%;
     width: fit-content;
-    // max-width: 180px;
     background: #F7B944;
     font-size: 30px;
     color: white;
     text-align: center;
-    // text-decoration: underline;
     white-space: nowrap;
 
 `

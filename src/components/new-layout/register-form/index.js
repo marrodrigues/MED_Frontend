@@ -54,29 +54,34 @@ export default class extends React.Component {
             ...this.getPreRegisterValues()
         }
     }
+    setClient = (client) => {
+        let { state } = this
+        state[FORM_INPUT_IDS.BAIRRO]= client.pessoa.endereco[0].bairro
+        state[FORM_INPUT_IDS.CEP]= client.pessoa.endereco[0].CEP
+        state[FORM_INPUT_IDS.CPF]= client.pessoa.cpf
+        state[FORM_INPUT_IDS.EMAIL]= client.pessoa.email
+        state[FORM_INPUT_IDS.LOGIN]= client.pessoa.login
+        state[FORM_INPUT_IDS.LOGRADOURO]= client.pessoa.endereco[0].logradouro
+        state[FORM_INPUT_IDS.COMPLEMENTO]= client.pessoa.endereco[0].COMPLEMENTO
+        state[FORM_INPUT_IDS.NASCIMENTO]= client.pessoa.dataNascimento
+        state[FORM_INPUT_IDS.NOME]= client.pessoa.nome
+        state[FORM_INPUT_IDS.NUMERO]= client.pessoa.endereco[0].numero
+        state[FORM_INPUT_IDS.SENHA]= client.pessoa.senha
+        state[FORM_INPUT_IDS.TELEFONE]= client.pessoa.telefone[0].numero_telefone
+        state[FORM_INPUT_IDS.UF]= client.pessoa.endereco[0].UF
+        state.id = client.id
+        state.pessoaId = client.pessoaId
+        this.setState({...state})
+    }
 
     componentDidMount() {
-        if(this.props.update) {
+        if (this.props.selectedClient && this.props.selectedClient.pessoa) {
+            this.setClient(this.props.selectedClient)
+        } else if(this.props.update) {
             ClientProvider.getAll((clients) => {
                 const client = clients.find(client => client.pessoa.login === this.state.login)
                 if (client) {
-                    let { state } = this
-                    state[FORM_INPUT_IDS.BAIRRO]= client.pessoa.endereco[0].bairro
-                    state[FORM_INPUT_IDS.CEP]= client.pessoa.endereco[0].CEP
-                    state[FORM_INPUT_IDS.CPF]= client.pessoa.cpf
-                    state[FORM_INPUT_IDS.EMAIL]= client.pessoa.email
-                    state[FORM_INPUT_IDS.LOGIN]= client.pessoa.login
-                    state[FORM_INPUT_IDS.LOGRADOURO]= client.pessoa.endereco[0].logradouro
-                    state[FORM_INPUT_IDS.COMPLEMENTO]= client.pessoa.endereco[0].COMPLEMENTO
-                    state[FORM_INPUT_IDS.NASCIMENTO]= client.pessoa.dataNascimento
-                    state[FORM_INPUT_IDS.NOME]= client.pessoa.nome
-                    state[FORM_INPUT_IDS.NUMERO]= client.pessoa.endereco[0].numero
-                    state[FORM_INPUT_IDS.SENHA]= client.pessoa.senha
-                    state[FORM_INPUT_IDS.TELEFONE]= client.pessoa.telefone[0].numero_telefone
-                    state[FORM_INPUT_IDS.UF]= client.pessoa.endereco[0].UF
-                    state.id = client.id
-                    state.pessoaId = client.pessoaId
-                    this.setState({...state})
+                    this.setClient(client)
                 }
             })
         }

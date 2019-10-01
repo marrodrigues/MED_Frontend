@@ -26,27 +26,28 @@ const NavBar = styled.nav`
     flex-direction: column;
     height: 100%;
     width: fit-content;
-    max-width: 180px;
-    background: red;
+    background: #F7B944;
     font-size: 30px;
     color: white;
     text-align: center;
-    text-decoration: underline;
-
+    white-space: nowrap;
 `
 const NavItem = styled.a`
-    color: white;
+    color: ${props => props.isSelected ? '#236C4A' : 'white'};
     margin: 0 1px;
-    padding: 5px 2vw;
+    padding: 20px 2vw;
     font-size: 18px;
-    border: ${props => props.isSelected ? '1px dashed white' : '1px solid transparent'};
-    background-color: ${props => props.isSelected ? '#00A0F4' : 'transparent'};
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 600;
+    // border: ${props => props.isSelected ? '1px dashed white' : '1px solid transparent'};
+    background-color: ${props => props.isSelected ? '#FFD27C' : 'transparent'};
     &:first-child {
         margin-top: 20px;
     }
     :hover {
         cursor: pointer;
-        background-color: #00E794;
+        background-color: #FFD27C;
     }
 `
 const Content = styled.section`
@@ -81,31 +82,22 @@ const Content = styled.section`
         }
     }
 `
-
-
-// const data = [{
-//     icon: 'user',
-//     name: 'Clientes',
-//     content: '<h1>Clientes</h1><ul><li>João Roberto Silva</li><li>Pedro Augusto</li><li>Maria Paula Machado</li></ul>'
-// }, {
-//     icon: 'pizza-slice',
-//     name: 'Pedidos',
-//     content: '<h1>Pedidos</h1><ul><li>Pizza Calabresa Gigante + Guaraná 2L</li><li>Pizza Quatro Queijos Brotinho</li></ul>'
-// }, {
-//     icon: 'hard-hat',
-//     name: 'Funcionários',
-//     content: '<h1>Funcionários</h1><ul><li>Mario</li><li>Estela</li><li>Diego</li></ul>'
-// }]
+const Logo = styled.div`
+    width: 145px;
+    height: 120px;
+    background: url('/image/logo-verde.png') center center/cover no-repeat;
+    margin: 2vh 2vw;
+    :hover {
+        cursor: pointer;
+    }
+`
 
 const sections = { client: 'Clientes', employee: 'Funcionários', supply: 'Insumos', bundle: 'Lotes', order: 'Pedidos', product: 'Produtos'}
 
 
-// const list = ['Joao', 'Maria', 'Jose', 'Mario']
-
 export default class extends React.Component {
     state = {
         selectedItem: sections.client,
-        // input: '',
         clientList: [],
         employeeList: [],
         supplyList: [],
@@ -162,8 +154,7 @@ export default class extends React.Component {
         return (
             <Container>
                 <NavBar>
-                    MED Pizzaria
-                    {/* <Hamburger /> */}
+                    <Logo onClick={() => {window.location.href = '/'}} />
                     {
                         Object.values(sections).map((section, index) => 
                         <NavItem 
