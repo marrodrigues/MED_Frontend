@@ -1,14 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import BaseForm from '../base/form'
+// import BaseForm from '../base/form'
 import BaseLabel from '../base/label'
-import BaseInput from '../base/input'
-import BaseButton from '../base/button'
+// import BaseInput from '../base/input'
+import BaseButton from '../base/new/button'
+import BaseForm from '../base/new/form'
+import BaseInput from '../base/new/input'
 
 import ClienteProvider from '../../providers/cliente'
 
 const ChangePasswordForm = styled(BaseForm)`
+    justify-content: center;
+    > * {
+        padding: 1vh 0;
+    }
+`
+const StyledLabel = styled(BaseLabel)`
+    color: #236C4A;
+`
+
+const StyledButton = styled(BaseButton)`
+    margin: 1vh auto;
 `
 
 export default class extends React.Component {
@@ -29,11 +42,17 @@ export default class extends React.Component {
         event.stopPropagation()
         ClienteProvider.changePassword('formData', 'callback')
     }
+    onBlurConfirmation = () => {
+        if (!this.isConfirmationValid()) {
+            this.setState({newPassword: '', confirmNewPassword: ''})
+            alert('A confirmação de senha falhou')
+        } 
+    }
 
     render () {
         return (
             <ChangePasswordForm onSubmit={this.submit}>
-                <BaseLabel htmlFor='oldPassword'>Senha Antiga</BaseLabel>
+                <StyledLabel htmlFor='oldPassword'>Senha Antiga</StyledLabel>
                 <BaseInput
                     value={this.state.oldPassword}
                     onChange={this.handleChange}
@@ -42,7 +61,7 @@ export default class extends React.Component {
                     type='password'
                     noValidation
                 />
-                <BaseLabel htmlFor='newPassword'>Nova Senha</BaseLabel>
+                <StyledLabel htmlFor='newPassword'>Nova Senha</StyledLabel>
                 <BaseInput
                     value={this.state.newPassword}
                     onChange={this.handleChange}
@@ -51,21 +70,21 @@ export default class extends React.Component {
                     type='password'
                     noValidation
                 />
-                <BaseLabel htmlFor='confirmNewPassword'>Confirmar Nova Senha</BaseLabel>
+                <StyledLabel htmlFor='confirmNewPassword'>Confirmar Nova Senha</StyledLabel>
                 <BaseInput
                     value={this.state.confirmNewPassword}
                     onChange={this.handleChange}
                     name='confirmNewPassword'
                     id='confirmNewPassword'
                     type='password'
-                    isValid={this.isConfirmationValid()}
+                    onBlur={this.onBlurConfirmation}
                 />
-                <BaseButton
+                <StyledButton
                     type='submit'
                     disabled={!this.isConfirmationValid()}
                 >
                     Alterar Senha
-                </BaseButton>
+                </StyledButton>
             </ChangePasswordForm>
         ) 
     }

@@ -111,10 +111,6 @@ class FooterComponent extends React.Component {
             alert('Preencha todos os campos', JSON.stringify(this.state))
         }
     }
-    // handleRegister = () => {
-    //     debugger
-    //     window.location.href = '/coming-soon'
-    // }
 
     openMapTab = () => {
         window.open(mapLink, '_blank')

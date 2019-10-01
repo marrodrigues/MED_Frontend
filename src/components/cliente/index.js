@@ -15,27 +15,31 @@ const NavBar = styled.nav`
     flex-direction: column;
     height: 100%;
     width: fit-content;
-    max-width: 180px;
-    background: red;
+    // max-width: 180px;
+    background: #F7B944;
     font-size: 30px;
     color: white;
     text-align: center;
-    text-decoration: underline;
+    // text-decoration: underline;
+    white-space: nowrap;
 
 `
 const NavItem = styled.a`
-    color: white;
+    color: ${props => props.isSelected ? '#236C4A' : 'white'};
     margin: 0 1px;
-    padding: 5px 2vw;
+    padding: 20px 2vw;
     font-size: 18px;
-    border: ${props => props.isSelected ? '1px dashed white' : '1px solid transparent'};
-    background-color: ${props => props.isSelected ? '#00A0F4' : 'transparent'};
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 600;
+    // border: ${props => props.isSelected ? '1px dashed white' : '1px solid transparent'};
+    background-color: ${props => props.isSelected ? '#FFD27C' : 'transparent'};
     &:first-child {
         margin-top: 20px;
     }
     :hover {
         cursor: pointer;
-        background-color: #00E794;
+        background-color: #FFD27C;
     }
 `
 const Content = styled.section`
@@ -45,6 +49,7 @@ const Content = styled.section`
     h1 {
         font-size: 28px;
         padding: 2vh 0;
+        color: #236C4A;
     }
     .name-list {
         list-style: bullet;
@@ -66,6 +71,16 @@ const Content = styled.section`
         }
     }
 `
+const Logo = styled.div`
+    width: 145px;
+    height: 120px;
+    background: url('/image/logo-verde.png') center center/cover no-repeat;
+    margin: 2vh 2vw;
+    :hover {
+        cursor: pointer;
+    }
+`
+
 const sections = { data: 'Meus Dados', orders: 'Meus Pedidos', password: 'Alterar Senha'}
 
 export default class extends React.Component {
@@ -98,7 +113,7 @@ export default class extends React.Component {
         return (
             <Container>
                 <NavBar>
-                    MED Pizzaria
+                    <Logo onClick={() => {window.location.href = '/'}} />
                     {
                         Object.values(sections).map((section, index) => 
                         <NavItem 
