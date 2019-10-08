@@ -100,11 +100,13 @@ class FooterComponent extends React.Component {
         if (login && senha) {
             this.setState({loading: true})
             const token = await UserProvider.login({ login, senha })
-            .then((token) => {
+            .then((data) => {
                 debugger
                 this.setState({loading: false})
-                this.props.setLoggedUser(token)
-                window.location.href = '/cliente?login=' + login
+                if (data) {
+                    this.props.setLoggedUser(data.token)
+                    window.location.href = data.role === 'Funcionario' ? '/admin/' : '/cliente?login=' + login
+                }
             })
             console.log(token)
         } else {

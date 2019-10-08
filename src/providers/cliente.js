@@ -30,6 +30,7 @@ const ClienteProvider = {
             axios.put('https://med-backend-dev.herokuapp.com/clientes/' + clienteObj.id, clienteObj, params)
                 .then(response => {
                     // // debugger
+                    callback()
                 })
                 .catch(error => {
                     // // debugger
@@ -38,6 +39,7 @@ const ClienteProvider = {
             axios.post('https://med-backend-dev.herokuapp.com/clientes/', clienteObj, params)
                 .then(response => {
                     // // debugger
+                    callback()
                 })
                 .catch(error => {
                     // // debugger

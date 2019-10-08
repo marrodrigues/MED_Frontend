@@ -108,7 +108,7 @@ export default class LoginRegister extends React.Component {
                     name={FORM_INPUT_IDS.NUMERO}
                     onChange={this.props.handleChange}
                     value={this.props[FORM_INPUT_IDS.NUMERO]}
-                    placeholder='Número'
+                    placeholder='Número da residência'
                     type="number"
                 />
                 <ActionButton type='submit' buttonText ='Registrar'/>

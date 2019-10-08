@@ -51,6 +51,7 @@ export default class extends React.Component {
             [FORM_INPUT_IDS.SENHA]: '',
             [FORM_INPUT_IDS.TELEFONE]: '',
             [FORM_INPUT_IDS.UF]: '',
+            [`${FORM_INPUT_IDS.SENHA}-confirm`]:'',
             ...this.getPreRegisterValues()
         }
     }
@@ -104,15 +105,36 @@ export default class extends React.Component {
         }
         return {}
     }
-
+    checkPasswords = () => {
+        if (this.state[`${FORM_INPUT_IDS.SENHA}-confirm`] && 
+            !this.state[`${FORM_INPUT_IDS.SENHA}-confirm`] === this.state[FORM_INPUT_IDS.SENHA]){
+            this.setState({
+                [`${FORM_INPUT_IDS.SENHA}-confirm`]: '',
+                [FORM_INPUT_IDS.SENHA]: '',
+            })
+            alert('As senhas não conferem!')
+            // this.setState({loading: false})
+            return false
+        }
+        return true
+    }
 
     submit = (e) => {
+        this.setState({loading: true})
         e.preventDefault()
         e.stopPropagation()
+        if (!this.checkPasswords){
+            this.setState({loading: false})
+            return
+        }
         if (this.props.update){
-            ClientProvider.createOrUpdate(this.state)
+            ClientProvider.createOrUpdate(this.state, () => {
+                this.setState({loading: false})
+            })
         } else {
-            UserProvider.create(this.state)
+            UserProvider.create(this.state, () => {
+                this.setState({loading: false})
+            })
         }
     }
 
@@ -187,6 +209,16 @@ export default class extends React.Component {
                         placeholder='CPF'
                     />
                     <BaseInput 
+                        id={FORM_INPUT_IDS.LOGIN}
+                        name={FORM_INPUT_IDS.LOGIN}
+                        onChange={this.handleChangeInput}
+                        value={this.state[FORM_INPUT_IDS.LOGIN]}
+                        placeholder='Login'
+                    />
+                </InputRow>
+                {!this.props.update && 
+                <InputRow>
+                    <BaseInput 
                         id={FORM_INPUT_IDS.SENHA}
                         name={FORM_INPUT_IDS.SENHA}
                         onChange={this.handleChangeInput}
@@ -194,7 +226,15 @@ export default class extends React.Component {
                         placeholder='Senha'
                         type='password'
                     />
-                </InputRow>
+                    <BaseInput 
+                        id={`${FORM_INPUT_IDS.SENHA}-confirm`}
+                        name={`${FORM_INPUT_IDS.SENHA}-confirm`}
+                        onChange={this.handleChangeInput}
+                        value={this.state[`${FORM_INPUT_IDS.SENHA}-confirm`]}
+                        placeholder='Confirmação da Senha'
+                        type='password'
+                    />
+                </InputRow>}
                 <InputRow>
                     <BaseInput 
                         id={FORM_INPUT_IDS.NASCIMENTO}
@@ -276,12 +316,14 @@ export default class extends React.Component {
                         disabled
                     />
                 </InputRow>
-                <BaseButton
+                {this.state.loading 
+                ? <Spinner name='circle' />
+                :<BaseButton
                     type='submit'
                 >
                     {this.props.update ? 'Atualizar' : 'Cadastrar'}
                 </BaseButton>
-                {this.state.loading && <Spinner name='circle' />}
+                }
             </RegisterForm>
         )
     }

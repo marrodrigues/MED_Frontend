@@ -45,7 +45,7 @@ export default class extends React.Component {
                 <CepInput
                     onChange={this.handleChangeInput}
                 />
-                <BaseLabel htmlFor={FORM_INPUT_IDS.NUMERO}>Número</BaseLabel>
+                <BaseLabel htmlFor={FORM_INPUT_IDS.NUMERO}>Número da residência</BaseLabel>
                 <BaseInput
                     id={FORM_INPUT_IDS.NUMERO}
                     name={FORM_INPUT_IDS.NUMERO}

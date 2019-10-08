@@ -62,8 +62,8 @@ const UserProvider = {
     login: ({login, senha}) => {
         return axios.post(config.API_ENDPOINT + PATHS.LOGIN, {login, senha})
             .then(result => {
-                // console.log(result)
-                // // // debugger
+                console.log(result)
+                debugger
                 // return result.data.token
                 // alert(`Login efetuado com sucesso\nToken: ${result.data.token}`)
                 window.localStorage.setItem(KEYS.TOKEN, result.data.token)
@@ -71,9 +71,9 @@ const UserProvider = {
                 return result.data
             })
             .catch(error => { 
-                // // // // debugger
+                debugger
                 // console.log(error)
-            //     alert('Usuário ou senha inválidos')
+                alert('Usuário ou senha inválidos')
             })
         
     }, 
