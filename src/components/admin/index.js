@@ -9,6 +9,7 @@ import { CLIENTE_DEFAULT_VALUE } from '../../util/constants'
 import TestComponent from '../test'
 import ChangePasswordForm from '../forms/ChangePasswordForm'
 import MeusPedidosForm from '../forms/MeusPedidos'
+import FuncionarioSection from './sections/funcionario'
 
 const Container = styled.main`
     display: flex;
@@ -109,6 +110,7 @@ const Admin = ({ sections, initialValues }) => {
             case 'Alterar Senha':
                 return <ChangePasswordForm />
             case 'Funcionários':
+                return <FuncionarioSection />
             case 'Insumos':
             case 'Lotes':
             case 'Pedidos':
