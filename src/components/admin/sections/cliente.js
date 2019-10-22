@@ -5,6 +5,7 @@ import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './ba
 import { InputWithLabel } from '../../base'
 import DataTable from './DataTable'
 import ClienteForm from '../../forms/ClienteForm'
+import { CLIENTE_DEFAULT_VALUE } from '../../../util/constants'
 
 const StyledInputWithLabel = styled(InputWithLabel)`
     
@@ -12,15 +13,9 @@ const StyledInputWithLabel = styled(InputWithLabel)`
 
 const tabs = ['Lista', 'Formulário']
 
-const clienteDefaultValue = {
-    pessoa: {
-        endereco: [{}],
-        telefone: [{}]
-    }
-}
 
 const ClienteSection = ({ clientList = [] }) => {
-    const [selectedClient, setSelectedClient] = useState(clienteDefaultValue)
+    const [selectedClient, setSelectedClient] = useState(CLIENTE_DEFAULT_VALUE)
     useEffect(() => {
         setSelectedTab(tabs[1])
     }, [selectedClient])
@@ -33,7 +28,7 @@ const ClienteSection = ({ clientList = [] }) => {
         || client.pessoa.cpf.includes(filter)
     )
     const mapCallback = client => (
-        <tr  key={client.pessoa.cpf} onClick={() => { setSelectedClient(client) }}>
+        <tr key={client.pessoa.cpf} onClick={() => { setSelectedClient(client) }}>
             <td>{client.pessoa.nome}</td>
             <td>{client.pessoa.email}</td>
             <td>{client.pessoa.cpf}</td>

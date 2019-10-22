@@ -1,11 +1,20 @@
 import React from 'react'
+import Admin from '../../components/admin'
+import { getValuesFromQueryString } from '../../util/string'
 
-import Client from '../../components/cliente'
-
-export default class extends React.Component {
-    render () {
-        return (
-            <Client />
-        )
-    }
+const AdminPage = () => {
+    const sections = [
+        {name: 'Meus Dados', icon: 'edit'},
+        {name: 'Meus Pedidos', icon: 'description'},
+        {name: 'Alterar Senha', icon: 'lock'},
+    ]
+    return (
+        <Admin
+            sections={sections}
+            initialValues={getValuesFromQueryString()}
+        />
+    )
 }
+    
+
+export default AdminPage

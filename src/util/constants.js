@@ -52,4 +52,11 @@ const FORM_INPUT_IDS = {
 
 const FOOTER_TABS = ['Login', 'Cadastro']
 
-export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS, KEYS, FOOTER_TABS }
+const CLIENTE_DEFAULT_VALUE = {
+    pessoa: {
+        endereco: [{}],
+        telefone: [{}]
+    }
+}
+
+export { PATHS, ALLOWED_CITY, ALLOWED_DISTRICTS, FORM_INPUT_IDS, KEYS, FOOTER_TABS, CLIENTE_DEFAULT_VALUE }

@@ -8,6 +8,8 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import DescriptionIcon from '@material-ui/icons/Description';
+import LockIcon from '@material-ui/icons/Lock';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Container = styled.div`
     display: flex;
@@ -22,6 +24,10 @@ const ItemLabel = styled.span`
 const NavItemWithIcon = ({ itemLabel, icon }) => {
     const getIcon = (icon = '') => {
         switch(icon.toUpperCase()) {
+            case 'EDIT':
+                return <EditIcon />
+            case 'LOCK':
+                return <LockIcon />
             case 'DESCRIPTION': 
                 return <DescriptionIcon />
             case 'ASSIGNMENT':

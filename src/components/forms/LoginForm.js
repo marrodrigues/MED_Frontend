@@ -30,16 +30,19 @@ const LoginForm = ({ onLoginSucess, setIsLoading, setIsNotLoading }) => {
         UserProvider.login({login, senha: password})
             .then(response => response.data)
             .then(data =>  {
+                debugger
                 onLoginSucess(data)
-                setIsNotLoading()
-                if (data.role === 'cliente') {
-                    window.location.href = '/cliente'
+                if (data.role === 'Cliente') {
+                    window.location.href = '/cliente?id=' + data.id
                 } else {
                     window.location.href = '/admin'
                 }
             })
             .catch(error => {
                 console.log(JSON.stringify(error))
+            })
+            .finally(() => {
+                setIsNotLoading()
             })
     } 
     return (

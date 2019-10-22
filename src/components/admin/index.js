@@ -4,6 +4,9 @@ import NavItemWithIcon from './NavItemWithIcon'
 import RegisterForm from '../forms/RegisterForm'
 import ClienteSection from './sections/cliente'
 import { ClienteProvider } from '../../providers'
+import MeusDadosSection from './sections/meusdados'
+import { CLIENTE_DEFAULT_VALUE } from '../../util/constants'
+import TestComponent from '../test'
 
 const Container = styled.main`
     display: flex;
@@ -64,13 +67,28 @@ const Content = styled.section`
 `
 
 const Admin = ({ sections, initialValues }) => {
+    // TODO remover após teste
     const [selectedItem, setSelectedItem] = useState(sections[0].name)
     const onClickNavItem = (section) => { setSelectedItem(section) }
     const [clientList, setClientList] =  useState([])
+    const [selectedClient, setSelectedClient] = useState(CLIENTE_DEFAULT_VALUE)
     useEffect(() => {
-        const result = ClienteProvider.getAll(setClientList)
-        setClientList(result)
+        const clientListCallback = data => {
+            setClientList(data)
+            if (initialValues.id) {
+                const selectedClient = (clientList || []).find(client => client.pessoa.id === Number(initialValues.id))
+                setSelectedClient(selectedClient)
+            }
+        }
+        ClienteProvider.getAll(clientListCallback)
+        
     }, [])
+    // useEffect(() => {
+    //     if (initialValues.id) {
+    //         const selectedClient = (clientList || []).find(client => client.pessoa.id === Number(initialValues.id))
+    //         setSelectedClient(selectedClient)
+    //     }
+    // }, [initialValues.id, clientList])
     
     const renderSection = () => {
         switch (selectedItem) {
@@ -81,6 +99,12 @@ const Admin = ({ sections, initialValues }) => {
                     <ClienteSection
                         clientList={clientList}/>
                 )
+            case 'Meus Dados':
+                console.log(selectedClient)
+                return <MeusDadosSection initialValues={initialValues} clientList={clientList}/>
+            case 'Meus Pedidos':
+                // return <TestComponent/>
+            case 'Alterar Senha':
             case 'Funcionários':
             case 'Insumos':
             case 'Lotes':

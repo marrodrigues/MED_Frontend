@@ -7,6 +7,7 @@ import createReducer from './reducers'
 import GlobalStyle from './GlobalStyle'
 
 import AdminPage from './pages/admin'
+import ClientePage from './pages/cliente'
 import HomePage from './pages/home'
 import ComingSoon from './pages/coming-soon';
 import RegisterPage  from './pages/register'
@@ -23,6 +24,7 @@ const App = () => (
         <Route exact path="/" component={HomePage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/admin" component={AdminPage} />
+        <Route path="/cliente" component={ClientePage} />
         <Route component={ComingSoon} />
       </Switch>
     </Router>

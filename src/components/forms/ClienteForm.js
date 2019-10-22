@@ -6,9 +6,14 @@ import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
 import { UserProvider } from '../../providers'
+import { CLIENTE_DEFAULT_VALUE } from '../../util/constants'
 // import styled from 'styled-components'
 
-const ClienteForm = ({ selectedClient, setIsLoading, setIsNotLoading }) => {
+const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, loading, ...props }) => {
+    const [selectedClient, setSelectedClient] = useState(initial || CLIENTE_DEFAULT_VALUE)
+    useEffect(() => {
+        setSelectedClient(selectedClient)
+    }, [selectedClient])
     const [nome, setNome] = useState(selectedClient.pessoa.nome || '')
     const [email, setEmail] = useState(selectedClient.pessoa.email || '')
     const [cpf, setCpf] = useState(selectedClient.pessoa.cpf || '')
@@ -86,7 +91,7 @@ const ClienteForm = ({ selectedClient, setIsLoading, setIsNotLoading }) => {
 
 
     return (
-        <BaseForm key='cliente-form' id='cliente-form' onSubmit={handleSubmit}>
+        <BaseForm key='cliente-form' id='cliente-form' onSubmit={handleSubmit} {...props}>
             <InputRow>
                 <InputWithLabel
                     label='Nome'
