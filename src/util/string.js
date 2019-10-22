@@ -11,4 +11,20 @@ const removeNonNumericDigits = (str) => {
     return str.replace(/[^\d]/g, '')
 }
 
-export { formatCep }
+const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('').toLocaleLowerCase();
+
+const getValuesFromQueryString = () => {
+    if (window.location.search) { 
+        return window.location.search
+            .replace('?', '')
+            .split('&')
+            .reduce((acc, cur) => {
+                const [key, value] = cur.split('=')
+                acc[key] = value
+                return acc
+            }, {})
+    }
+    return {}
+}
+
+export { formatCep, capitalize, getValuesFromQueryString }

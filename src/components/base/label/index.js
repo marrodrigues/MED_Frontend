@@ -1,18 +1,9 @@
-import React from 'react'
 import styled from 'styled-components'
 
 const BaseLabel = styled.label`
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    color: white;
-    text-align: center;
-    text-transform: uppercase;
+    font-family: HelveticaNeue;
+    color: ${({ color }) => color || 'white'};
 `
-
-export default class extends React.Component {
-    render () {
-        return (
-            <BaseLabel {...this.props}/>
-        )
-    }
-}
+export default BaseLabel

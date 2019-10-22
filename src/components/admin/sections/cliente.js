@@ -1,161 +1,85 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
-import EditModal from '../editModal'
-import RegisterForm from '../../register-form'
-import RegisterForm2 from '../../new-layout/register-form'
-import ClientForm from '../../forms/client'
+import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
+import { InputWithLabel } from '../../base'
+import DataTable from './DataTable'
+import ClienteForm from '../../forms/ClienteForm'
 
-// const Container = styled.section`
-//     display: flex;
-//     flex-direction: column;
-
-// `
-const Tabs = styled.div`
-    display: flex;
-    width: 100%;
-    margin: 2vh 0;
-`
-const Tab = styled.span`
-    font-size: 18px;
-    padding: 1vh 2vw;
-    border: 1px solid gray;
-    &:not(:first-child) {
-        border-left: none;
-    }
-    :hover {
-        cursor: pointer;
-    }
-    ${props => props.isSelected
-    ? `
-        background: rgba(255, 0, 0, 0.3);
-        color: black;
-    `
-    : ''
-    };
-`
-const FormContainer = styled.div`
-    display: flex;
-    width: 100%;
-    height: 100%;
-`
-const ClientTable = styled.table`
-   tr {
-    font-size: 18px;
-    :nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    :hover {
-        cursor: pointer;
-        color: black;
-        // font-weight: bold;
-        background-color: #CCC9F7;
-    }
-`
-
-const tabs = ['Formulário', 'Lista']
-
-export default class ClientSection extends React.Component {
-    state = {
-        selectedClient: {},
-        openModal: false,
-        selectedTab: tabs[0],
-    }
-    selectClient(selectedClient) {
-        // // // // debugger
-        console.log(selectedClient)
-        this.setState({selectedClient, selectedTab: 'Formulário'})
-    }
-    selectTab(tab) {
-        console.log(tab)
-        this.setState({selectedTab: tab})
-    }
-    closeModal = () => {
-        this.setState({openModal: false})
-    }
-    renderClientInfo() {
-        const { selectedClient } = this.state
-        console.log(selectedClient)
-        let clientInfo = []
-        // // // // debugger
-        for(let prop of Object.keys(selectedClient)) {
-            if (selectedClient[prop]) {
-                clientInfo.push((<li key={`${prop}-${selectedClient[prop]}`}>{`${prop}: ${selectedClient[prop]}`}</li>))
-            }
-        } 
-        for(let prop of Object.keys(selectedClient.pessoa)) {
-            if (selectedClient.pessoa[prop]) {
-                clientInfo.push((<li key={`pessoa-${prop}-${selectedClient[prop]}`}>{`${prop}:${selectedClient.pessoa[prop]}`}</li>))
-            }
-        }
-        console.log(clientInfo, selectedClient)
-        return clientInfo
-    }
+const StyledInputWithLabel = styled(InputWithLabel)`
     
-    render() {
-        const { clientList } = this.props || []
-        console.log(clientList)
-        return (
-            <React.Fragment>
-                <h1>Clientes</h1>
-                <Tabs>
-                    {tabs.map(tab => 
-                        <Tab 
-                            isSelected={this.state.selectedTab === tab} 
-                            key={tab}
-                            onClick={() => this.selectTab(tab)}
-                        >
-                                {tab}
-                        </Tab>
-                    )}
-                </Tabs>
-                {
-                    this.state.selectedTab === 'Formulário' && 
-                    <React.Fragment>
-                        <RegisterForm2 update selectedClient={this.state.selectedClient}/>
-                        {/* <ClientForm selectedClient={this.state.selectedClient} /> */}
-                    </React.Fragment>
-                }
-                {
-                    clientList.length && this.state.selectedTab === 'Lista' &&
-                    <ClientTable>
-                        <thead>
-                            {/* <tr> */}
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>CPF</th>
-                            {/* </tr> */}
-                        </thead>
-                        <tbody>
-                            {
-                                clientList.map(client => (
-                                    <tr  key={client.pessoa.cpf} onClick={() => { this.selectClient(client) }}>
-                                        <td>{client.pessoa.nome}</td>
-                                        <td>{client.pessoa.email}</td>
-                                        <td>{client.pessoa.cpf}</td>
-                                    </tr>        
-                                ))
-                            }
-                        </tbody>
-                    </ClientTable>
-                }
-                {/* {
-                    this.state.selectedTab === 'Lista' &&
-                    <ul className='name-list'>
-                        { clientList.map(client => 
-                            <li key={client.id} onClick={() => { this.selectClient(client) }}>{client.pessoa.nome}</li>) }
-                    </ul>
-                } */}
-                {/* <ul className='attr-list'>
-                    {this.state.selectedClient.id && this.renderClientInfo() }
-                </ul> */}
-                {/* <EditModal
-                    onRequestClose={this.closeModal}
-                    isOpen={this.state.openModal}
-                    contentLabel='Edição de cliente'
-                    user={this.state.selectedClient}
-                /> */}
-            </React.Fragment>
-        )
+`
+
+const tabs = ['Lista', 'Formulário']
+
+const clienteDefaultValue = {
+    pessoa: {
+        endereco: [{}],
+        telefone: [{}]
     }
 }
+
+const ClienteSection = ({ clientList = [] }) => {
+    const [selectedClient, setSelectedClient] = useState(clienteDefaultValue)
+    useEffect(() => {
+        setSelectedTab(tabs[1])
+    }, [selectedClient])
+    const [selectedTab, setSelectedTab] = useState(tabs[0])
+    const [filter, setFilter] = useState('')
+    
+    const filterCallback = client => (
+        client.pessoa.nome.includes(filter)
+        || client.pessoa.email.includes(filter)
+        || client.pessoa.cpf.includes(filter)
+    )
+    const mapCallback = client => (
+        <tr  key={client.pessoa.cpf} onClick={() => { setSelectedClient(client) }}>
+            <td>{client.pessoa.nome}</td>
+            <td>{client.pessoa.email}</td>
+            <td>{client.pessoa.cpf}</td>
+        </tr>        
+    )
+    
+    const renderContent = () => {
+        switch (selectedTab) {
+            case tabs[0]:
+                return <DataTable
+                    data={clientList}
+                    filter={filter}
+                    filterCallback={filterCallback}
+                    mapCallback={mapCallback}
+                />
+            case tabs[1]:
+                return <ClienteForm selectedClient={selectedClient} />
+            default:
+                return null
+        }
+    }
+    return (
+        <Container>
+            <SectionTitle>Clientes</SectionTitle>
+            <TabsAndFilter>
+                <TabsContainer>
+                    {tabs.map(tab => 
+                        <Tab 
+                            isSelected={selectedTab === tab} 
+                            key={tab}
+                            onClick={() => setSelectedTab(tab)}
+                        >
+                            {tab}
+                        </Tab>
+                    )}
+                </TabsContainer>
+                {selectedTab === tabs[0] &&
+                <StyledInputWithLabel
+                    label='Filtrar'
+                    value={filter}
+                    onChange={setFilter}
+                />}
+            </TabsAndFilter>
+            {renderContent()}
+        </Container>
+    )
+}
+
+export default ClienteSection

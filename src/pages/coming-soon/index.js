@@ -1,17 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import Header from '../../components/new-layout/header'
-import ComingSoon from '../../components/new-layout/coming-soon'
-import Footer from '../../components/new-layout/footer'
 
+const ComingSoonContainer = styled.section`
+    margin-top: 5vh;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+const TextContiner = styled.p`
+    font: Bold calc(8px + 2vw) Helvetica;
+`
 
-const ComingSoonPage = () => (
-    <>
-        <Header />
-        <ComingSoon />
-        <Footer />
-    </>
-
+const ComingSoonComponent = () => (
+    <ComingSoonContainer>
+        <TextContiner>Em breve, novidades!</TextContiner>
+    </ComingSoonContainer>
 )
 
-export default ComingSoonPage;
+export default ComingSoonComponent

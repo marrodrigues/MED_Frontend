@@ -1,20 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ClienteProvider from '../../providers/cliente'
-import FuncionarioProvider from '../../providers/funcionario'
-import InsumoProvider from '../../providers/insumo'
-import LoteProvider from '../../providers/lote'
-import PedidoProvider from '../../providers/pedido'
-import ProdutoProvider from '../../providers/produto'
-
-import Hamburger from './hamburger'
+import NavItemWithIcon from './NavItemWithIcon'
+import RegisterForm from '../forms/RegisterForm'
 import ClienteSection from './sections/cliente'
-import FuncionarioSection from './sections/funcionario'
-import InsumoSection from './sections/insumo'
-import LoteSection from './sections/lote'
-import PedidoSection from './sections/pedido'
-import ProdutoSection from './sections/produto'
+import { ClienteProvider } from '../../providers'
 
 const Container = styled.main`
     display: flex;
@@ -25,62 +14,13 @@ const NavBar = styled.nav`
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: fit-content;
+    width: 350px;
     background: #F7B944;
     font-size: 30px;
     color: white;
     text-align: center;
     white-space: nowrap;
-`
-const NavItem = styled.a`
-    color: ${props => props.isSelected ? '#236C4A' : 'white'};
-    margin: 0 1px;
-    padding: 20px 2vw;
-    font-size: 18px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: 600;
-    // border: ${props => props.isSelected ? '1px dashed white' : '1px solid transparent'};
-    background-color: ${props => props.isSelected ? '#FFD27C' : 'transparent'};
-    &:first-child {
-        margin-top: 20px;
-    }
-    :hover {
-        cursor: pointer;
-        background-color: #FFD27C;
-    }
-`
-const Content = styled.section`
-    display: flex;
-    flex-direction: column;
-    padding: 1vh 3vw;
-    min-width: fit-content;
-    min-height: fit-content;
-    width: 100%;
-    height: 100%;
-    h1 {
-        font-size: 28px;
-        padding: 2vh 0;
-    }
-    .name-list {
-        list-style: bullet;
-        li {
-            font-size: 18px;
-            :hover {
-                cursor: pointer;
-                color: black;
-                font-weight: bold;
-                background-color: #CCC9F7;
-            }
-        }
-    }
-    .attr-list {
-        list-style: square;
-        li {
-            font-size: 14px;
-
-        }
-    }
+    padding: 0 30px;
 `
 const Logo = styled.div`
     width: 145px;
@@ -91,89 +31,84 @@ const Logo = styled.div`
         cursor: pointer;
     }
 `
-
-const sections = { client: 'Clientes', employee: 'Funcionários', supply: 'Insumos', bundle: 'Lotes', order: 'Pedidos', product: 'Produtos'}
-
-
-export default class extends React.Component {
-    state = {
-        selectedItem: sections.client,
-        clientList: [],
-        employeeList: [],
-        supplyList: [],
-        bundleList: [],
-        orderList: [],
-        productList: []
+const NavItem = styled.a`
+    color: ${({ isSelected }) => isSelected ? '#236C4A' : 'white'};
+    margin: 5px 1px;
+    padding: 20px 2vw;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: HelveticaNeue;
+    // border: ${({ isSelected }) => isSelected ? '1px dashed white' : '1px solid transparent'};
+    border-radius: 10px;
+    background-color: ${({ isSelected }) => isSelected ? '#FFD27C' : 'transparent'};
+    &:first-child {
+        margin-top: 20px;
     }
-
-    onClickNavItem(section){
-        this.setState({selectedItem: section})
+    :hover {
+        cursor: pointer;
+        background-color: #FFD27C;
     }
+    transition: color 0.25s ease;
+`
+const Content = styled.section`
+    display: flex;
+    flex-direction: column;
+    padding: 0 3vw;
+    min-width: fit-content;
+    min-height: fit-content;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+`
 
-    componentDidMount = () => {
-        ClienteProvider.getAll((clientList) => {
-            this.setState({clientList})
-        })
-        FuncionarioProvider.getAll((employeeList) => {
-            this.setState({employeeList})
-        })
-        InsumoProvider.getAll((supplyList) => {
-            this.setState({supplyList})
-        })
-        LoteProvider.getAll(bundleList => {
-            this.setState({bundleList})
-        })
-        // PedidoProvider.getAll((orderList) => {
-        //     this.setState({orderList})
-        // })
-        ProdutoProvider.getAll((productList) => {
-            this.setState({productList})
-        })
-    }
-    renderSection () {
-        switch (this.state.selectedItem) {
-            case sections.product:
-                return <ProdutoSection productList={this.state.productList} />
-            case sections.order:
-                return <PedidoSection orderList={this.state.orderList} />
-            case sections.bundle:
-                return <LoteSection bundleList={this.state.bundleList} supplyList={this.state.supplyList} productList={this.state.productList} />
-            case sections.supply:
-                return <InsumoSection supplyList={this.state.supplyList} />
-            case sections.employee:
-                return <FuncionarioSection employeeList={this.state.employeeList} />
-            case sections.client:
-            default: 
-                return <ClienteSection clientList={this.state.clientList} />
+const Admin = ({ sections, initialValues }) => {
+    const [selectedItem, setSelectedItem] = useState(sections[0].name)
+    const onClickNavItem = (section) => { setSelectedItem(section) }
+    const [clientList, setClientList] =  useState([])
+    ClienteProvider.getAll(setClientList)
+    const renderSection = () => {
+        switch (selectedItem) {
+            case 'Registro':
+                return <RegisterForm initialValues={initialValues} />
+            case 'Clientes':
+                return (
+                    <ClienteSection
+                        clientList={clientList}/>
+                )
+            case 'Funcionários':
+            case 'Insumos':
+            case 'Lotes':
+            case 'Pedidos':
+            case 'Produtos':
+            default:
+                return <div>seção</div>
         }
     }
-
-    render () {
-        console.log(this.state);
-        
-        return (
-            <Container>
-                <NavBar>
-                    <Logo onClick={() => {window.location.href = '/'}} />
-                    {
-                        Object.values(sections).map((section, index) => 
-                        <NavItem 
-                            key={`${section}${section.index}`}
-                            isSelected={this.state.selectedItem === section}
-                            onClick={() => this.onClickNavItem(section)}
+    return (
+        <Container>
+            <NavBar>
+                <Logo onClick={() => { window.location.href = '/' }} />
+                {
+                    sections.map((section, index) =>
+                        <NavItem
+                            key={`${section.name}${index}`}
+                            isSelected={selectedItem === section.name}
+                            onClick={() => onClickNavItem(section.name)}
                         >
-                            {/* <FontAwesomeIcon icon={'stroopwafel'} /> */}
-                            {section}
+                            <NavItemWithIcon
+                                icon={section.icon}
+                                itemLabel={section.name}
+                            />
                         </NavItem>)
-                    }
-                </NavBar>
-                {/* <input value={this.state.input} onChange={(value) => {this.setState({input: value.target.value})}}/>
-                {list.filter((nome)=> nome.toLowerCase().indexOf(this.state.input.toLowerCase()) > -1).map((nome => <div>{nome}</div>))} */}
-                {/* <Content dangerouslySetInnerHTML={{__html: this.state.selectedItem.content}}/> */}
-                <Content>
-                    {this.renderSection()}
-                </Content>
-            </Container>
-        )
-    }
+                }
+            </NavBar>
+            <Content>
+                {renderSection()}
+            </Content>
+        </Container>
+    )
 }
+
+export default Admin

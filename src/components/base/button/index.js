@@ -1,24 +1,37 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
+import Spinner from 'react-spinkit'
+
 
 const BaseButton = styled.button`
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    max-width: 300px;
-    border: 2px solid white;
-    border-radius: 20px;
-    margin: 2rem 2rem 0;
-    padding: 1rem 2rem;
-    background: transparent;
-    opacity: ${props => props.disabled ? 0.3 : 1};
-    transition: opacity ease 0.5s;
-`
-
-export default class extends React.Component {
-    render () {
-        return (
-            <BaseButton {...this.props}/>
-        )
-    }
+margin-top: 1vh;
+width: 120px;
+font: Bold 14px Raspoutine;
+border-radius: 5px;
+padding: 5px 10px;
+color: white;
+text-align: center;
+background: #354B0C;
+&:hover {
+    cursor: pointer;
 }
+`
+export default BaseButton
+
+
+const ButtonOrSpinnerWrapper = ({ label, loading }) => (
+    <div style={{marginLeft: 'auto'}}>
+        {loading
+        ? <Spinner color='yellow' name='circle' />
+        : <BaseButton type='submit'>{label}</BaseButton>}
+    </div>
+)
+
+const mapStateToProps = state => {
+    const { app } = state
+    const { loading } = app
+    return { loading }
+}
+
+export const ButtonOrSpinner = connect(mapStateToProps)(ButtonOrSpinnerWrapper)

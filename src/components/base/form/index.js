@@ -1,22 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
+import FormTitle from './FormTitle'
 
-const BaseForm = styled.form`
+const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: fit-content;
-    height: 90vh;
-    padding: 2.5vh 2.5vw;
-    background: darkgray;
+    max-width: 700px;
 `
 
-export default class extends React.Component {
-    render () {
-        return (
-            <BaseForm {...this.props} />
-        )
-    }
-}
+const BaseForm = ({ title, children, ...props}) => (
+    <StyledForm {...props} >
+        {title && <FormTitle title={title} />}
+        {children}
+    </StyledForm>
+)
+
+export default BaseForm
