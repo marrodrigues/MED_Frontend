@@ -10,6 +10,7 @@ import TestComponent from '../test'
 import ChangePasswordForm from '../forms/ChangePasswordForm'
 import MeusPedidosForm from '../forms/MeusPedidos'
 import FuncionarioSection from './sections/funcionario'
+import ComingSoonComponent from '../../pages/coming-soon'
 
 const Container = styled.main`
     display: flex;
@@ -116,7 +117,7 @@ const Admin = ({ sections, initialValues }) => {
             case 'Pedidos':
             case 'Produtos':
             default:
-                return <div>seção</div>
+                return <ComingSoonComponent />
         }
     }
     return (
