@@ -158,7 +158,6 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
                     label='Número da residência'
                     value={numero}
                     onChange={setNumero}
-                    type='number'
                     isInvalid={Boolean(errors.numero)}
                     width='140px'
                 />
