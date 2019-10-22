@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import NavItemWithIcon from './NavItemWithIcon'
 import RegisterForm from '../forms/RegisterForm'
@@ -67,7 +67,11 @@ const Admin = ({ sections, initialValues }) => {
     const [selectedItem, setSelectedItem] = useState(sections[0].name)
     const onClickNavItem = (section) => { setSelectedItem(section) }
     const [clientList, setClientList] =  useState([])
-    ClienteProvider.getAll(setClientList)
+    useEffect(() => {
+        const result = ClienteProvider.getAll(setClientList)
+        setClientList(result)
+    }, [])
+    
     const renderSection = () => {
         switch (selectedItem) {
             case 'Registro':

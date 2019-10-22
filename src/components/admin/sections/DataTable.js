@@ -21,7 +21,6 @@ const Table = styled.table`
 `
 const DataTable = ({ data, filter, filterCallback, mapCallback }) => {
     const filteredData = filter ? data.filter(filterCallback) : data
-    console.log(filteredData)
     return (
         <Table>
             <thead>
