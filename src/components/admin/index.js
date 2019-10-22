@@ -7,6 +7,8 @@ import { ClienteProvider } from '../../providers'
 import MeusDadosSection from './sections/meusdados'
 import { CLIENTE_DEFAULT_VALUE } from '../../util/constants'
 import TestComponent from '../test'
+import ChangePasswordForm from '../forms/ChangePasswordForm'
+import MeusPedidosForm from '../forms/MeusPedidos'
 
 const Container = styled.main`
     display: flex;
@@ -102,9 +104,10 @@ const Admin = ({ sections, initialValues }) => {
             case 'Meus Dados':
                 console.log(selectedClient)
                 return <MeusDadosSection initialValues={initialValues} clientList={clientList}/>
-            case 'Meus Pedidos':
-                // return <TestComponent/>
+            case 'Meus Pedidos': // return <TestComponent/>
+                return <MeusPedidosForm />
             case 'Alterar Senha':
+                return <ChangePasswordForm />
             case 'Funcionários':
             case 'Insumos':
             case 'Lotes':
