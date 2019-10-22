@@ -11,6 +11,7 @@ import ChangePasswordForm from '../forms/ChangePasswordForm'
 import MeusPedidosForm from '../forms/MeusPedidos'
 import FuncionarioSection from './sections/funcionario'
 import ComingSoonComponent from '../../pages/coming-soon'
+import InsumoSection from './sections/insumo'
 
 const Container = styled.main`
     display: flex;
@@ -113,6 +114,7 @@ const Admin = ({ sections, initialValues }) => {
             case 'Funcionários':
                 return <FuncionarioSection />
             case 'Insumos':
+                return <InsumoSection />
             case 'Lotes':
             case 'Pedidos':
             case 'Produtos':
