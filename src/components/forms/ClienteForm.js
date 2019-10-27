@@ -99,13 +99,12 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
                     onChange={setNome}
                     isInvalid={Boolean(errors.nome)}
                 />
-                <InputWithLabel
-                    label='Email'
-                    value={email}
-                    onChange={setEmail}
-                    type='email'
-                    isInvalid={Boolean(errors.email)}
-                />
+                    <InputWithLabel
+                        label='Login'
+                        value={login}
+                        onChange={setLogin}
+                        isInvalid={Boolean(errors.login)}
+                    />
             </InputRow>
             <InputRow>
                 <InputWithLabel
@@ -116,10 +115,11 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
                     maxLength={11}
                 />
                 <InputWithLabel
-                    label='Login'
-                    value={login}
-                    onChange={setLogin}
-                    isInvalid={Boolean(errors.login)}
+                    label='Email'
+                    value={email}
+                    onChange={setEmail}
+                    type='email'
+                    isInvalid={Boolean(errors.email)}
                 />
             </InputRow>
             <InputRow>

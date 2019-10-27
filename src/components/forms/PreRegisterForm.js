@@ -25,6 +25,7 @@ const PreRegisterForm = ({ loading, onClickButton, resetLoading }) => {
             resetLoading()    
             return
         }
+        window.location.href = '/register?CEP=' +  cep + '&numero=' + numero
     }
 
     return (

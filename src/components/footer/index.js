@@ -30,7 +30,7 @@ const Contact = styled.p`
     color: #FFFFFF;
     font-family: HelveticaNeue;
 `
-const contact = 'Rua Calmon - N: 22<br />Curicica - Rio de Janeiro / RJ<br /><br />Tel.: 21- 3456-8976 / 8763-0912'
+const contact = 'Rua Calmon - N: 22<br />Curicica - Rio de Janeiro / RJ<br /><br />Tel.: (21) 3456-8976 / (21) 98763-0912'
 
 const mapLink = 'https://www.google.com/maps/place/R.+Calmom,+22+-+Curicica,+Rio+de+Janeiro+-+RJ,+22710-350/@-22.9471758,-43.3870023,17z/data=!3m1!4b1!4m5!3m4!1s0x9bd915cad6a273:0x47c59a896d079327!8m2!3d-22.9471758!4d-43.3848136'
 

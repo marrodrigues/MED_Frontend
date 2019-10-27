@@ -67,19 +67,13 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
                                 onChange={setCpf}
                                 isInvalid={Boolean(errors.cpf)}
                                 maxLength={11}
-                                width='250px'
-                            />
+                                />
                             <InputWithLabel
                                 label='Login'
                                 value={login}
                                 onChange={setLogin}
                                 isInvalid={Boolean(errors.login)}
-                                width='250px'
-                            />
-                            <InputWithLabel
-                                label='Cargo'
-                                width='150px'
-                            />
+                                />
                         </InputRow>
                         <InputRow>
                             <InputWithLabel
@@ -88,13 +82,19 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
                                 onChange={setDataNascimento}
                                 type='date'
                                 isInvalid={Boolean(errors.dataNascimento)}
-                            />
+                                width='250px'
+                                />
                             <InputWithLabel
                                 label='Telefone'
                                 value={numero_telefone}
                                 onChange={setTelefone}
                                 isInvalid={Boolean(errors.telefone)}
-                            />
+                                width='250px'
+                                />
+                        <InputWithLabel
+                            label='Cargo'
+                            width='150px'
+                        />
                         </InputRow>
                         <InputRow>
                             <InputWithLabel

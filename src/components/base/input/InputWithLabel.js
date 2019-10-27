@@ -12,10 +12,10 @@ const Container = styled.div`
     }
 `
 
-const InputWithLabel = ({ label, value, onChange, type = 'text', isInvalid, labelColor = '#236C4A', ...props }) => {
+const InputWithLabel = ({ label, value, onChange, type = 'text', isInvalid, labelColor = '#236C4A', error, ...props }) => {
     return (
         <Container>
-            <BaseLabel color={labelColor}>{label}</BaseLabel>
+            <BaseLabel color={isInvalid ? 'red' : labelColor}>{label + (isInvalid ? ' - Erro' : '')}</BaseLabel>
             <BaseInput
                 value={value}
                 onChange={(e) => { onChange(e.target.value) }}

@@ -49,7 +49,7 @@ const InsumoSection = ({ ...props }) => {
     }
     return (
         <Container>
-            <SectionTitle>Funcionários</SectionTitle>
+            <SectionTitle>Insumos</SectionTitle>
             <TabsAndFilter>
                 <TabsContainer>
                     {ADMIN_TABS.map(tab =>

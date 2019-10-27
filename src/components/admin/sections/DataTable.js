@@ -21,13 +21,14 @@ const Table = styled.table`
 `
 const DataTable = ({ data, filter, filterCallback, mapCallback }) => {
     const filteredData = filter ? data.filter(filterCallback) : data
+    const fields = [ 'nome', 'email', 'cpf', 'login' ]
     return (
         <Table>
             <thead>
                 <tr className='header'>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>CPF</th>
+                    {
+                        fields.map(field => <th>{field.toUpperCase()}</th>)
+                    }
                 </tr>
             </thead>
             <tbody>
