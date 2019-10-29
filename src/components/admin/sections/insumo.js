@@ -1,48 +1,42 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react'
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
 import { ADMIN_TABS } from '../../../util/constants'
-import { InputWithLabel, BaseForm } from '../../base'
-import { ButtonOrSpinner } from '../../base/button'
+import { InputWithLabel } from '../../base'
+import InsumoForm from '../../forms/InsumoForm'
+import DataTable from './DataTable'
 
-const StyledBaseForm = styled(BaseForm)`
-    max-width: 330px;
-`
-
-const InsumoSection = ({ ...props }) => {
+const InsumoSection = ({ supplyList = [], ...props }) => {
     const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
+    const [selectedSupply, setSelectedSupply] = useState({})
+    useEffect(() => {
+        setSelectedTab(ADMIN_TABS[1])
+    }, [selectedSupply])
     const [filter, setFilter] = useState('')
-    const [descricao, setDescricao] = useState('')
-    const [qtd_unid, setQtdUnidade] = useState('')
-    const [unidade, setUnidade] = useState('')
-    const [errors, setErrors] = useState({})
+    const filterCallback = supply => (
+        supply.descricao.includes(filter)
+        || supply.unidade.includes(filter)
+        || supply.qtd_unid.includes(filter)
+    )
+    const fields = [ 'descricao', 'qtd_unid', 'unidade']
+    const mapCallback = supply => (
+        <tr key={supply.descricao} onClick={() => { setSelectedSupply(supply) }}>
+            {fields.map(field => <td key={`${field}-${supply.descricao}`}>{supply[field]}</td>)}
+        </tr>        
+    )
 
     const renderContent = () => {
         switch (selectedTab) {
             case ADMIN_TABS[0]:
-                return (null)
-            case ADMIN_TABS[1]:
                 return (
-                    <StyledBaseForm key='insumo-form' id='insumo-form' {...props} >
-                        <InputWithLabel
-                            label='Descrição'
-                            value={descricao}
-                            onChange={setDescricao}
-                        />
-                        <InputWithLabel
-                            label='Quantidade por unidade'
-                            value={qtd_unid}
-                            onChange={setQtdUnidade}
-                            type='number'
-                        />
-                        <InputWithLabel
-                            label='Unidade'
-                            value={unidade}
-                            onChange={setUnidade}
-                        />
-                        <ButtonOrSpinner label='Cadastrar' />
-                    </StyledBaseForm>
-                )
+                <DataTable
+                    data={supplyList}
+                    filter={filter}
+                    filterCallback={filterCallback}
+                    mapCallback={mapCallback}
+                    fields={fields}
+                />)
+            case ADMIN_TABS[1]:
+                return <InsumoForm selectedSupply={selectedSupply}/>
             default:
                 return null
         }

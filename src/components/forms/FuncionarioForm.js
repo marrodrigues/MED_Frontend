@@ -8,9 +8,9 @@ import { PESSOA_DEFAULT_VALUE } from '../../util/constants'
 
 
 const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoading, loading, ...props }) => {
-    const [selectedEmployee, setselectedEmployee] = useState(initial || PESSOA_DEFAULT_VALUE)
+    const [selectedEmployee, setSelectedEmployee] = useState(initial || PESSOA_DEFAULT_VALUE)
     useEffect(() => {
-        setselectedEmployee(selectedEmployee)
+        setSelectedEmployee(selectedEmployee)
     }, [selectedEmployee])
     const [nome, setNome] = useState(selectedEmployee.pessoa.nome || '')
     const [email, setEmail] = useState(selectedEmployee.pessoa.email || '')

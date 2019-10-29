@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import NavItemWithIcon from './NavItemWithIcon'
 import RegisterForm from '../forms/RegisterForm'
 import ClienteSection from './sections/cliente'
-import { ClienteProvider, FuncionarioProvider } from '../../providers'
+import { ClienteProvider, FuncionarioProvider, InsumoProvider, LoteProvider } from '../../providers'
 import MeusDadosSection from './sections/meusdados'
 import { PESSOA_DEFAULT_VALUE } from '../../util/constants'
 import TestComponent from '../test'
@@ -12,6 +12,7 @@ import MeusPedidosForm from '../forms/MeusPedidos'
 import FuncionarioSection from './sections/funcionario'
 import ComingSoonComponent from '../../pages/coming-soon'
 import InsumoSection from './sections/insumo'
+import LoteSection from './sections/lote'
 
 const Container = styled.main`
     display: flex;
@@ -79,6 +80,8 @@ const Admin = ({ sections, initialValues }) => {
     const [selectedClient, setSelectedClient] = useState(PESSOA_DEFAULT_VALUE)
     const [employeeList, setEmployeeList] =  useState([])
     const [selectedEmployee, setSelectedEmployee] = useState(PESSOA_DEFAULT_VALUE)
+    const [supplyList, setSupplyList] = useState([])
+    const [bundleList, setBundleList] = useState([])
     useEffect(() => {
         const clientListCallback = data => {
             setClientList(data)
@@ -99,6 +102,18 @@ const Admin = ({ sections, initialValues }) => {
             }
         }
         FuncionarioProvider.getAll(employeeListCallback)
+    }, [])
+    useEffect(() => {
+        const supplyListCallback = data => {
+            setSupplyList(data)
+        }
+        InsumoProvider.getAll(supplyListCallback)
+    }, [])
+    useEffect(() => {
+        const bundleListCallback = data => {
+            setBundleList(data)
+        }
+        LoteProvider.getAll(bundleListCallback)
     }, [])
 
     // useEffect(() => {
@@ -128,8 +143,9 @@ const Admin = ({ sections, initialValues }) => {
             case 'Funcionários':
                 return <FuncionarioSection employeeList={employeeList}/>
             case 'Insumos':
-                return <InsumoSection />
+                return <InsumoSection supplyList={supplyList} />
             case 'Lotes':
+                return <LoteSection bundleList={bundleList} />
             case 'Pedidos':
             case 'Produtos':
             default:

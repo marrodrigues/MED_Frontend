@@ -19,9 +19,9 @@ const Table = styled.table`
         }
     }
 `
-const DataTable = ({ data, filter, filterCallback, mapCallback }) => {
+const DataTable = ({ data, filter, filterCallback, mapCallback, fields = [ 'nome', 'email', 'cpf', 'login' ] }) => {
     const filteredData = filter ? data.filter(filterCallback) : data
-    const fields = [ 'nome', 'email', 'cpf', 'login' ]
+    // const fields = [ 'nome', 'email', 'cpf', 'login' ]
     return (
         <Table>
             <thead>
