@@ -20,6 +20,7 @@ const TestComponent = () => {
                 onChange={setCep}
                 isInvalid={errors.cep}
                 labelColor='white'
+                validCepCallback={()=>{}}
             />
         </Container>
     )

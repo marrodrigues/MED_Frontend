@@ -1,29 +1,36 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { InputWithLabel } from '../'
 import { formatCep } from '../../../util/string'
 import { validateCep, isLocationValid } from '../../../util/validation'
 
-const CepInputWithLabel = ({ value, validCepCallback, ...props}) => {
+const CepInputWithLabel = ({ value, validCepCallback, isInvalid, ...props}) => {
+    const [isInvalidCep, setInvalidCep] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
     const onBlur = (e) => {
         const cep = e.target.value
+        if (cep.length < 9) { 
+            setInvalidCep(true)
+            return
+        }
         validateCep(cep)
             .then(response => response.data)
             .then(data => {
-                if (data.erro || !isLocationValid(data)) {
-                    // setErrors({...errors, CEP: true})
+                if (data.erro) {
+                    setErrorMessage('CEP inválido')
+                    setInvalidCep(true)
+                } else if (!isLocationValid(data)) {
+                    setErrorMessage('Não entregamos nessa região')
+                    setInvalidCep(true)
                 } else {
-                    const { bairro, localidade: cidade, logradouro, uf } = data
-                    // setBairro(bairro)
-                    // setCidade(cidade)
-                    // setLogradouro(logradouro)
-                    // setUf(uf)
-                    // setErrors({...errors, CEP: false})
+                    validCepCallback(data)
+                    setErrorMessage('')
+                    setInvalidCep(false)
                 }
             })
             .catch(error => {
                 console.log(error);
-                // setErrors({...errors, CEP: true})
+                setInvalidCep(true)
             })
             .finally(() => {
                 // setIsNotLoading()
@@ -32,10 +39,12 @@ const CepInputWithLabel = ({ value, validCepCallback, ...props}) => {
 
     return (
         <InputWithLabel
+            { ...props }
             value={formatCep(value)}
             maxLength={9}
-            // onBlur={onBlur}
-            { ...props }
+            onBlur={onBlur}
+            isInvalid={isInvalid || isInvalidCep}
+            errorMessage={errorMessage}
         />
     )
 }
