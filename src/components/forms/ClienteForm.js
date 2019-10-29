@@ -6,11 +6,11 @@ import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
 import { UserProvider } from '../../providers'
-import { CLIENTE_DEFAULT_VALUE } from '../../util/constants'
+import { PESSOA_DEFAULT_VALUE } from '../../util/constants'
 // import styled from 'styled-components'
 
 const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, loading, ...props }) => {
-    const [selectedClient, setSelectedClient] = useState(initial || CLIENTE_DEFAULT_VALUE)
+    const [selectedClient, setSelectedClient] = useState(initial || PESSOA_DEFAULT_VALUE)
     useEffect(() => {
         setSelectedClient(selectedClient)
     }, [selectedClient])
@@ -26,7 +26,7 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
     const [complemento, setComplemento] = useState(selectedClient.pessoa.endereco[0].complemento || '')
     const [bairro, setBairro] = useState(selectedClient.pessoa.endereco[0].bairro || '')
     const [cidade, setCidade] = useState(selectedClient.pessoa.endereco[0].cidade || '')
-    const [uf, setUf] = useState(selectedClient.pessoa.endereco[0].uf || '')
+    const [uf, setUf] = useState(selectedClient.pessoa.endereco[0].UF || '')
     const [errors, setErrors] = useState({})
 
     useEffect(() => {

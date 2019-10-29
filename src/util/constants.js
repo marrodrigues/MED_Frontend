@@ -52,7 +52,7 @@ const FORM_INPUT_IDS = {
 
 const FOOTER_TABS = ['Login', 'Cadastro']
 
-const CLIENTE_DEFAULT_VALUE = {
+const PESSOA_DEFAULT_VALUE = {
     pessoa: {
         endereco: [{}],
         telefone: [{}]
@@ -68,6 +68,6 @@ export {
     FORM_INPUT_IDS,
     KEYS,
     FOOTER_TABS,
-    CLIENTE_DEFAULT_VALUE,
+    PESSOA_DEFAULT_VALUE,
     ADMIN_TABS
 }

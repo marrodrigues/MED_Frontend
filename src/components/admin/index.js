@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import NavItemWithIcon from './NavItemWithIcon'
 import RegisterForm from '../forms/RegisterForm'
 import ClienteSection from './sections/cliente'
-import { ClienteProvider } from '../../providers'
+import { ClienteProvider, FuncionarioProvider } from '../../providers'
 import MeusDadosSection from './sections/meusdados'
-import { CLIENTE_DEFAULT_VALUE } from '../../util/constants'
+import { PESSOA_DEFAULT_VALUE } from '../../util/constants'
 import TestComponent from '../test'
 import ChangePasswordForm from '../forms/ChangePasswordForm'
 import MeusPedidosForm from '../forms/MeusPedidos'
@@ -76,7 +76,9 @@ const Admin = ({ sections, initialValues }) => {
     const [selectedItem, setSelectedItem] = useState(sections[0].name)
     const onClickNavItem = (section) => { setSelectedItem(section) }
     const [clientList, setClientList] =  useState([])
-    const [selectedClient, setSelectedClient] = useState(CLIENTE_DEFAULT_VALUE)
+    const [selectedClient, setSelectedClient] = useState(PESSOA_DEFAULT_VALUE)
+    const [employeeList, setEmployeeList] =  useState([])
+    const [selectedEmployee, setSelectedEmployee] = useState(PESSOA_DEFAULT_VALUE)
     useEffect(() => {
         const clientListCallback = data => {
             setClientList(data)
@@ -88,6 +90,17 @@ const Admin = ({ sections, initialValues }) => {
         ClienteProvider.getAll(clientListCallback)
         
     }, [])
+    useEffect(() => {
+        const employeeListCallback = data => {
+            setEmployeeList(data)
+            if (initialValues.id) {
+                const selectedEmployee = (employeeList || []).find(employee => employee.pessoa.id === Number(initialValues.id))
+                setSelectedEmployee(selectedEmployee)
+            }
+        }
+        FuncionarioProvider.getAll(employeeListCallback)
+    }, [])
+
     // useEffect(() => {
     //     if (initialValues.id) {
     //         const selectedClient = (clientList || []).find(client => client.pessoa.id === Number(initialValues.id))
@@ -113,7 +126,7 @@ const Admin = ({ sections, initialValues }) => {
             case 'Alterar Senha':
                 return <ChangePasswordForm />
             case 'Funcionários':
-                return <FuncionarioSection />
+                return <FuncionarioSection employeeList={employeeList}/>
             case 'Insumos':
                 return <InsumoSection />
             case 'Lotes':

@@ -5,7 +5,7 @@ import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './ba
 import { InputWithLabel } from '../../base'
 import DataTable from './DataTable'
 import ClienteForm from '../../forms/ClienteForm'
-import { CLIENTE_DEFAULT_VALUE } from '../../../util/constants'
+import { PESSOA_DEFAULT_VALUE } from '../../../util/constants'
 
 const StyledInputWithLabel = styled(InputWithLabel)`
     
@@ -15,7 +15,7 @@ const tabs = ['Lista', 'Formulário']
 
 
 const ClienteSection = ({ clientList = [] }) => {
-    const [selectedClient, setSelectedClient] = useState(CLIENTE_DEFAULT_VALUE)
+    const [selectedClient, setSelectedClient] = useState(PESSOA_DEFAULT_VALUE)
     useEffect(() => {
         setSelectedTab(tabs[1])
     }, [selectedClient])
