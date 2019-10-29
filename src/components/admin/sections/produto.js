@@ -1,118 +1,69 @@
-import React from 'react'
-import styled from 'styled-components'
-import ProductForm from '../../forms/product'
+import React, { useState, useEffect } from 'react'
+import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
+import { ADMIN_TABS } from '../../../util/constants'
+import { InputWithLabel } from '../../base'
+import ProdutoForm from '../../forms/ProdutoForm'
+import DataTable from './DataTable'
 
-const Tabs = styled.div`
-    display: flex;
-    width: 100%;
-    margin: 2vh 0;
-`
-const Tab = styled.span`
-    font-size: 18px;
-    padding: 1vh 2vw;
-    border: 1px solid gray;
-    &:not(:first-child) {
-        border-left: none;
-    }
-    :hover {
-        cursor: pointer;
-    }
-    ${props => props.isSelected
-    ? `
-        background: rgba(255, 0, 0, 0.3);
-        color: black;
-    `
-    : ''
-    };
-`
-const ProductTable = styled.table`
-   tr {
-    font-size: 18px;
-    :hover {
-        cursor: pointer;
-        color: black;
-        // font-weight: bold;
-        background-color: #CCC9F7;
-    }
-    :nth-child(even){
-        background-color: #f2f2f2;
-    }
-`
+const ProdutoSection = ({ productList = [], ...props }) => {
+    const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
+    const [selectedProduct, setSelectedProduct] = useState({})
+    useEffect(() => {
+        setSelectedTab(ADMIN_TABS[1])
+    }, [selectedProduct])
+    const [filter, setFilter] = useState('')
+    const filterCallback = product => (
+        product.descricao.includes(filter)
+    )
+    const fields = [ 'nome', 'tamanho', 'valor']
+    const mapCallback = product => (
+        <tr key={product.nome} onClick={() => { setSelectedProduct(product) }}>
+            {fields.map(field => <td key={`${field}-${product.nome}`}>{product[field]}</td>)}
+        </tr>        
+    )
 
-const tabs = ['Formulário', 'Lista']
-
-export default class InsumoSection extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            selectedProduct: {},
-            selectedTab: tabs[0],
+    const renderContent = () => {
+        switch (selectedTab) {
+            case ADMIN_TABS[0]:
+                return (
+                <DataTable
+                    data={productList}
+                    filter={filter}
+                    filterCallback={filterCallback}
+                    mapCallback={mapCallback}
+                    fields={fields}
+                />)
+            case ADMIN_TABS[1]:
+                return <ProdutoForm selectedProduct={selectedProduct}/>
+            default:
+                return null
         }
     }
-    
-    selectProduct(selectedProduct) {
-        // // // // debugger
-        console.log(selectedProduct)
-        this.setState({selectedProduct, selectedTab: 'Formulário'})
-    }
-    selectTab(tab) {
-        console.log(tab)
-        this.setState({selectedTab: tab})
-    }
-    render() {
-        const { productList } = this.props || []
-        console.log(productList, this.state)
-        return (
-            <React.Fragment>
-                <h1>Produtos</h1>
-                <Tabs>
-                    {tabs.map(tab => 
-                        <Tab 
-                            isSelected={this.state.selectedTab === tab} 
+    return (
+        <Container>
+            <SectionTitle>Produtos</SectionTitle>
+            <TabsAndFilter>
+                <TabsContainer>
+                    {ADMIN_TABS.map(tab =>
+                        <Tab
+                            isSelected={selectedTab === tab}
                             key={tab}
-                            onClick={() => this.selectTab(tab)}
+                            onClick={() => setSelectedTab(tab)}
                         >
-                                {tab}
+                            {tab}
                         </Tab>
                     )}
-                </Tabs>
-                {
-                    this.state.selectedTab === 'Formulário' && 
-                    <ProductForm selectedProduct={this.state.selectedProduct} />
-                }
-                {
-                    productList.length && this.state.selectedTab === 'Lista' &&
-                    <ProductTable>
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Tamanho</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                productList.map(product => (
-                                    <tr key={product.id} onClick={() => { this.selectProduct(product) }}>
-                                        <td>{product.nome}</td>
-                                        <td>{product.tamanho}</td>
-                                    </tr>        
-                                ))
-                            }
-                        </tbody>
-                    </ProductTable>
-                }
-                {/* {
-                    this.state.selectedTab === 'Lista' &&
-                    <ul className='name-list'>
-                        { productList.map(product => <li onClick={() => this.selectProduct(product)} key={product.id}>{product.nome}</li>) }
-                    </ul>
-                } */}
-                
-                {/* <ul className='attr-list'>
-                    {this.state.selectedProduct.id && this.renderProductInfo() }
-                </ul> */}
-            </React.Fragment>
-        )
-    }
+                </TabsContainer>
+                {selectedTab === ADMIN_TABS[0] &&
+                    <InputWithLabel
+                        label='Filtrar'
+                        value={filter}
+                        onChange={setFilter}
+                    />}
+            </TabsAndFilter>
+            {renderContent()}
+        </Container>
+    )
 }
+
+export default ProdutoSection

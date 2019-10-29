@@ -4,6 +4,7 @@ import FuncionarioProvider from './FuncionarioProvider'
 import InsumoProvider from './InsumoProvider'
 import LoteProvider from './LoteProvider'
 import ProdutoProvider from './ProdutoProvider'
+import PedidoProvider from './PedidoProvider'
 
 export {
     UserProvider,
@@ -11,5 +12,6 @@ export {
     FuncionarioProvider,
     InsumoProvider,
     LoteProvider,
-    ProdutoProvider
+    ProdutoProvider,
+    PedidoProvider,
 }

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import NavItemWithIcon from './NavItemWithIcon'
 import RegisterForm from '../forms/RegisterForm'
 import ClienteSection from './sections/cliente'
-import { ClienteProvider, FuncionarioProvider, InsumoProvider, LoteProvider } from '../../providers'
+import { ClienteProvider, FuncionarioProvider, InsumoProvider, LoteProvider, ProdutoProvider, PedidoProvider } from '../../providers'
 import MeusDadosSection from './sections/meusdados'
 import { PESSOA_DEFAULT_VALUE } from '../../util/constants'
 import TestComponent from '../test'
@@ -13,6 +13,8 @@ import FuncionarioSection from './sections/funcionario'
 import ComingSoonComponent from '../../pages/coming-soon'
 import InsumoSection from './sections/insumo'
 import LoteSection from './sections/lote'
+import ProdutoSection from './sections/produto'
+import PedidoSection from './sections/pedido'
 
 const Container = styled.main`
     display: flex;
@@ -82,6 +84,8 @@ const Admin = ({ sections, initialValues }) => {
     const [selectedEmployee, setSelectedEmployee] = useState(PESSOA_DEFAULT_VALUE)
     const [supplyList, setSupplyList] = useState([])
     const [bundleList, setBundleList] = useState([])
+    const [productList, setProductList] = useState([])
+    const [orderList, setOrderList] = useState([])
     useEffect(() => {
         const clientListCallback = data => {
             setClientList(data)
@@ -115,6 +119,18 @@ const Admin = ({ sections, initialValues }) => {
         }
         LoteProvider.getAll(bundleListCallback)
     }, [])
+    useEffect(() => {
+        const productListCallback = data => {
+            setProductList(data)
+        }
+        ProdutoProvider.getAll(productListCallback)
+    }, [])
+    useEffect(() => {
+        const orderListCallback = data => {
+            setOrderList(data)
+        }
+        PedidoProvider.getAll(orderListCallback)
+    }, [])
 
     // useEffect(() => {
     //     if (initialValues.id) {
@@ -146,8 +162,10 @@ const Admin = ({ sections, initialValues }) => {
                 return <InsumoSection supplyList={supplyList} />
             case 'Lotes':
                 return <LoteSection bundleList={bundleList} />
-            case 'Pedidos':
             case 'Produtos':
+                return <ProdutoSection productList={productList} />
+            case 'Pedidos':
+                return <PedidoSection orderList={orderList} />
             default:
                 return <ComingSoonComponent />
         }
