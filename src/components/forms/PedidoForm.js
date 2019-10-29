@@ -13,15 +13,7 @@ const PedidoForm = ({ selectedOrder: initial, setIsLoading, setIsNotLoading, loa
     useEffect(() => {
         setSelectedOrder(selectedOrder)
     }, [selectedOrder])
-      // "codigo": "P1",
-    //     "status": 1,
-    //     "forma_pagamento": 1,
-    //     "motivo_cancelamento": null,
-    //     "data_pedido": "2019-10-26T03:37:50.000Z",
-    //     "valor_total": 65,
-    //     "observacao": "teste2",
-    //     "funcionarioId": 22,
-    //     "clienteId": 12,
+      
     const [codigo, setCodigo] = useState(selectedOrder.codigo || '')
     const [status, setStatus] = useState(selectedOrder.status || '')
     const [forma_pagamento, setFormaPagamento] = useState(selectedOrder.forma_pagamento || '')
