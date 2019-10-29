@@ -17,7 +17,7 @@ import { Router, Route, Switch } from 'react-router-dom'
 const history = createHistory()
 
 const App = () => (
-  <Root initialState={initialState} reducers={createReducer()}>
+  <Root initialState={initialStat0e} reducers={createReducer()}>
     <GlobalStyle />
     <Router history={history}>
       <Switch>
