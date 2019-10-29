@@ -4,6 +4,8 @@ import BaseForm from './form'
 import BaseLabel from './label'
 import BaseButton from './button'
 import CepInputWithLabel from './input/CepInputWithLabel'
+import EmailInputWithLabel from './input/EmailInputWithLabel'
+import LoginInputWithLabel from './input/LoginInputWithLabel'
 
 export {
     BaseInput,
@@ -11,5 +13,7 @@ export {
     InputWithLabel,
     BaseLabel,
     BaseButton,
-    CepInputWithLabel
+    CepInputWithLabel,
+    EmailInputWithLabel,
+    LoginInputWithLabel,
 }

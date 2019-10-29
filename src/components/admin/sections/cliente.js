@@ -41,12 +41,14 @@ const ClienteSection = ({ clientList = [] }) => {
     const renderContent = () => {
         switch (selectedTab) {
             case tabs[0]:
-                return <DataTable
-                    data={clientList}
-                    filter={filter}
-                    filterCallback={filterCallback}
-                    mapCallback={mapCallback}
-                />
+                return(
+                    <DataTable
+                        data={clientList}
+                        filter={filter}
+                        filterCallback={filterCallback}
+                        mapCallback={mapCallback}
+                    />
+                )
             case tabs[1]:
                 return <ClienteForm selectedClient={selectedClient} />
             default:

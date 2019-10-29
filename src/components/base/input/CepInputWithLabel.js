@@ -4,12 +4,12 @@ import { InputWithLabel } from '../'
 import { formatCep } from '../../../util/string'
 import { validateCep, isLocationValid } from '../../../util/validation'
 
-const CepInputWithLabel = ({ value, validCepCallback, isInvalid, ...props}) => {
+const CepInputWithLabel = ({ value, validCepCallback, isInvalid, ...props }) => {
     const [isInvalidCep, setInvalidCep] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const onBlur = (e) => {
         const cep = e.target.value
-        if (cep.length < 9) { 
+        if (cep.length < 9) {
             setInvalidCep(true)
             return
         }
@@ -39,7 +39,7 @@ const CepInputWithLabel = ({ value, validCepCallback, isInvalid, ...props}) => {
 
     return (
         <InputWithLabel
-            { ...props }
+            {...props}
             value={formatCep(value)}
             maxLength={9}
             onBlur={onBlur}

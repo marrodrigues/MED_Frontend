@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { CepInputWithLabel } from '../base'
+import { EmailInputWithLabel } from '../base'
 
 const Container = styled.div`
     display: flex;
@@ -9,17 +9,17 @@ const Container = styled.div`
 
 
 const TestComponent = () => {
-    const [cep, setCep] = useState('')
+    const [email, setEmail] = useState('')
     const [errors, setErrors] = useState({})
     return (
         <Container>
             <h1>TestComponent</h1>
-            <CepInputWithLabel 
-                label='CEP'
-                value={cep}
-                onChange={setCep}
-                isInvalid={errors.cep}
-                labelColor='white'
+            <EmailInputWithLabel 
+                label='Email'
+                value={email}
+                onChange={setEmail}
+                isInvalid={errors.email}
+                // labelColor='white'
                 validCepCallback={()=>{}}
             />
         </Container>

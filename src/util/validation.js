@@ -9,4 +9,8 @@ const isLocationValid = ({ localidade, bairro }) => {
     return localidade === ALLOWED_CITY && ALLOWED_DISTRICTS.includes(bairro)
 }
 
-export { validateCep, isLocationValid }
+const validateEmail = (email) => axios.get('https://med-backend-dev.herokuapp.com/pessoas/email/' + email)
+
+const validateLogin = (login) => axios.get('https://med-backend-dev.herokuapp.com/pessoas/login/' + login)
+
+export { validateCep, isLocationValid, validateEmail, validateLogin }
