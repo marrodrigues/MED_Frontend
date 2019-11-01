@@ -26,10 +26,10 @@ const ClienteSection = ({ clientList = [] }) => {
         console.log(filterValues)
         if (filterValues.every(filter => filter === '')) return true
         return (
-        (filterValues[0] && client.pessoa.nome.includes(filterValues[0]))
-        && (filterValues[1] && client.pessoa.email.includes(filterValues[1]))
-        && (filterValues[2] && client.pessoa.cpf.includes(filterValues[2]))
-        && (filterValues[3] && client.pessoa.login.includes(filterValues[3]))
+        (filterValues[0] ? client.pessoa.nome.includes(filterValues[0]) : true)
+        && (filterValues[1] ? client.pessoa.email.includes(filterValues[1]) : true)
+        && (filterValues[2] ? client.pessoa.cpf.includes(filterValues[2]) : true)
+        && (filterValues[3] ? client.pessoa.login.includes(filterValues[3]) : true)
     )}
     const updateFilterValues = (e, index) => {
         filterValues[index] = e.target.value
