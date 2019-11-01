@@ -21,20 +21,25 @@ const ClienteSection = ({ clientList = [] }) => {
     }, [selectedClient])
     const [selectedTab, setSelectedTab] = useState(tabs[0])
     const [filter, setFilter] = useState('')
-    
-    const filterCallback = client => (
-        client.pessoa.nome.includes(filter)
-        || client.pessoa.email.includes(filter)
-        || client.pessoa.cpf.includes(filter)
-        || client.pessoa.login.includes(filter)
-    )
+    const [filterValues, setFilterValues] = useState(['', '', '', ''])
+    const filterCallback = client => {
+        console.log(filterValues)
+        if (filterValues.every(filter => filter === '')) return true
+        return (
+        (filterValues[0] && client.pessoa.nome.includes(filterValues[0]))
+        || (filterValues[1] && client.pessoa.email.includes(filterValues[1]))
+        || (filterValues[2] && client.pessoa.cpf.includes(filterValues[2]))
+        || (filterValues[3] && client.pessoa.login.includes(filterValues[3]))
+    )}
+    const updateFilterValues = (e, index) => {
+        filterValues[index] = e.target.value
+        setFilterValues(filterValues.slice())
+        console.log(filterValues)
+    }
     const fields = [ 'nome', 'email', 'cpf', 'login' ]
     const mapCallback = client => (
         <tr key={client.pessoa.cpf} onClick={() => { setSelectedClient(client) }}>
             {fields.map(field => <td key={`${field}-${client.pessoa.cpf}`}>{client.pessoa[field]}</td>)}
-            {/* <td>{client.pessoa.nome}</td>
-            <td>{client.pessoa.email}</td>
-            <td>{client.pessoa.cpf}</td> */}
         </tr>        
     )
     
@@ -47,6 +52,9 @@ const ClienteSection = ({ clientList = [] }) => {
                         filter={filter}
                         filterCallback={filterCallback}
                         mapCallback={mapCallback}
+                        showFilters
+                        updateFilterValues={updateFilterValues}
+                        filterValues={filterValues}
                     />
                 )
             case tabs[1]:

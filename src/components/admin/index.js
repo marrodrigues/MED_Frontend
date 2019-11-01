@@ -144,10 +144,7 @@ const Admin = ({ sections, initialValues }) => {
             case 'Registro':
                 return <RegisterForm initialValues={initialValues} />
             case 'Clientes':
-                return (
-                    <ClienteSection
-                        clientList={clientList}/>
-                )
+                return <ClienteSection clientList={clientList}/>
             case 'Meus Dados':
                 console.log(selectedClient)
                 return <MeusDadosSection initialValues={initialValues} clientList={clientList}/>

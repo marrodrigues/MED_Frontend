@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const Table = styled.table`
@@ -19,15 +19,24 @@ const Table = styled.table`
         }
     }
 `
-const DataTable = ({ data, filter, filterCallback, mapCallback, fields = [ 'nome', 'email', 'cpf', 'login' ] }) => {
-    const filteredData = filter ? data.filter(filterCallback) : data
-    // const fields = [ 'nome', 'email', 'cpf', 'login' ]
+const DataTable = ({ data, filter, filterCallback, mapCallback, fields = ['nome', 'email', 'cpf', 'login'], showFilters, updateFilterValues, filterValues }) => {
+    const filteredData = data.filter(filterCallback)
+
     return (
         <Table>
             <thead>
                 <tr className='header'>
                     {
-                        fields.map(field => <th>{field.toUpperCase()}</th>)
+                        fields.map((field, index) =>
+                            <th>
+                                {field.toUpperCase()}
+                                {showFilters &&
+                                <input
+                                    value={filterValues[index]}
+                                    onChange={(e) => { updateFilterValues(e, index) }}
+                                />}
+                            </th>
+                        )
                     }
                 </tr>
             </thead>
