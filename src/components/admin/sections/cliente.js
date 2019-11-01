@@ -27,9 +27,9 @@ const ClienteSection = ({ clientList = [] }) => {
         if (filterValues.every(filter => filter === '')) return true
         return (
         (filterValues[0] && client.pessoa.nome.includes(filterValues[0]))
-        || (filterValues[1] && client.pessoa.email.includes(filterValues[1]))
-        || (filterValues[2] && client.pessoa.cpf.includes(filterValues[2]))
-        || (filterValues[3] && client.pessoa.login.includes(filterValues[3]))
+        && (filterValues[1] && client.pessoa.email.includes(filterValues[1]))
+        && (filterValues[2] && client.pessoa.cpf.includes(filterValues[2]))
+        && (filterValues[3] && client.pessoa.login.includes(filterValues[3]))
     )}
     const updateFilterValues = (e, index) => {
         filterValues[index] = e.target.value
@@ -78,12 +78,12 @@ const ClienteSection = ({ clientList = [] }) => {
                         </Tab>
                     )}
                 </TabsContainer>
-                {selectedTab === tabs[0] &&
+                {/* {selectedTab === tabs[0] &&
                 <StyledInputWithLabel
                     label='Filtrar'
                     value={filter}
                     onChange={setFilter}
-                />}
+                />} */}
             </TabsAndFilter>
             {renderContent()}
         </Container>
