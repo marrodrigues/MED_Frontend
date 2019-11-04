@@ -18,6 +18,7 @@ const Button = styled.button`
     font: Bold 22px Raspoutine;
     color: white;
     border: none;
+    z-index: 1;
 `
 
 const Hero = () => (

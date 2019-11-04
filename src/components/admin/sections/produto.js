@@ -13,7 +13,7 @@ const ProdutoSection = ({ productList = [], ...props }) => {
     }, [selectedProduct])
     const [filter, setFilter] = useState('')
     const filterCallback = product => (
-        product.descricao.includes(filter)
+        product.nome.includes(filter)
     )
     const fields = [ 'nome', 'tamanho', 'valor']
     const mapCallback = product => (
