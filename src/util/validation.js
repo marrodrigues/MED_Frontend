@@ -13,4 +13,6 @@ const validateEmail = (email) => axios.get('https://med-backend-dev.herokuapp.co
 
 const validateLogin = (login) => axios.get('https://med-backend-dev.herokuapp.com/pessoas/login/' + login)
 
-export { validateCep, isLocationValid, validateEmail, validateLogin }
+const validateCpf = (cpf) => axios.get('https://med-backend-dev.herokuapp.com/pessoas/cpf/' + cpf)
+
+export { validateCep, isLocationValid, validateEmail, validateLogin, validateCpf }

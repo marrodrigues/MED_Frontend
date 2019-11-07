@@ -19,7 +19,7 @@ const Table = styled.table`
         }
     }
 `
-const DataTable = ({ data, filter, filterCallback, mapCallback, fields = ['nome', 'email', 'cpf', 'login'], showFilters, updateFilterValues, filterValues }) => {
+const DataTable = ({ data, filterCallback, mapCallback, fields, showFilters, updateFilterValues, filterValues }) => {
     const filteredData = data.filter(filterCallback)
 
     return (
@@ -29,7 +29,7 @@ const DataTable = ({ data, filter, filterCallback, mapCallback, fields = ['nome'
                     {
                         fields.map((field, index) =>
                             <th>
-                                {field.toUpperCase()}
+                                <span>{field.displayName || field.toUpperCase()}</span>
                                 {showFilters &&
                                 <input
                                     value={filterValues[index]}

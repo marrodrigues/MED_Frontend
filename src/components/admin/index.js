@@ -76,7 +76,7 @@ const Content = styled.section`
 
 const Admin = ({ sections, initialValues }) => {
     // TODO remover após teste
-    const [selectedItem, setSelectedItem] = useState(sections[0].name)
+    const [selectedItem, setSelectedItem] = useState(sections[4].name)
     const onClickNavItem = (section) => { setSelectedItem(section) }
     const [clientList, setClientList] =  useState([])
     const [selectedClient, setSelectedClient] = useState(PESSOA_DEFAULT_VALUE)
@@ -162,7 +162,12 @@ const Admin = ({ sections, initialValues }) => {
             case 'Produtos':
                 return <ProdutoSection productList={productList} />
             case 'Pedidos':
-                return <PedidoSection orderList={orderList} />
+                return <PedidoSection
+                    orderList={orderList}
+                    productList={productList}
+                    clientList={clientList}
+                    employeeList={employeeList}
+                />
             default:
                 return <ComingSoonComponent />
         }

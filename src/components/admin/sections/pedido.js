@@ -5,7 +5,13 @@ import { InputWithLabel } from '../../base'
 import PedidoForm from '../../forms/PedidoForm'
 import DataTable from './DataTable'
 
-const PedidoSection = ({ orderList = [], ...props }) => {
+const PedidoSection = ({
+    orderList = [],
+    clientList = [],
+    employeeList = [],
+    productList = [],
+    ...props
+}) => {
     const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
     const [selectedOrder, setSelectedOrder] = useState({})
     useEffect(() => {
@@ -38,7 +44,12 @@ const PedidoSection = ({ orderList = [], ...props }) => {
                     fields={fields}
                 />)
             case ADMIN_TABS[1]:
-                return <PedidoForm selectedOrder={selectedOrder}/>
+                return <PedidoForm
+                    selectedOrder={selectedOrder}
+                    clientList={clientList.map(client => ({id: client.id, nome: client.pessoa.nome}))}
+                    employeeList={employeeList.map(employee => ({id: employee.id, nome: employee.pessoa.nome}))}
+                    productList={productList.map(product => ({id: product.id, nome: product.nome}))}
+                />
             default:
                 return null
         }
@@ -58,12 +69,12 @@ const PedidoSection = ({ orderList = [], ...props }) => {
                         </Tab>
                     )}
                 </TabsContainer>
-                {selectedTab === ADMIN_TABS[0] &&
+                {/* {selectedTab === ADMIN_TABS[0] &&
                     <InputWithLabel
                         label='Filtrar'
                         value={filter}
                         onChange={setFilter}
-                    />}
+                    />} */}
             </TabsAndFilter>
             {renderContent()}
         </Container>

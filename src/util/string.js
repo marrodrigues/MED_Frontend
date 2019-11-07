@@ -27,4 +27,33 @@ const getValuesFromQueryString = () => {
     return {}
 }
 
-export { formatCep, capitalize, getValuesFromQueryString }
+const formatCpf = (unformattedCpf) => {
+    const digits = removeNonNumericDigits(unformattedCpf)
+    let formattedCpf = ''
+    for (let digit of digits) {
+        if (formattedCpf.length === 3 || formattedCpf.length === 7) {
+            formattedCpf += '.'
+        }
+        if (formattedCpf.length === 11) {
+            formattedCpf += '-'
+        }
+        formattedCpf += digit
+    }
+    return formattedCpf
+}
+// const formatPhone = (unformattedPhone) => {
+//     const digits = removeNonNumericDigits(unformattedPhone)
+//     let formattedPhone = ''
+//     for (let digit of digits) {
+//         if (formattedPhone.length === 0) {
+//             formattedPhone += '('
+//         }
+//         if (formattedPhone.length === 3) {
+//             formattedPhone += ')'
+//         }
+
+
+//     }
+// }
+
+export { formatCep, capitalize, getValuesFromQueryString, formatCpf }

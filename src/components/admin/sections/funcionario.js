@@ -28,10 +28,22 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
         || employee.pessoa.cpf.includes(filter)
         || employee.pessoa.login.includes(filter)
     )
-    const fields = [ 'nome', 'email', 'cpf', 'login' ]
+    const fields = [{
+        name: 'nome',
+        displayName: 'Nome'
+    }, {
+        name: 'email',
+        displayName: 'E-mail'
+    }, {
+        name: 'cpf',
+        displayName: 'CPF'
+    }, {
+        name: 'login',
+        displayName: 'Login'
+    }]
     const mapCallback = employee => (
         <tr key={employee.pessoa.cpf} onClick={() => { setSelectedEmployee(employee) }}>
-            {fields.map(field => <td key={`${field}-${employee.pessoa.cpf}`}>{employee.pessoa[field]}</td>)}
+            {fields.map(field => <td key={`${field.displayName}-${employee.pessoa.cpf}`}>{employee.pessoa[field.name]}</td>)}
             {/* <td>{client.pessoa.nome}</td>
             <td>{client.pessoa.email}</td>
             <td>{client.pessoa.cpf}</td> */}
@@ -47,6 +59,7 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
                         filter={filter}
                         filterCallback={filterCallback}
                         mapCallback={mapCallback}
+                        fields={fields}
                     />
                 )
             case ADMIN_TABS[1]:
@@ -71,12 +84,12 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
                         </Tab>
                     )}
                 </TabsContainer>
-                {selectedTab === ADMIN_TABS[0] &&
+                {/* {selectedTab === ADMIN_TABS[0] &&
                     <StyledInputWithLabel
                         label='Filtrar'
                         value={filter}
                         onChange={setFilter}
-                    />}
+                    />} */}
             </TabsAndFilter>
             {renderContent()}
         </Container>

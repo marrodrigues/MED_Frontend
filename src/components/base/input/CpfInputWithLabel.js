@@ -3,22 +3,23 @@ import { connect } from 'react-redux'
 import { setLoading, setNotLoading } from '../../../actions'
 
 import { InputWithLabel } from '../'
-import { validateEmail } from '../../../util/validation'
+import { formatCpf } from '../../../util/string'
+import { validateCpf } from '../../../util/validation'
 
-const EmailInputWithLabel = ({ value, emailExistsCallback = () => {}, emailNotFoundCallback = () => {}, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
-    const [isInvalidEmail, setInvalidEmail] = useState(false)
+const CpfInputWithLabel = ({ value, cpfExistsCallback = () => {}, cpfNotFoundCallback = () => {}, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
+    const [isInvalidCpf, setInvalidCpf] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const onBlur = e => {
         setIsLoading()
-        const email = e.target.value
-        validateEmail(email)
+        const cpf = e.target.value
+        validateCpf(cpf)
             .then(response => response.data)
             .then(data => {
-                emailExistsCallback(data)
+                cpfExistsCallback(data)
             })
             .catch(error => {
                 if (error.response.status === 404) {
-                    emailNotFoundCallback()
+                    cpfNotFoundCallback()
                 } else {
                     console.log(JSON.stringify(error))
                 }
@@ -31,15 +32,15 @@ const EmailInputWithLabel = ({ value, emailExistsCallback = () => {}, emailNotFo
     return (
         <InputWithLabel
             {...props}
-            label='E-mail'
-            value={value}
+            maxLength={14}
+            label='CPF'
+            value={formatCpf(value)}
             onBlur={onBlur}
-            isInvalid={isInvalid || isInvalidEmail}
+            isInvalid={isInvalid || isInvalidCpf}
             errorMessage={errorMessage}
         />
     )
 }
-
 const mapStateToProps = state => {
     const { app } = state
     const { loading } = app
@@ -54,4 +55,4 @@ const mapDispatchToProps = dispatch => ({
     }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmailInputWithLabel)
+export default connect(mapStateToProps, mapDispatchToProps)(CpfInputWithLabel)

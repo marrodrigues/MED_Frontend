@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { setLoading, setNotLoading } from '../../../actions'
 
 import { InputWithLabel } from '../'
 import { formatCep } from '../../../util/string'
 import { validateCep, isLocationValid } from '../../../util/validation'
 
-const CepInputWithLabel = ({ value, validCepCallback, isInvalid, ...props }) => {
+const CepInputWithLabel = ({ value, validCepCallback, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
     const [isInvalidCep, setInvalidCep] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const onBlur = (e) => {
+        setIsLoading()
         const cep = e.target.value
         if (cep.length < 9) {
+            setIsNotLoading()
+            setErrorMessage('CEP inválido')
             setInvalidCep(true)
             return
         }
@@ -33,7 +38,7 @@ const CepInputWithLabel = ({ value, validCepCallback, isInvalid, ...props }) => 
                 setInvalidCep(true)
             })
             .finally(() => {
-                // setIsNotLoading()
+                setIsNotLoading()
             })
     }
 
@@ -42,11 +47,25 @@ const CepInputWithLabel = ({ value, validCepCallback, isInvalid, ...props }) => 
             {...props}
             value={formatCep(value)}
             maxLength={9}
+            label='CEP'
             onBlur={onBlur}
             isInvalid={isInvalid || isInvalidCep}
             errorMessage={errorMessage}
         />
     )
 }
+const mapStateToProps = state => {
+    const { app } = state
+    const { loading } = app
+    return { loading }
+}
+const mapDispatchToProps = dispatch => ({
+    setIsLoading: () => {
+        dispatch(setLoading())
+    },
+    setIsNotLoading: () => {
+        dispatch(setNotLoading())
+    }
+})
 
-export default CepInputWithLabel
+export default connect(mapStateToProps, mapDispatchToProps)(CepInputWithLabel)

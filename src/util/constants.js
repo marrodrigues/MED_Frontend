@@ -61,6 +61,20 @@ const PESSOA_DEFAULT_VALUE = {
 
 const ADMIN_TABS = ['Lista', 'Formulário']
 
+const CLIENT_FIELDS = [{
+    name: 'nome',
+    displayName: 'Nome'
+}, {
+    name: 'email',
+    displayName: 'E-mail'
+}, {
+    name: 'cpf',
+    displayName: 'CPF'
+}, {
+    name: 'login',
+    displayName: 'Login'
+}];
+
 export {
     PATHS,
     ALLOWED_CITY,
@@ -69,5 +83,6 @@ export {
     KEYS,
     FOOTER_TABS,
     PESSOA_DEFAULT_VALUE,
-    ADMIN_TABS
+    ADMIN_TABS,
+    CLIENT_FIELDS,
 }

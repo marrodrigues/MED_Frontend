@@ -5,7 +5,8 @@ import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './ba
 import { InputWithLabel } from '../../base'
 import DataTable from './DataTable'
 import ClienteForm from '../../forms/ClienteForm'
-import { PESSOA_DEFAULT_VALUE } from '../../../util/constants'
+import { PESSOA_DEFAULT_VALUE, CLIENT_FIELDS } from '../../../util/constants'
+
 
 const StyledInputWithLabel = styled(InputWithLabel)`
     
@@ -36,10 +37,10 @@ const ClienteSection = ({ clientList = [] }) => {
         setFilterValues(filterValues.slice())
         console.log(filterValues)
     }
-    const fields = [ 'nome', 'email', 'cpf', 'login' ]
+    // const fields = [ 'nome', 'email', 'cpf', 'login' ]
     const mapCallback = client => (
         <tr key={client.pessoa.cpf} onClick={() => { setSelectedClient(client) }}>
-            {fields.map(field => <td key={`${field}-${client.pessoa.cpf}`}>{client.pessoa[field]}</td>)}
+            {CLIENT_FIELDS.map(field => <td key={`${field.name}-${client.pessoa.cpf}`}>{client.pessoa[field.name]}</td>)}
         </tr>        
     )
     
@@ -47,8 +48,9 @@ const ClienteSection = ({ clientList = [] }) => {
         switch (selectedTab) {
             case tabs[0]:
                 return(
-                    <DataTable
+                    <DataTable  
                         data={clientList}
+                        fields={CLIENT_FIELDS}
                         filter={filter}
                         filterCallback={filterCallback}
                         mapCallback={mapCallback}

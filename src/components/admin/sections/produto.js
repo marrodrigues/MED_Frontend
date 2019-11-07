@@ -54,12 +54,12 @@ const ProdutoSection = ({ productList = [], ...props }) => {
                         </Tab>
                     )}
                 </TabsContainer>
-                {selectedTab === ADMIN_TABS[0] &&
+                {/* {selectedTab === ADMIN_TABS[0] &&
                     <InputWithLabel
                         label='Filtrar'
                         value={filter}
                         onChange={setFilter}
-                    />}
+                    />} */}
             </TabsAndFilter>
             {renderContent()}
         </Container>

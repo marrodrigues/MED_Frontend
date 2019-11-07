@@ -6,6 +6,7 @@ import BaseButton from './button'
 import CepInputWithLabel from './input/CepInputWithLabel'
 import EmailInputWithLabel from './input/EmailInputWithLabel'
 import LoginInputWithLabel from './input/LoginInputWithLabel'
+import CpfInputWithLabel from './input/CpfInputWithLabel'
 
 export {
     BaseInput,
@@ -16,4 +17,5 @@ export {
     CepInputWithLabel,
     EmailInputWithLabel,
     LoginInputWithLabel,
+    CpfInputWithLabel,
 }
