@@ -149,8 +149,8 @@ const Admin = ({ sections, initialValues }) => {
                 console.log(selectedClient)
                 return <MeusDadosSection initialValues={initialValues} clientList={clientList}/>
             case 'Meus Pedidos':  
-                return <TestComponent/>
-                // return <MeusPedidosForm />
+                // return <TestComponent/>
+                return <MeusPedidosForm />
             case 'Alterar Senha':
                 return <ChangePasswordForm />
             case 'Funcionários':
