@@ -21,18 +21,18 @@ const InsumoProvider = {
         if (supplyObj.id) {
             axios.put('https://med-backend-dev.herokuapp.com/insumos/' + supplyObj.id, supplyObj, params)
                 .then(response => {
-                    // // debugger
+                    debugger
                 })
                 .catch(error => {
-                    // // debugger
+                    debugger
                 })
         } else {
             axios.post('https://med-backend-dev.herokuapp.com/insumos/', supplyObj, params)
                 .then(response => {
-                    // // debugger
+                    debugger
                 })
                 .catch(error => {
-                    // // debugger
+                    debugger
                 })
         }
     },

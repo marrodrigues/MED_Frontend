@@ -5,7 +5,7 @@ import { InputWithLabel } from '../../base'
 import LoteForm from '../../forms/LoteForm'
 import DataTable from './DataTable'
 
-const LoteSection = ({ bundleList = [], ...props }) => {
+const LoteSection = ({ bundleList = [], supplyList = [], productList = [], ...props }) => {
     const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
     const [selectedBundle, setSelectedBundle] = useState({})
     useEffect(() => {
@@ -35,7 +35,7 @@ const LoteSection = ({ bundleList = [], ...props }) => {
                     fields={fields}
                 />)
             case ADMIN_TABS[1]:
-                return <LoteForm selectedBundle={selectedBundle}/>
+                return <LoteForm selectedBundle={selectedBundle} supplyList={supplyList} productList={productList} />
             default:
                 return null
         }
@@ -55,12 +55,6 @@ const LoteSection = ({ bundleList = [], ...props }) => {
                         </Tab>
                     )}
                 </TabsContainer>
-                {/* {selectedTab === ADMIN_TABS[0] &&
-                    <InputWithLabel
-                        label='Filtrar'
-                        value={filter}
-                        onChange={setFilter}
-                    />} */}
             </TabsAndFilter>
             {renderContent()}
         </Container>

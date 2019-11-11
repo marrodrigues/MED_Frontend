@@ -17,7 +17,7 @@ const InsumoSection = ({ supplyList = [], ...props }) => {
         || supply.unidade.includes(filter)
         || supply.qtd_unid.includes(filter)
     )
-    const fields = [ 'descricao', 'qtd_unid', 'unidade']
+    const fields = [ 'descricao', 'qtd_unid', 'unidade' ]
     const mapCallback = supply => (
         <tr key={supply.descricao} onClick={() => { setSelectedSupply(supply) }}>
             {fields.map(field => <td key={`${field}-${supply.descricao}`}>{supply[field]}</td>)}
@@ -56,12 +56,6 @@ const InsumoSection = ({ supplyList = [], ...props }) => {
                         </Tab>
                     )}
                 </TabsContainer>
-                {/* {selectedTab === ADMIN_TABS[0] &&
-                    <InputWithLabel
-                        label='Filtrar'
-                        value={filter}
-                        onChange={setFilter}
-                    />} */}
             </TabsAndFilter>
             {renderContent()}
         </Container>

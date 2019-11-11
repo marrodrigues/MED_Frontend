@@ -7,6 +7,8 @@ import CepInputWithLabel from './input/CepInputWithLabel'
 import EmailInputWithLabel from './input/EmailInputWithLabel'
 import LoginInputWithLabel from './input/LoginInputWithLabel'
 import CpfInputWithLabel from './input/CpfInputWithLabel'
+import DescricaoInputWithLabel from './input/DescricaoInputWithLabel'
+import LoteInputWithLabel from './input/LoteInputWithLabel'
 
 export {
     BaseInput,
@@ -18,4 +20,6 @@ export {
     EmailInputWithLabel,
     LoginInputWithLabel,
     CpfInputWithLabel,
+    DescricaoInputWithLabel,
+    LoteInputWithLabel,
 }

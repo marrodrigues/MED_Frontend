@@ -4,11 +4,18 @@ import styled from 'styled-components'
 import { BaseForm, InputWithLabel } from '../base'
 import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
+import LoteInputWithLabel from "../base/input/LoteInputWithLabel";
+import LoteProvider from "../../providers/LoteProvider";
+import Select from "../select";
 
 const StyledBaseForm = styled(BaseForm)`
 max-width: 330px;
 `
-const LoteForm = ({ selectedBundle: initial, setIsLoading, setIsNotLoading, loading, ...props }) => {
+const tipoLote = [
+    { value: 'insumo', label: 'Insumo'},
+    { value: 'produto', label: 'Produto'},
+]
+const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoading, setIsNotLoading, loading, ...props }) => {
     const [selectedBundle, setSelectedBundle] = useState(initial || {})
     useEffect(() => {
         setSelectedBundle(selectedBundle)
@@ -21,13 +28,57 @@ const LoteForm = ({ selectedBundle: initial, setIsLoading, setIsNotLoading, load
     const [valor_unitario, setValorUnitario] = useState(selectedBundle.valor_unitario || '')
     const [insumo, setInsumo] = useState(selectedBundle.insumoId || '')
     const [produto, setProduto] = useState(selectedBundle.produtoId || '')
+    const [bundleType, setBundleType] = useState(tipoLote[0].value)
+    const loteExistsCallback = (data) => {
+        setSelectedBundle(data)
+        setQtd(data.qtd)
+        setInsumo(data.insumoId)
+        setProduto(data.produtoId)
+        setValidade(data.validade)
+        setValorUnitario(data.valor_unitario)
+    }
+    const loteNotFoundCallback = () => {
+        setSelectedBundle({})
+        setQtd('')
+        setInsumo(supplyList[0] && supplyList[0].id || '')
+        setProduto('')
+        setValidade('')
+        setValorUnitario('')
+    }
+    const onChangeProduct = event => {
+        setProduto(event.target.value)
+    }
+    const onChangeSupply = event => {
+        setInsumo(event.target.value)
+    }
+    const onChangeBundleType = event => {
+        const tipo = event.target.value
+        setBundleType(tipo)
+        if (tipo === 'insumo') {
+            setProduto('')
+            setInsumo(supplyList[0] && supplyList[0].id || '')
+        } else {
+            setInsumo('')
+            setProduto(productList[0] && productList[0].id || '')
+        }
+    }
+    const filteredProductList = productList.filter(product => product.tipo === '2')
+    const onSubmit = event => {
+        event.stopPropagation()
+        event.preventDefault()
+        const loteObj = { lote, qtd, validade, valor_unitario, insumoId: insumo, produtoId: produto }
+        console.log(loteObj)
+        LoteProvider.createOrUpdate({ id: selectedBundle.id, ...loteObj })
+    }
+
     const [errors, setErrors] = useState({})
     return (
-        <StyledBaseForm key='Lote-form' id='Lote-form' {...props} >
-            <InputWithLabel
-                label='Lote'
+        <StyledBaseForm key='Lote-form' id='Lote-form' {...props} onSubmit={onSubmit}>
+            <LoteInputWithLabel
                 value={lote}
                 onChange={setLote}
+                loteExistsCallback={loteExistsCallback}
+                loteNotFoundCallback={loteNotFoundCallback}
             />
             <InputWithLabel
                 label='Quantidade'
@@ -47,17 +98,30 @@ const LoteForm = ({ selectedBundle: initial, setIsLoading, setIsNotLoading, load
                 onChange={setValorUnitario}
                 type='number'
             />
-            <InputWithLabel
-                label='Insumo'
-                value={insumo}
-                onChange={setInsumo}
+            <Select
+                label='Tipo de lote'
+                objectList={tipoLote}
+                fieldForValue={'value'}
+                fieldForLabel={'label'}
+                onChangeValue={onChangeBundleType}
             />
-            <InputWithLabel
-                label='Produto'
-                value={produto}
-                onChange={setProduto}
-            />
-            <ButtonOrSpinner label='Cadastrar' />
+            { bundleType === 'insumo'
+                ? (<Select
+                    label='Insumo'
+                    objectList={supplyList}
+                    fieldForValue={'id'}
+                    fieldForLabel={'descricao'}
+                    onChangeValue={onChangeSupply}
+                />)
+                : (<Select
+                    label='Produtos'
+                    objectList={filteredProductList}
+                    fieldForValue={'id'}
+                    fieldForLabel={'nome'}
+                    onChangeValue={onChangeProduct}
+                />)
+            }
+            <ButtonOrSpinner label={selectedBundle.id ? 'Atualizar' : 'Cadastrar'} />
         </StyledBaseForm>
     )
 }

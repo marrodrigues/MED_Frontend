@@ -4,10 +4,18 @@ import styled from 'styled-components'
 import { BaseForm, InputWithLabel } from '../base'
 import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
+import Select from "../select";
+import {InsumoProvider} from "../../providers";
+import DescricaoInputWithLabel from "../base/input/DescricaoInputWithLabel";
 
 const StyledBaseForm = styled(BaseForm)`
 max-width: 330px;
 `
+
+const unidades = [
+    { value: 'gramas', label: 'Gramas'},
+]
+
 const InsumoForm = ({ selectedSupply: initial, setIsLoading, setIsNotLoading, loading, ...props }) => {
     const [selectedSupply, setSelectedSupply] = useState(initial || {})
     useEffect(() => {
@@ -15,14 +23,31 @@ const InsumoForm = ({ selectedSupply: initial, setIsLoading, setIsNotLoading, lo
     }, [selectedSupply])
     const [descricao, setDescricao] = useState(selectedSupply.descricao || '')
     const [qtd_unid, setQtdUnidade] = useState(selectedSupply.qtd_unid || '')
-    const [unidade, setUnidade] = useState(selectedSupply.unidade || '')
+    const [unidade, setUnidade] = useState(selectedSupply.unidade || unidades[0].value)
     const [errors, setErrors] = useState({})
+    const onSubmit = event => {
+        event.stopPropagation()
+        event.preventDefault()
+        const insumoObj = { descricao, qtd_unid, unidade }
+        InsumoProvider.createOrUpdate({ id: selectedSupply.id, ...insumoObj })
+    }
+    const descricaoExistsCallback = (data) => {
+        setSelectedSupply(data)
+        setQtdUnidade(data.qtd_unid)
+        setUnidade(data.unidade)
+    }
+    const descricaoNotFoundCallback = () => {
+        setSelectedSupply({})
+        setQtdUnidade('')
+        setUnidade(unidades[0].value)
+    }
     return (
-        <StyledBaseForm key='insumo-form' id='insumo-form' {...props} >
-            <InputWithLabel
-                label='Descrição'
+        <StyledBaseForm key='insumo-form' id='insumo-form' {...props} onSubmit={onSubmit} >
+            <DescricaoInputWithLabel
                 value={descricao}
                 onChange={setDescricao}
+                descricaoExistsCallback={descricaoExistsCallback}
+                descricaoNotFoundCallback={descricaoNotFoundCallback}
             />
             <InputWithLabel
                 label='Quantidade por unidade'
@@ -30,12 +55,15 @@ const InsumoForm = ({ selectedSupply: initial, setIsLoading, setIsNotLoading, lo
                 onChange={setQtdUnidade}
                 type='number'
             />
-            <InputWithLabel
+            <Select
                 label='Unidade'
-                value={unidade}
-                onChange={setUnidade}
+                objectList={unidades}
+                fieldForValue={'value'}
+                fieldForLabel={'label'}
+                onChangeValue={setUnidade}
             />
-            <ButtonOrSpinner label='Cadastrar' />
+
+            <ButtonOrSpinner label={selectedSupply.id ? 'Atualizar' : 'Cadastrar'} />
         </StyledBaseForm>
     )
 }

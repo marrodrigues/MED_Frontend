@@ -21,6 +21,7 @@ const CepInputWithLabel = ({ value, validCepCallback, isInvalid, setIsLoading, s
         validateCep(cep)
             .then(response => response.data)
             .then(data => {
+                debugger
                 if (data.erro) {
                     setErrorMessage('CEP inválido')
                     setInvalidCep(true)

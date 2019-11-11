@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux';
 
 import { BaseInput, BaseLabel } from '../'
 
@@ -12,7 +13,17 @@ const Container = styled.div`
     }
 `
 
-const InputWithLabel = ({ label, value, onChange, type = 'text', isInvalid, labelColor = '#236C4A', errorMessage, ...props }) => {
+const InputWithLabel = ({
+    label,
+    value,
+    onChange,
+    type = 'text',
+    isInvalid,
+    labelColor = '#236C4A',
+    errorMessage,
+    loading,
+    ...props
+}) => {
     return (
         <Container>
             <BaseLabel color={isInvalid ? 'red' : labelColor}>{`${label}${(isInvalid ? ` - Erro: ${errorMessage}` : '')}`}</BaseLabel>
@@ -21,10 +32,16 @@ const InputWithLabel = ({ label, value, onChange, type = 'text', isInvalid, labe
                 onChange={(e) => { onChange(e.target.value) }}
                 type={type}
                 isInvalid={isInvalid}
+                disabled={loading || props.disabled}
                 {...props}
             />
         </Container>
     )
 }
+const mapStateToProps = state => {
+    const { app } = state
+    const { loading } = app
+    return { loading }
+}
 
-export default InputWithLabel
+export default connect(mapStateToProps)(InputWithLabel)

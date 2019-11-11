@@ -42,23 +42,23 @@ const LoteProvider = {
     },
     createOrUpdate: (data, callback) => {
         const loteObj = LoteFactory.createLote(data)
-        // console.log(loteObj)
+        console.log(loteObj)
         // // debugger
         if (loteObj.id) {
             axios.put('https://med-backend-dev.herokuapp.com/lotes/' + loteObj.id, loteObj, params)
                 .then(response => {
-                    // // debugger
+                    debugger
                 })
                 .catch(error => {
-                    // // debugger
+                    debugger
                 })
         } else {
             axios.post('https://med-backend-dev.herokuapp.com/lotes/', loteObj, params)
                 .then(response => {
-                    // // debugger
+                    debugger
                 })
                 .catch(error => {
-                    // // debugger
+                    debugger
                 })
         }
     },

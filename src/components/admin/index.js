@@ -158,9 +158,9 @@ const Admin = ({ sections, initialValues }) => {
             case 'Insumos':
                 return <InsumoSection supplyList={supplyList} />
             case 'Lotes':
-                return <LoteSection bundleList={bundleList} />
+                return <LoteSection bundleList={bundleList} productList={productList} supplyList={supplyList} />
             case 'Produtos':
-                return <ProdutoSection productList={productList} />
+                return <ProdutoSection productList={productList} supplyList={supplyList} />
             case 'Pedidos':
                 return <PedidoSection
                     orderList={orderList}

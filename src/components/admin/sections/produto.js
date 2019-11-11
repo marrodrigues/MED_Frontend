@@ -5,7 +5,7 @@ import { InputWithLabel } from '../../base'
 import ProdutoForm from '../../forms/ProdutoForm'
 import DataTable from './DataTable'
 
-const ProdutoSection = ({ productList = [], ...props }) => {
+const ProdutoSection = ({ productList = [], supplyList = [], ...props }) => {
     const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
     const [selectedProduct, setSelectedProduct] = useState({})
     useEffect(() => {
@@ -34,7 +34,7 @@ const ProdutoSection = ({ productList = [], ...props }) => {
                     fields={fields}
                 />)
             case ADMIN_TABS[1]:
-                return <ProdutoForm selectedProduct={selectedProduct}/>
+                return <ProdutoForm selectedProduct={selectedProduct} supplyList={supplyList}/>
             default:
                 return null
         }

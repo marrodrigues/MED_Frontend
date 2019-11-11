@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
-import { InputWithLabel } from '../../base'
 import DataTable from './DataTable'
 import ClienteForm from '../../forms/ClienteForm'
 import { PESSOA_DEFAULT_VALUE, CLIENT_FIELDS } from '../../../util/constants'
-
-
-const StyledInputWithLabel = styled(InputWithLabel)`
-    
-`
+import RegisterForm from "../../forms/RegisterForm";
 
 const tabs = ['Lista', 'Formulário']
 
@@ -60,7 +54,9 @@ const ClienteSection = ({ clientList = [] }) => {
                     />
                 )
             case tabs[1]:
-                return <ClienteForm selectedClient={selectedClient} />
+                return selectedClient.id
+                    ? <ClienteForm selectedClient={selectedClient} />
+                    : <RegisterForm initialValues={{}}/>
             default:
                 return null
         }
@@ -80,12 +76,6 @@ const ClienteSection = ({ clientList = [] }) => {
                         </Tab>
                     )}
                 </TabsContainer>
-                {/* {selectedTab === tabs[0] &&
-                <StyledInputWithLabel
-                    label='Filtrar'
-                    value={filter}
-                    onChange={setFilter}
-                />} */}
             </TabsAndFilter>
             {renderContent()}
         </Container>
