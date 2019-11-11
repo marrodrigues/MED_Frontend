@@ -8,7 +8,7 @@ import InputRow from '../base/form/InputRow'
 import { UserProvider } from '../../providers'
 // import styled from 'styled-components'
 
-const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading }) => {
+const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) => {
     const { CEP: cepPreRegistro, numero: numeroPreRegistro } = initialValues
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
@@ -91,7 +91,7 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading }) => {
 
 
     return (
-        <BaseForm title='Cadastro' key='register-form' id='register-form' onSubmit={handleSubmit}>
+        <BaseForm title={title} key='register-form' id='register-form' onSubmit={handleSubmit}>
             <InputRow>
             <InputWithLabel
                 label='Nome'

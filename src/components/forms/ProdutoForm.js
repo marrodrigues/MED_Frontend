@@ -43,7 +43,14 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
         setSelectedProduct(selectedProduct)
         if (selectedProduct.tipo === '1') {
             setTipoProduto(tiposProduto[0].value)
-            console.log(selectedProduct)
+            const insumos = selectedProduct.insumosProdutos.map(supply => {
+                console.log(supply)
+                return {
+                    id: supply.insumoId,
+                    qtd: supply.qtd
+                }
+            })
+            setInsumos(insumos)
         } else {
             setTipoProduto(tiposProduto[1].value)
         }
@@ -89,6 +96,24 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
         }
         setInsumos(_insumos)
     }
+    const productFound = (product) => {
+        setSelectedProduct(product)
+        setValor(product.valor)
+    }
+    const productNotFound = () => {
+        setSelectedProduct({})
+        setValor('')
+        setInsumos([])
+    }
+    const getProduto = () => {
+        const product = { nome, tamanho }
+        ProdutoProvider.getByNameAndSize(product, productFound, productNotFound)
+    }
+    useEffect(() => {
+        if (nome && tamanho) {
+            getProduto()
+        }
+    }, [nome, tamanho])
     const [errors, setErrors] = useState({})
     return (
         <StyledBaseForm key='Produto-form' id='Produto-form' {...props} onSubmit={onSubmit} >

@@ -142,7 +142,7 @@ const Admin = ({ sections, initialValues }) => {
     const renderSection = () => {
         switch (selectedItem) {
             case 'Registro':
-                return <RegisterForm initialValues={initialValues} />
+                return <RegisterForm initialValues={initialValues} title='Cadastro' />
             case 'Clientes':
                 return <ClienteSection clientList={clientList}/>
             case 'Meus Dados':

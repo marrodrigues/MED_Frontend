@@ -15,7 +15,7 @@ const ProdutoProvider = {
                 // // // // debugger
             })
     },
-    getByNameAndSize: (product, productExistsCallback, productDoesNotExistCallback, errorCallback) => {
+    getByNameAndSize: (product, productExistsCallback, productDoesNotExistCallback, errorCallback = () => {}) => {
         axios.get(`https://med-backend-dev.herokuapp.com/produtos/nome/${product.nome}/tamanho/${product.tamanho}`, params)
             .then(response => response.data)
             .then(data => {
