@@ -16,11 +16,11 @@ const Container = styled.div`
 `
 
 
-const Select = ({ objectList, fieldForValue, fieldForLabel, onChangeValue = () => {}, name, label }) => {
+const Select = ({ objectList, fieldForValue, fieldForLabel, onChangeValue = () => {}, name, label, ...props }) => {
     return (
         <Container>
             <BaseLabel color='#236C4A'>{label}</BaseLabel>
-            <StyledSelect name={name} onChange={onChangeValue}>
+            <StyledSelect name={name} onChange={onChangeValue} {...props}>
                 {
                     objectList.map(object =>
                         <option key={object[fieldForValue]} value={object[fieldForValue]}>

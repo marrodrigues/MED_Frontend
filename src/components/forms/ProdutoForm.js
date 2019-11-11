@@ -6,6 +6,7 @@ import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import Select from "../select";
 import BaseInput from "../base/input/BaseInput";
+import {ProdutoProvider} from "../../providers";
 
 const StyledBaseForm = styled(BaseForm)`
 max-width: 330px;
@@ -42,13 +43,14 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
         setSelectedProduct(selectedProduct)
         if (selectedProduct.tipo === '1') {
             setTipoProduto(tiposProduto[0].value)
+            console.log(selectedProduct)
         } else {
             setTipoProduto(tiposProduto[1].value)
         }
         setTamanho(selectedProduct.tamanho)
     }, [selectedProduct])
     const [nome, setNome] = useState(selectedProduct.nome || '')
-    const [tamanho, setTamanho] = useState(selectedProduct.tamanho || '')
+    const [tamanho, setTamanho] = useState(selectedProduct.tamanho || tamanhosPizza[0])
     const [valor, setValor] = useState(selectedProduct.valor || '')
     const [insumos, setInsumos] = useState(selectedProduct.insumos || [])
     const [tipoProduto, setTipoProduto] = useState(tiposProduto[0].value)
@@ -62,6 +64,11 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
     const onSubmit = event => {
         event.stopPropagation()
         event.preventDefault()
+        const produtoObj = { nome, tamanho, valor, tipo: Number(tipoProduto) }
+        if (tipoProduto === '1') {
+            produtoObj.insumos = insumos
+        }
+        ProdutoProvider.createOrUpdate({id: selectedProduct.id, ...produtoObj })
     }
     const getSupplyQuantity = supply => {
         const insumo = (insumos || []).find(_supply => _supply.id === supply.id)
@@ -96,6 +103,7 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
                 fieldForValue={'value'}
                 fieldForLabel={'label'}
                 onChangeValue={onChangeTipoProduto}
+                value={tipoProduto}
             />
             <Select
                 label='Tamanho'
@@ -103,6 +111,7 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
                 fieldForValue={'value'}
                 fieldForLabel={'value'}
                 onChangeValue={onChangeTamanho}
+                value={tamanho}
             />
             <InputWithLabel
                 label='Valor'

@@ -44,18 +44,18 @@ const ProdutoProvider = {
         if (data.id) {
             axios.put('https://med-backend-dev.herokuapp.com/produtos/' + data.id, data, params)
                 .then(response => {
-                    // // debugger
+                    debugger
                 })
                 .catch(error => {
-                    // // debugger
+                    debugger
                 })
         } else {
             axios.post('https://med-backend-dev.herokuapp.com/produtos/', data, params)
                 .then(response => {
-                    // // debugger
+                    debugger
                 })
                 .catch(error => {
-                    // // debugger
+                    debugger
                 })
         }
     },
