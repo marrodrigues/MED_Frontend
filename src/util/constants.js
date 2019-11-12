@@ -61,6 +61,8 @@ const PESSOA_DEFAULT_VALUE = {
 
 const ADMIN_TABS = ['Lista', 'Formulário']
 
+const REPORT_TABS = ['Produto', 'Cliente']
+
 const CLIENT_FIELDS = [{
     name: 'nome',
     displayName: 'Nome'
@@ -75,6 +77,12 @@ const CLIENT_FIELDS = [{
     displayName: 'Login'
 }];
 
+const TIPOS_PRODUTO = [
+    { value: '1', label: 'Pizza'},
+    { value: '2', label: 'Bebida'},
+]
+
+
 export {
     PATHS,
     ALLOWED_CITY,
@@ -85,4 +93,6 @@ export {
     PESSOA_DEFAULT_VALUE,
     ADMIN_TABS,
     CLIENT_FIELDS,
+    REPORT_TABS,
+    TIPOS_PRODUTO,
 }

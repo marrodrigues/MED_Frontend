@@ -10,6 +10,7 @@ const AdminPage = () => {
         {name: 'Lotes', icon: 'formatlistbulleted'},
         {name: 'Pedidos', icon: 'description'},
         {name: 'Produtos', icon: 'assignment'},
+        {name: 'Relatórios', icon: 'assessment'},
     ]
     return (
         <Admin

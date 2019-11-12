@@ -19,7 +19,7 @@ const Table = styled.table`
         }
     }
 `
-const DataTable = ({ data, filterCallback, mapCallback, fields, showFilters, updateFilterValues, filterValues }) => {
+const DataTable = ({ data, filterCallback = () => true, mapCallback, fields, showFilters, updateFilterValues, filterValues }) => {
     const filteredData = data.filter(filterCallback)
 
     return (

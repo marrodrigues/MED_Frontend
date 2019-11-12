@@ -7,6 +7,7 @@ import { setLoading, setNotLoading } from '../../actions'
 import Select from "../select";
 import BaseInput from "../base/input/BaseInput";
 import {ProdutoProvider} from "../../providers";
+import {TIPOS_PRODUTO} from "../../util/constants";
 
 const StyledBaseForm = styled(BaseForm)`
 max-width: 330px;
@@ -21,10 +22,6 @@ const CheckBoxContainer = styled.div`
     }
 `
 
-const tiposProduto = [
-    { value: '1', label: 'Pizza'},
-    { value: '2', label: 'Bebida'},
-]
 
 const tamanhosBebida = [
     { value: 'Lata'},
@@ -42,7 +39,7 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
     useEffect(() => {
         setSelectedProduct(selectedProduct)
         if (selectedProduct.tipo === '1') {
-            setTipoProduto(tiposProduto[0].value)
+            setTipoProduto(TIPOS_PRODUTO[0].value)
             const insumos = selectedProduct.insumosProdutos.map(supply => {
                 console.log(supply)
                 return {
@@ -52,7 +49,7 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
             })
             setInsumos(insumos)
         } else {
-            setTipoProduto(tiposProduto[1].value)
+            setTipoProduto(TIPOS_PRODUTO[1].value)
         }
         setTamanho(selectedProduct.tamanho)
     }, [selectedProduct])
@@ -60,7 +57,7 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
     const [tamanho, setTamanho] = useState(selectedProduct.tamanho || tamanhosPizza[0])
     const [valor, setValor] = useState(selectedProduct.valor || '')
     const [insumos, setInsumos] = useState(selectedProduct.insumos || [])
-    const [tipoProduto, setTipoProduto] = useState(tiposProduto[0].value)
+    const [tipoProduto, setTipoProduto] = useState(TIPOS_PRODUTO[0].value)
     const onChangeTipoProduto = event => {
         setTipoProduto(event.target.value)
     }
@@ -124,7 +121,7 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
             />
             <Select
                 label='Tipo de produto'
-                objectList={tiposProduto}
+                objectList={TIPOS_PRODUTO}
                 fieldForValue={'value'}
                 fieldForLabel={'label'}
                 onChangeValue={onChangeTipoProduto}

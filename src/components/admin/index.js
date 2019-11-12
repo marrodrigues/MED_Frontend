@@ -15,6 +15,7 @@ import InsumoSection from './sections/insumo'
 import LoteSection from './sections/lote'
 import ProdutoSection from './sections/produto'
 import PedidoSection from './sections/pedido'
+import RelatorioSection from "./sections/relatorio";
 
 const Container = styled.main`
     display: flex;
@@ -45,7 +46,7 @@ const Logo = styled.div`
 const NavItem = styled.a`
     color: ${({ isSelected }) => isSelected ? '#236C4A' : 'white'};
     margin: 5px 1px;
-    padding: 20px 2vw;
+    padding: 15px 2vw;
     font-size: 18px;
     text-transform: uppercase;
     text-decoration: none;
@@ -168,6 +169,8 @@ const Admin = ({ sections, initialValues }) => {
                     clientList={clientList}
                     employeeList={employeeList}
                 />
+            case 'Relatórios':
+                return <RelatorioSection />
             default:
                 return <ComingSoonComponent />
         }
