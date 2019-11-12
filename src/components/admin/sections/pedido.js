@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
-import { ADMIN_TABS } from '../../../util/constants'
-import { InputWithLabel } from '../../base'
+import { ORDER_TABS } from '../../../util/constants'
 import PedidoForm from '../../forms/PedidoForm'
 import DataTable from './DataTable'
+import Carrinho from "../../carrinho";
+import axios from "axios";
+import {params} from "../../../util/request";
 
+
+const formasDePagamento = [
+    { value: '1', label: 'Débito'},
+    { value: '2', label: 'Crédito'},
+]
 const PedidoSection = ({
     orderList = [],
     clientList = [],
@@ -12,10 +19,11 @@ const PedidoSection = ({
     productList = [],
     ...props
 }) => {
-    const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
+    const [selectedTab, setSelectedTab] = useState(ORDER_TABS[0])
     const [selectedOrder, setSelectedOrder] = useState({})
+    const [carrinho, setCarrinho] = useState([])
     useEffect(() => {
-        setSelectedTab(ADMIN_TABS[1])
+        setSelectedTab(ORDER_TABS[1])
     }, [selectedOrder])
     const [filter, setFilter] = useState('')
     const filterCallback = order => (
@@ -31,10 +39,52 @@ const PedidoSection = ({
             {fields.map(field => <td key={`${field}-${order.codigo}`}>{order[field]}</td>)}
         </tr>        
     )
+    const addToCart = (product) => {
+        let _carrinho = carrinho.slice()
+        _carrinho.push({...product, qtd: 1})
+        setCarrinho(_carrinho)
+    }
+    const changeQtd = (product, change) => {
+        let _carrinho = carrinho.slice()
+        const index = _carrinho.map(product => product.id).indexOf(product.id)
+        _carrinho[index].qtd += change
+        if (_carrinho[index].qtd === 0) {
+            _carrinho.splice(index, 1)
+        }
+        setCarrinho(_carrinho)
+    }
+    const carrinhoIds = carrinho.map(product => product.id)
+    const [codigo, setCodigo] = useState(selectedOrder.codigo || '')
+    const [forma_pagamento, setFormaPagamento] = useState(selectedOrder.forma_pagamento || formasDePagamento[0].value)
+    const [observacao, setObservacao] = useState(selectedOrder.observacao || '')
+    const [client, setClient] = useState(clientList[0] && clientList[0].id || {})
+    const [employee, setEmployee] = useState(employeeList[0] && employeeList[0].id || {})
+    const makeOrder = () => {
+        const newPedido = {
+            codigo,
+            forma_pagamento,
+            clienteId: client,
+            funcionarioId: employee,
+            produtos: carrinho.map(product => ({id: product.id, qtd: product.qtd})),
+            observacao
+        }
+        console.log(newPedido)
+        axios.post('https://med-backend-dev.herokuapp.com/pedidos',
+            newPedido,
+            params)
+            .then(response => {
+                alert('Pedido criado com sucesso')
+                debugger
+            })
+            .catch(error => {
+                alert('Aconteceu algo de errado na criação do pedido')
+                debugger
+            })
+    }
 
     const renderContent = () => {
         switch (selectedTab) {
-            case ADMIN_TABS[0]:
+            case ORDER_TABS[2]:
                 return (
                 <DataTable
                     data={orderList}
@@ -43,12 +93,26 @@ const PedidoSection = ({
                     mapCallback={mapCallback}
                     fields={fields}
                 />)
-            case ADMIN_TABS[1]:
+            case ORDER_TABS[1]:
+                return <Carrinho carrinho={carrinho} changeQtd={changeQtd} makeOrder={makeOrder}/>
+            case ORDER_TABS[0]:
                 return <PedidoForm
                     selectedOrder={selectedOrder}
                     clientList={clientList.map(client => ({id: client.id, nome: client.pessoa.nome}))}
                     employeeList={employeeList.map(employee => ({id: employee.id, nome: employee.pessoa.nome}))}
-                    productList={productList.map(product => ({id: product.id, nome: product.nome}))}
+                    productList={productList.filter(product => !carrinhoIds.includes(product.id))}
+                    addToCart={addToCart}
+                    codigo={codigo}
+                    setCodigo={setCodigo}
+                    forma_pagamento={forma_pagamento}
+                    setFormaPagamento={setFormaPagamento}
+                    formasDePagamento={formasDePagamento}
+                    observacao={observacao}
+                    setObservacao={setObservacao}
+                    client={client}
+                    setClient={setClient}
+                    employee={employee}
+                    setEmployee={setEmployee}
                 />
             default:
                 return null
@@ -59,22 +123,16 @@ const PedidoSection = ({
             <SectionTitle>Pedidos</SectionTitle>
             <TabsAndFilter>
                 <TabsContainer>
-                    {ADMIN_TABS.map(tab =>
+                    {ORDER_TABS.map(tab =>
                         <Tab
                             isSelected={selectedTab === tab}
                             key={tab}
                             onClick={() => setSelectedTab(tab)}
                         >
-                            {tab}
+                            {tab === 'Carrinho' ? `${tab} (${carrinho.length})` : tab}
                         </Tab>
                     )}
                 </TabsContainer>
-                {/* {selectedTab === ADMIN_TABS[0] &&
-                    <InputWithLabel
-                        label='Filtrar'
-                        value={filter}
-                        onChange={setFilter}
-                    />} */}
             </TabsAndFilter>
             {renderContent()}
         </Container>

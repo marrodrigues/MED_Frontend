@@ -63,6 +63,8 @@ const ADMIN_TABS = ['Lista', 'Formulário']
 
 const REPORT_TABS = ['Produto', 'Cliente']
 
+const ORDER_TABS = ['Novo', 'Carrinho', 'Lista']
+
 const CLIENT_FIELDS = [{
     name: 'nome',
     displayName: 'Nome'
@@ -95,4 +97,5 @@ export {
     CLIENT_FIELDS,
     REPORT_TABS,
     TIPOS_PRODUTO,
+    ORDER_TABS,
 }
