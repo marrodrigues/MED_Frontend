@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { BaseLabel } from "../base";
 
 const StyledSelect = styled.select`
-    
+    height: 32px;
 `
 
 const Container = styled.div`
