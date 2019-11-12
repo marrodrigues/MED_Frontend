@@ -10,6 +10,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import DescriptionIcon from '@material-ui/icons/Description';
 import LockIcon from '@material-ui/icons/Lock';
 import EditIcon from '@material-ui/icons/Edit';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const Container = styled.div`
     display: flex;
@@ -39,7 +40,9 @@ const NavItemWithIcon = ({ itemLabel, icon }) => {
             case 'ASSIGNMENTIND': 
                 return <AssignmentIndIcon />
             case 'PERSONADD':
-                return <PersonAddIcon /> 
+                return <PersonAddIcon />
+            case 'ASSESSMENT':
+                return <AssessmentIcon />
             case 'MOOD':
             default:
                 return <MoodIcon />
