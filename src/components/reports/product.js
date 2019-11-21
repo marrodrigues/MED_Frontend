@@ -99,12 +99,11 @@ const ProductReport = ({
                     <ButtonOrSpinner label='Gerar'/>
                 </InputRow>
             </BaseForm>
-            {
-                dataSet.length &&
-                <Chart
-                    option={getOptionsForComparativeChart(dataSet)}
-                />
-            }
+
+            <Chart
+                option={getOptionsForComparativeChart(dataSet)}
+            />
+
             <DataTable
                 data={dataSet}
                 fields={fields}
