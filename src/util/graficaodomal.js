@@ -17,7 +17,7 @@ const getBgBarSize = (data) => {
     const powerOfTen = 10 ** magnitude;
     return powerOfTen * Math.ceil(maxValue / powerOfTen);
 };
-const getOptionsForComparativeChart = (dataSet) => {
+const getOptionsForComparativeChart = (dataSet, dataSet2) => {
     const data = dataSet.map(item => item.receita);
     const shouldAbbreviateLabels = dataSet.length > 5;
     const xLabels = dataSet.map(item => formatLabel(item.nome, shouldAbbreviateLabels));
@@ -100,7 +100,7 @@ const getOptionsForComparativeChart = (dataSet) => {
             xAxisIndex: 1,
             itemStyle: {
                 color: bgBarColor,
-                barBorderRadius: 50,
+                // barBorderRadius: 50,
                 borderWidth: 0,
             },
             emphasis: {
@@ -111,7 +111,7 @@ const getOptionsForComparativeChart = (dataSet) => {
                 },
             },
             z: 1,
-            barWidth: '15%',
+            barWidth: '5%',
             data: Array(data.length).fill(bgBarSize),
         }, {
             showTooltips: false,
@@ -119,7 +119,6 @@ const getOptionsForComparativeChart = (dataSet) => {
             itemStyle: {
                 show: true,
                 color: getBarColor,
-                barBorderRadius: 50,
                 borderWidth: 0,
             },
             z: 2,

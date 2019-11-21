@@ -9,6 +9,7 @@ import LoginInputWithLabel from './input/LoginInputWithLabel'
 import CpfInputWithLabel from './input/CpfInputWithLabel'
 import DescricaoInputWithLabel from './input/DescricaoInputWithLabel'
 import LoteInputWithLabel from './input/LoteInputWithLabel'
+import Checkbox from './input/Checkbox'
 
 export {
     BaseInput,
@@ -22,4 +23,5 @@ export {
     CpfInputWithLabel,
     DescricaoInputWithLabel,
     LoteInputWithLabel,
+    Checkbox,
 }
