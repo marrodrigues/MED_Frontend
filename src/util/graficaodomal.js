@@ -19,6 +19,7 @@ const getBgBarSize = (data) => {
 };
 const getOptionsForComparativeChart = (dataSet, dataSet2) => {
     const data = dataSet.map(item => item.receita);
+    const data2 = dataSet2.map(item => item.receita);
     const shouldAbbreviateLabels = dataSet.length > 5;
     const xLabels = dataSet.map(item => formatLabel(item.nome, shouldAbbreviateLabels));
     // const isSegmentSelected = segment => (

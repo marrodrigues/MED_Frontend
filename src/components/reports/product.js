@@ -99,7 +99,7 @@ const ProductReport = ({
                 if (body.length < 5) {
                     body.concat(Array(5 - body.length).fill(1))
                 }
-                axios.get(url, {...params, body})
+                axios.get(url, {...params, body: [1,2,3,4,5]})
                     .then(response => response.data)
                     .then(data => {
                         debugger
