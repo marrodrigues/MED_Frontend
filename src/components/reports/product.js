@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {InputWithLabel} from "../base";
 import Select from "../select";
@@ -11,6 +11,8 @@ import {setLoading, setNotLoading} from "../../actions";
 import {connect} from "react-redux";
 import {params} from "../../util/request";
 import DataTable from "../admin/sections/DataTable";
+import Chart from "../Chart";
+import {getOptionsForComparativeChart} from "../../util/graficaodomal";
 
 const Container = styled.div`
     display: flex;
@@ -28,9 +30,14 @@ const ProductReport = ({
     const [dataInicial, setDataInicial] = useState('')
     const [dataFinal, setDataFinal] = useState('')
     const [dataSet, setDataSet] = useState([])
+    const [chartOptions, setChartOptions] = useState({})
     const onChangeTipoProduto = event => {
         setTipoProduto(event.target.value)
     }
+    useEffect(() => {
+        setChartOptions(getOptionsForComparativeChart(dataSet))
+    }, [dataSet])
+    console.log(chartOptions);
     const fields = [ 'nome', 'qtd_pedidos', 'qtd_vendido', 'receita' ]
     const mapCallback = reportRow => (
         <tr key={reportRow.id}>
@@ -46,10 +53,11 @@ const ProductReport = ({
             axios.get(url, params)
                 .then(response => response.data)
                 .then(data => {
-                    setDataSet(data)
                     if (data.length === 0) {
                         alert('Não há entradas no período selecionado')
+                        return
                     }
+                    setDataSet(data)
                 })
                 .catch(error => {
                     debugger
@@ -91,6 +99,12 @@ const ProductReport = ({
                     <ButtonOrSpinner label='Gerar'/>
                 </InputRow>
             </BaseForm>
+            {
+                dataSet.length &&
+                <Chart
+                    option={getOptionsForComparativeChart(dataSet)}
+                />
+            }
             <DataTable
                 data={dataSet}
                 fields={fields}
