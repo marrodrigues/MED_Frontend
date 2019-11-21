@@ -5,6 +5,7 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import FormTitle from "../base/form/FormTitle";
 import {BaseButton} from "../base";
+import { formatMoney } from '../../util/string';
 
 const Container = styled.div`
     display: flex;
@@ -66,7 +67,7 @@ const Carrinho = ({
                 total === 0
                 ? <FormTitle title='Seu carrinho está vazio'/>
                 : <>
-                    <Total>Total: {total}</Total>
+                    <Total>Total: R$ {formatMoney(total)}</Total>
                     <BaseButton onClick={makeOrder}>Fazer pedido</BaseButton>
                 </>
             }
