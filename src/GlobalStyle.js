@@ -22,6 +22,8 @@ const cssReset = css`
     background-image: linear-gradient(135deg, #ffffff 25%, #ffe8c4 25%, #ffe8c4 50%, #ffffff 50%, #ffffff 75%, #ffe8c4 75%, #ffe8c4 100%);
     background-size: 28.28px 28.28px;
   }
+  input[type="month"]::-webkit-inner-spin-button,
+  input[type="month"]::-webkit-calendar-picker-indicator,
   input[type="date"]::-webkit-inner-spin-button,
   input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;

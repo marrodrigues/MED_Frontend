@@ -48,9 +48,11 @@ const ProductReport = ({
     }
     const handleCheckboxChange = event => {
         setDataFinal('')
+        setDataSet2([])
         setCompare(event.target.checked )
     }
     const total = dataSet.reduce((acc, curr) => acc + curr.receita, 0)
+    const total2 = dataSet2.reduce((acc, curr) => acc + curr.receita, 0)
     // const fields = [ 'nome', 'qtd_pedidos', 'qtd_vendido', 'receita', 'percentual' ]
     // const mapCallback = reportRow => (
     //     <tr key={reportRow.id}>
@@ -79,14 +81,17 @@ const ProductReport = ({
                     .then(data => {
                         console.log(data)
                         setDataSet(data)
-                        if (data.length === 0) {
-                            alert('Não há entradas no período selecionado')
-                        }
                     })
                     .catch(error => {
                         debugger
                         console.log(JSON.stringify(error))
-                        alert('Algo de errado aconteceu')
+                        if (error.message.includes('code 404')) {
+                            alert('Não há entradas no período selecionado')
+                            setDataSet([])
+                            return
+                        } else {
+                            alert('Algo de errado aconteceu')
+                        }
                     })
                     .finally(() => {
                         setIsNotLoading()
@@ -99,20 +104,23 @@ const ProductReport = ({
                 if (body.length < 5) {
                     body.concat(Array(5 - body.length).fill(1))
                 }
-                axios.get(url, {...params, body: [1,2,3,4,5]})
+                axios.get(url, {...params, body})
                     .then(response => response.data)
                     .then(data => {
                         debugger
                         console.log(data)
                         setDataSet2(data)
-                        if (data.length === 0) {
-                            alert('Não há entradas no período selecionado')
-                        }
                     })
                     .catch(error => {
                         debugger
                         console.log(JSON.stringify(error))
-                        alert('Algo de errado aconteceu')
+                        if (error.message.includes('code 404')) {
+                            alert('Não há entradas no período selecionado')
+                            setDataSet2([])
+                            return
+                        } else {
+                            alert('Algo de errado aconteceu')
+                        }
                     })
                     .finally(() => {
                         setIsNotLoading()
@@ -174,6 +182,11 @@ const ProductReport = ({
             {
                 total !== 0
                 ? <Total>Receita Total: R$ {formatMoney(total)}</Total>
+                : null
+            }
+            {
+                total2 !== 0
+                ? <Total>Receita Total: R$ {formatMoney(total2)}</Total>
                 : null
             }
             
