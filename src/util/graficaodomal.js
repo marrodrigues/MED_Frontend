@@ -18,11 +18,11 @@ const getBgBarSize = (data, data2) => {
 const getOptionsForComparativeChart = (dataSet, dataSet2) => {
     let source = []
     if (dataSet.length) {
-        source.push(['product', 'p1'])
+        source.push(['product', 'Período 1'])
         dataSet.forEach(product => source.push([product.nome, product.receita]))
     }
     if (dataSet2.length) {
-        source[0].push('p2')
+        source[0].push('Período 2')
         for (let i = 0; i < dataSet2.length; i++) {
             source[i + 1].push(dataSet2[i].receita)
         }

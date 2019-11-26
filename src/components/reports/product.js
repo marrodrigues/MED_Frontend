@@ -145,7 +145,7 @@ const ProductReport = ({
                         disabled={compare}
                     />
                     <InputWithLabel
-                        label='Período'
+                        label={`Período ${compare && dataSet.length ? '1' : ''}`}
                         value={dataInicial}
                         onChange={setDataInicial}
                         type='month'
@@ -159,7 +159,7 @@ const ProductReport = ({
                     {
                         compare &&
                         <InputWithLabel
-                            label='Período'
+                            label='Período 2'
                             value={dataFinal}
                             onChange={setDataFinal}
                             type='month'
@@ -170,9 +170,11 @@ const ProductReport = ({
                 </StyledInputRow>
             </BaseForm>
             {/*Titulo do grafico*/}
-            <Chart
+            {dataSet.length > 0
+            ? <Chart
                 option={getOptionsForComparativeChart(dataSet, dataSet2)}
             />
+            : null}
 
             {/*<DataTable*/}
             {/*    data={dataSet}*/}
