@@ -5,7 +5,7 @@ import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './ba
 import { InputWithLabel, BaseForm } from '../../base'
 import DataTable from './DataTable'
 import { FuncionarioForm } from '../../forms/'
-import { PESSOA_DEFAULT_VALUE, ADMIN_TABS, EMPLOYEE_FIELDS } from '../../../util/constants'
+import {PESSOA_DEFAULT_VALUE, ADMIN_TABS, EMPLOYEE_FIELDS, CLIENT_FIELDS} from '../../../util/constants'
 
 const FuncionarioSection = ({ employeeList = [], ...props }) => {
     const [selectedEmployee, setSelectedEmployee] = useState(PESSOA_DEFAULT_VALUE)
@@ -14,13 +14,23 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
     }, [selectedEmployee])
     const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
     const [filter, setFilter] = useState('')
+    const [filterValues, setFilterValues] = useState(['', '', '', '', ''])
 
-    const filterCallback = employee => (
-        employee.pessoa.nome.includes(filter)
-        || employee.pessoa.email.includes(filter)
-        || employee.pessoa.cpf.includes(filter)
-        || employee.pessoa.login.includes(filter)
-    )
+    const filterCallback = funcionario => {
+        console.log(filterValues)
+        if (filterValues.every(filter => filter === '')) return true
+        return (
+        (filterValues[0] ? funcionario.pessoa.nome.includes(filterValues[0]) : true)
+        && (filterValues[1] ? funcionario.pessoa.email.includes(filterValues[1]) : true)
+        && (filterValues[2] ? funcionario.pessoa.cpf.includes(filterValues[2]) : true)
+        && (filterValues[3] ? funcionario.pessoa.login.includes(filterValues[3]) : true)
+        && (filterValues[4] ? funcionario.cargo.includes(filterValues[4]) : true)
+    )}
+    const updateFilterValues = (e, index) => {
+        filterValues[index] = e.target.value
+        setFilterValues(filterValues.slice())
+        console.log(filterValues)
+    }
 
     const mapCallback = employee => (
         <tr key={employee.pessoa.cpf} onClick={() => { setSelectedEmployee(employee) }}>
@@ -41,6 +51,9 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
                         filterCallback={filterCallback}
                         mapCallback={mapCallback}
                         fields={EMPLOYEE_FIELDS}
+                        showFilters
+                        updateFilterValues={updateFilterValues}
+                        filterValues={filterValues}
                     />
                 )
             case ADMIN_TABS[1]:
