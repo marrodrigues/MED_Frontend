@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import exportToPdf from "./exportToPdf";
 
 const Table = styled.table`
     font-size: 18px;
@@ -19,10 +20,24 @@ const Table = styled.table`
         }
     }
 `
+
+const Export = styled.div`
+    font-size: 18px;
+    font-family: HelveticaNeue;
+    margin-left: auto;
+    margin-bottom: 12px;
+    border: 1px solid black;
+    padding: 1vh 1vw;
+    :hover {
+        cursor: pointer;
+    }
+`
 const DataTable = ({ data, filterCallback = () => true, mapCallback, fields, showFilters, updateFilterValues, filterValues }) => {
     const filteredData = data.filter(filterCallback)
 
     return (
+        <>
+        <Export onClick={() => exportToPdf(fields, filteredData)}> Exportar Lista </Export>
         <Table>
             <thead>
                 <tr className='header'>
@@ -48,6 +63,7 @@ const DataTable = ({ data, filterCallback = () => true, mapCallback, fields, sho
                 }
             </tbody>
         </Table>
+        </>
     )
 }
 

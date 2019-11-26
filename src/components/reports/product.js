@@ -107,12 +107,12 @@ const ProductReport = ({
                 axios.get(url, {...params, body})
                     .then(response => response.data)
                     .then(data => {
-                        debugger
-                        console.log(data)
+                        // debugger
+                        // console.log(data)
                         setDataSet2(data.filter(product => product.id !== 1 && body.includes(product.id) ))
                     })
                     .catch(error => {
-                        debugger
+                        // debugger
                         console.log(JSON.stringify(error))
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
@@ -183,12 +183,12 @@ const ProductReport = ({
             {/*/>*/}
             {
                 total !== 0
-                ? <Total>Receita Total: R$ {formatMoney(total)}</Total>
+                ? <Total>{compare ? 'Período 1' : ''} Receita Total : R$ {formatMoney(total)}</Total>
                 : null
             }
             {
                 total2 !== 0
-                ? <Total>Receita Total: R$ {formatMoney(total2)}</Total>
+                ? <Total>Período 2 Receita Total: R$ {formatMoney(total2)}</Total>
                 : null
             }
             
