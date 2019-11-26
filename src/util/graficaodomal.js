@@ -27,7 +27,7 @@ const getOptionsForComparativeChart = (dataSet, dataSet2) => {
             source[i + 1].push(dataSet2[i].receita)
         }
     }
-    const series = Array(dataSet.length ? dataSet2.length ? 2 : 1 : 0).fill({type: 'bar'})
+    const series = Array(dataSet.length ? dataSet2.length ? 2 : 1 : 0).fill({type: 'bar', label: {show: true }})
     // const data = dataSet.map(item => item.receita);
     // const data2 = dataSet2.map(item => item.receita);
     // const shouldAbbreviateLabels = dataSet.length > 5;
@@ -45,6 +45,13 @@ const getOptionsForComparativeChart = (dataSet, dataSet2) => {
     // const bgBarWidth = 60 - ((7 - dataSet.length) * 7);
     console.log(series, source)
     return {
+        grid: {
+            left: '3%',
+            top: '10%',
+            right: '3%',
+            bottom: '5%',
+            containLabel: true,
+        },
         legend: {},
         tooltip: {},
         dataset: {

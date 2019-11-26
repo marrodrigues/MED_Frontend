@@ -183,7 +183,7 @@ const ProductReport = ({
             {/*/>*/}
             {
                 total !== 0
-                ? <Total>{compare ? 'Período 1' : ''} Receita Total : R$ {formatMoney(total)}</Total>
+                ? <Total>{compare ? 'Período 1' : ''} Receita Total: R$ {formatMoney(total)}</Total>
                 : null
             }
             {
@@ -205,4 +205,4 @@ const mapDispatchToProps = dispatch => ({
     }
 })
 
-export default connect(() => {}, mapDispatchToProps)(ProductReport)
+export default connect(() => ({}), mapDispatchToProps)(ProductReport)
