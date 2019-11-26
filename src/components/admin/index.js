@@ -69,13 +69,12 @@ const Content = styled.section`
     display: flex;
     flex-direction: column;
     padding: 0 3vw;
-    min-width: fit-content;
+    // min-width: fit-content;
     // min-height: fit-content;
     width: 100%;
     height: 100%;
     background-color: white;
-    overflow-x: auto;
-    overflow-y: scroll;
+    overflow: scroll;
 `
 
 const Admin = ({ sections, initialValues }) => {
@@ -197,7 +196,7 @@ const Admin = ({ sections, initialValues }) => {
                 }
             </NavBar>
             <Content>
-                <div style={{height: 'fit-content', paddingBottom: '2vh'}}>
+                <div style={{width: 'fit-content', height: 'fit-content', paddingBottom: '2vh'}}>
                 {renderSection()}
                 </div>
             </Content>

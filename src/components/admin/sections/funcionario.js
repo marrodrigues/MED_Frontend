@@ -20,11 +20,11 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
         console.log(filterValues)
         if (filterValues.every(filter => filter === '')) return true
         return (
-        (filterValues[0] ? funcionario.pessoa.nome.includes(filterValues[0]) : true)
-        && (filterValues[1] ? funcionario.pessoa.email.includes(filterValues[1]) : true)
+        (filterValues[0] ? funcionario.pessoa.nome.toLowerCase().includes(filterValues[0].toLowerCase()) : true)
+        && (filterValues[1] ? funcionario.pessoa.email.toLowerCase().includes(filterValues[1].toLowerCase()) : true)
         && (filterValues[2] ? funcionario.pessoa.cpf.includes(filterValues[2]) : true)
-        && (filterValues[3] ? funcionario.pessoa.login.includes(filterValues[3]) : true)
-        && (filterValues[4] ? funcionario.cargo.includes(filterValues[4]) : true)
+        && (filterValues[3] ? funcionario.pessoa.login.toLowerCase().includes(filterValues[3].toLowerCase()) : true)
+        && (filterValues[4] ? funcionario.cargo.includes.toLowerCase()(filterValues[4].toLowerCase()) : true)
     )}
     const updateFilterValues = (e, index) => {
         filterValues[index] = e.target.value
