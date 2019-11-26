@@ -31,10 +31,12 @@ const DataTable = ({ data, filterCallback = () => true, mapCallback, fields, sho
                             <th>
                                 <span>{field.displayName || field.toUpperCase()}</span>
                                 {showFilters &&
-                                <input
+                                (<><br/>
+                                    <input
+                                        placeholder='Filtrar'
                                     value={filterValues[index]}
                                     onChange={(e) => { updateFilterValues(e, index) }}
-                                />}
+                                /></>)}
                             </th>
                         )
                     }
