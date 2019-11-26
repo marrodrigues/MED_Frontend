@@ -173,6 +173,7 @@ const ProductReport = ({
             {dataSet.length > 0
             ? <Chart
                 option={getOptionsForComparativeChart(dataSet, dataSet2)}
+                style={{width: '850px'}}
             />
             : null}
 
