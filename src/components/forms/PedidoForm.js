@@ -114,6 +114,7 @@ const PedidoForm = ({
                 data={productList}
                 fields={fields}
                 mapCallback={mapCallback}
+                exportable={false}
             />
             : null}
 

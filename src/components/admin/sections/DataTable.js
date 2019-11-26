@@ -32,12 +32,12 @@ const Export = styled.div`
         cursor: pointer;
     }
 `
-const DataTable = ({ data, filterCallback = () => true, mapCallback, fields, showFilters, updateFilterValues, filterValues }) => {
+const DataTable = ({ data, filterCallback = () => true, mapCallback, fields, showFilters, updateFilterValues, filterValues, exportable = true }) => {
     const filteredData = data.filter(filterCallback)
 
     return (
         <>
-        <Export onClick={() => exportToPdf(fields, filteredData)}> Exportar Lista </Export>
+        {exportable ? <Export onClick={() => exportToPdf(fields, filteredData)}> Exportar Lista </Export> : null}
         <Table>
             <thead>
                 <tr className='header'>

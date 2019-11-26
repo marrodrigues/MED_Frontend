@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
-import { ADMIN_TABS } from '../../../util/constants'
-import { InputWithLabel } from '../../base'
+import { ADMIN_TABS, PRODUCT_FIELDS } from '../../../util/constants'
 import ProdutoForm from '../../forms/ProdutoForm'
 import DataTable from './DataTable'
 
@@ -15,10 +14,12 @@ const ProdutoSection = ({ productList = [], supplyList = [], ...props }) => {
     const filterCallback = product => (
         product.nome.includes(filter)
     )
-    const fields = [ 'nome', 'tamanho', 'valor']
     const mapCallback = product => (
         <tr key={product.nome} onClick={() => { setSelectedProduct(product) }}>
-            {fields.map(field => <td key={`${field}-${product.nome}`}>{product[field]}</td>)}
+            {PRODUCT_FIELDS.map(field =>
+                <td key={`${field.name}-${product.nome}`}>
+                    {product[field.name]}
+                </td>)}
         </tr>        
     )
 
@@ -31,7 +32,7 @@ const ProdutoSection = ({ productList = [], supplyList = [], ...props }) => {
                     filter={filter}
                     filterCallback={filterCallback}
                     mapCallback={mapCallback}
-                    fields={fields}
+                    fields={PRODUCT_FIELDS}
                 />)
             case ADMIN_TABS[1]:
                 return <ProdutoForm selectedProduct={selectedProduct} supplyList={supplyList}/>

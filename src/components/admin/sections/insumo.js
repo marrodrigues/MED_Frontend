@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
-import { ADMIN_TABS } from '../../../util/constants'
+import { ADMIN_TABS, SUPPLY_FIELDS } from '../../../util/constants'
 import { InputWithLabel } from '../../base'
 import InsumoForm from '../../forms/InsumoForm'
 import DataTable from './DataTable'
@@ -17,10 +17,9 @@ const InsumoSection = ({ supplyList = [], ...props }) => {
         || supply.unidade.includes(filter)
         || supply.qtd_unid.includes(filter)
     )
-    const fields = [ 'descricao', 'qtd_unid', 'unidade' ]
     const mapCallback = supply => (
         <tr key={supply.descricao} onClick={() => { setSelectedSupply(supply) }}>
-            {fields.map(field => <td key={`${field}-${supply.descricao}`}>{supply[field]}</td>)}
+            {SUPPLY_FIELDS.map(field => <td key={`${field.name}-${supply.descricao}`}>{supply[field.name]}</td>)}
         </tr>        
     )
 
@@ -33,7 +32,7 @@ const InsumoSection = ({ supplyList = [], ...props }) => {
                     filter={filter}
                     filterCallback={filterCallback}
                     mapCallback={mapCallback}
-                    fields={fields}
+                    fields={SUPPLY_FIELDS}
                 />)
             case ADMIN_TABS[1]:
                 return <InsumoForm selectedSupply={selectedSupply}/>

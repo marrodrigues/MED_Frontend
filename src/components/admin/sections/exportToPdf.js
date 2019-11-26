@@ -1,3 +1,13 @@
+const getValueToPrint = (object, field) => {
+    if (object.pessoa) {
+        return object[field.name || field] || object.pessoa[field.name || field]
+    }
+    if (field.name === 'insumoproduto') {
+        return object.produto ? object.produto.nome : object.insumo.descricao
+    }
+    return object[field.name]
+}
+
 const exportToPdf = (fields, objects) => {
     const printWindow = window.open('', 'PRINT', 'height=2600,width=2000')
     printWindow.document.write('<html>');
@@ -20,7 +30,7 @@ const exportToPdf = (fields, objects) => {
     objects.forEach(object => {
         printWindow.document.write('<tr style="display: table-row; border-color: inherit; vertical-align: inherit;">');
         fields.forEach(field => {
-            printWindow.document.write('<td style="border: 1px solid black; padding: 2px 10px;">' + (object.pessoa ? object.pessoa[field.name || field] : object[field.name || field]) + '</td>');
+            printWindow.document.write('<td style="border: 1px solid black; padding: 2px 10px;">' + getValueToPrint(object,field) + '</td>');
         })
     })
     printWindow.document.write('</tbody>');

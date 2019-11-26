@@ -79,6 +79,80 @@ const CLIENT_FIELDS = [{
     displayName: 'Login'
 }];
 
+const EMPLOYEE_FIELDS = [{
+    name: 'nome',
+    displayName: 'Nome'
+}, {
+    name: 'email',
+    displayName: 'E-mail'
+}, {
+    name: 'cpf',
+    displayName: 'CPF'
+}, {
+    name: 'login',
+    displayName: 'Login'
+}, {
+    name: 'cargo',
+    displayName: 'Cargo'
+}];
+
+const SUPPLY_FIELDS = [{
+    name: 'descricao',
+    displayName: 'Descrição'
+}, {
+    name: 'qtd_unid',
+    displayName: 'Qtd./Unidade'
+}, {
+    name: 'unidade',
+    displayName: 'Unidade'
+}]
+    const fields = [ 'lote', 'qtd', 'validade']
+
+const BUNDLE_FIELDS =[{
+    name: 'lote',
+    displayName: 'Lote'
+}, {
+    name: 'qtd',
+    displayName: 'Quantidade'
+}, {
+    name: 'validade',
+    displayName: 'Validade'
+}, {
+    name: 'insumoproduto',
+    displayName: 'Insumo/Produto'
+}]
+
+const ORDER_FIELDS = [{
+    name: 'codigo',
+    displayName: 'Código'
+}, {
+    name: 'status',
+    displayName: 'Status'
+}, {
+    name: 'data_pedido',
+    displayName: 'Data do Pedido'
+}, {
+    name: 'valor_total',
+    displayName: 'Valor Total'
+}, {
+    name: 'forma_pagamento',
+    displayName: 'Forma de Pagamento'
+}, {
+    name: 'observacao',
+    displayName: 'Observação'
+}]
+
+const PRODUCT_FIELDS = [{
+    name: 'nome',
+    displayName: 'Nome'
+}, {
+    name: 'tamanho',
+    displayName: 'Tamanho'
+}, {
+    name: 'valor',
+    displayName: 'Valor'
+}]
+
 const TIPOS_PRODUTO = [
     { value: '1', label: 'Pizza'},
     { value: '2', label: 'Bebida'},
@@ -98,4 +172,9 @@ export {
     REPORT_TABS,
     TIPOS_PRODUTO,
     ORDER_TABS,
+    EMPLOYEE_FIELDS,
+    SUPPLY_FIELDS,
+    BUNDLE_FIELDS,
+    ORDER_FIELDS,
+    PRODUCT_FIELDS,
 }

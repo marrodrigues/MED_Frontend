@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
-import { ADMIN_TABS } from '../../../util/constants'
-import { InputWithLabel } from '../../base'
+import { ADMIN_TABS, BUNDLE_FIELDS } from '../../../util/constants'
 import LoteForm from '../../forms/LoteForm'
 import DataTable from './DataTable'
 
@@ -16,10 +15,15 @@ const LoteSection = ({ bundleList = [], supplyList = [], productList = [], ...pr
         supply.lote.includes(filter)
         || supply.qtd.includes(filter)
     )
-    const fields = [ 'lote', 'qtd', 'validade']
+
     const mapCallback = bundle => (
         <tr key={bundle.lote} onClick={() => { setSelectedBundle(bundle) }}>
-            {fields.map(field => <td key={`${field}-${bundle.lote}`}>{bundle[field]}</td>)}
+            {BUNDLE_FIELDS.map(field =>
+                <td key={`${field.name}-${bundle.lote}`}>
+                    {field.name === 'insumoproduto'
+                        ?  bundle.produto ? bundle.produto.nome : bundle.insumo.descricao
+                        : bundle[field.name]}
+                </td>)}
         </tr>        
     )
 
@@ -32,7 +36,7 @@ const LoteSection = ({ bundleList = [], supplyList = [], productList = [], ...pr
                     filter={filter}
                     filterCallback={filterCallback}
                     mapCallback={mapCallback}
-                    fields={fields}
+                    fields={BUNDLE_FIELDS}
                 />)
             case ADMIN_TABS[1]:
                 return <LoteForm selectedBundle={selectedBundle} supplyList={supplyList} productList={productList} />

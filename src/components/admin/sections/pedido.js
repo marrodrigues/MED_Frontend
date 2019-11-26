@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
-import { ORDER_TABS } from '../../../util/constants'
+import { ORDER_TABS, ORDER_FIELDS } from '../../../util/constants'
 import PedidoForm from '../../forms/PedidoForm'
 import DataTable from './DataTable'
 import Carrinho from "../../carrinho";
@@ -33,10 +33,9 @@ const PedidoSection = ({
         || order.valor_total.includes(filter)
     )
 
-    const fields = [ 'codigo', 'status', 'data_pedido', 'valor_total', 'forma_pagamento', 'observacao']
     const mapCallback = order => (
         <tr key={order.codigo} onClick={() => { setSelectedOrder(order) }}>
-            {fields.map(field => <td key={`${field}-${order.codigo}`}>{order[field]}</td>)}
+            {ORDER_FIELDS.map(field => <td key={`${field}-${order.codigo}`}>{order[field.name]}</td>)}
         </tr>        
     )
     const addToCart = (product) => {
@@ -91,7 +90,7 @@ const PedidoSection = ({
                     filter={filter}
                     filterCallback={filterCallback}
                     mapCallback={mapCallback}
-                    fields={fields}
+                    fields={ORDER_FIELDS}
                 />)
             case ORDER_TABS[1]:
                 return <Carrinho carrinho={carrinho} changeQtd={changeQtd} makeOrder={makeOrder}/>

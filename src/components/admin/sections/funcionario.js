@@ -5,19 +5,12 @@ import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './ba
 import { InputWithLabel, BaseForm } from '../../base'
 import DataTable from './DataTable'
 import { FuncionarioForm } from '../../forms/'
-import { PESSOA_DEFAULT_VALUE, ADMIN_TABS } from '../../../util/constants'
-import InputRow from '../../base/form/InputRow'
-import { ButtonOrSpinner } from '../../base/button'
-
-const StyledInputWithLabel = styled(InputWithLabel)`
-    
-`
-const tabs = ['Lista', 'Formulário']
+import { PESSOA_DEFAULT_VALUE, ADMIN_TABS, EMPLOYEE_FIELDS } from '../../../util/constants'
 
 const FuncionarioSection = ({ employeeList = [], ...props }) => {
     const [selectedEmployee, setSelectedEmployee] = useState(PESSOA_DEFAULT_VALUE)
     useEffect(() => {
-        setSelectedTab(tabs[1])
+        setSelectedTab(ADMIN_TABS[1])
     }, [selectedEmployee])
     const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
     const [filter, setFilter] = useState('')
@@ -28,22 +21,10 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
         || employee.pessoa.cpf.includes(filter)
         || employee.pessoa.login.includes(filter)
     )
-    const fields = [{
-        name: 'nome',
-        displayName: 'Nome'
-    }, {
-        name: 'email',
-        displayName: 'E-mail'
-    }, {
-        name: 'cpf',
-        displayName: 'CPF'
-    }, {
-        name: 'login',
-        displayName: 'Login'
-    }]
+
     const mapCallback = employee => (
         <tr key={employee.pessoa.cpf} onClick={() => { setSelectedEmployee(employee) }}>
-            {fields.map(field => <td key={`${field.displayName}-${employee.pessoa.cpf}`}>{employee.pessoa[field.name]}</td>)}
+            {EMPLOYEE_FIELDS.map(field => <td key={`${field.displayName}-${employee.pessoa.cpf}`}>{employee.pessoa[field.name] || employee[field.name]}</td>)}
             {/* <td>{client.pessoa.nome}</td>
             <td>{client.pessoa.email}</td>
             <td>{client.pessoa.cpf}</td> */}
@@ -59,7 +40,7 @@ const FuncionarioSection = ({ employeeList = [], ...props }) => {
                         filter={filter}
                         filterCallback={filterCallback}
                         mapCallback={mapCallback}
-                        fields={fields}
+                        fields={EMPLOYEE_FIELDS}
                     />
                 )
             case ADMIN_TABS[1]:
