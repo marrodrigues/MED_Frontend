@@ -109,7 +109,7 @@ const ProductReport = ({
                     .then(data => {
                         debugger
                         console.log(data)
-                        setDataSet2(data)
+                        setDataSet2(data.filter(product => product.id !== 1 && body.includes(product.id) ))
                     })
                     .catch(error => {
                         debugger
