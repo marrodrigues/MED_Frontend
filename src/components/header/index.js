@@ -54,7 +54,7 @@ const HeaderComponent = ({ loggedUser, setLoggedUser }) => {
         <Header id='header'>
             <Nav>
                 <NavItem><NavLink href='/#about'>Sobre nós</NavLink></NavItem>
-                <NavItem><NavLink href='/coming-soon/'>Cardápio</NavLink></NavItem>
+                <NavItem><NavLink href='/#menu'>Cardápio</NavLink></NavItem>
                 <NavItem><NavLink href='/'><NavLogoContainer /></NavLink></NavItem>
                 <NavItem>{
                     loggedUser

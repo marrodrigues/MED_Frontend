@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { About, Header, Hero, Footer } from '../../components'
+import { About, Header, Hero, Menu, Footer } from '../../components'
 
 const Container = styled.div`
     background-image: linear-gradient(135deg, #ffffff 25%, #ffe8c4 25%, #ffe8c4 50%, #ffffff 50%, #ffffff 75%, #ffe8c4 75%, #ffe8c4 100%);
@@ -12,6 +12,7 @@ const HomePage = () => (
     <Container>
         <Header />
         <Hero />
+        <Menu />
         <About />
         <Footer />
     </Container>
