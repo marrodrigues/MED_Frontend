@@ -162,7 +162,9 @@ const ROLES = [
     {value: 'Admin', label: 'Administrador'},
     {value: 'Funcionario', label: 'Funcionário'}
 ]
+const emptyFunction = () => {}
 
+const reloadWindow = () => {window.location.reload()}
 
 export {
     PATHS,
@@ -183,4 +185,6 @@ export {
     ORDER_FIELDS,
     PRODUCT_FIELDS,
     ROLES,
+    emptyFunction,
+    reloadWindow,
 }

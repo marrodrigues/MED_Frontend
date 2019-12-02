@@ -7,6 +7,7 @@ import { setLoading, setNotLoading } from '../../actions'
 import LoteInputWithLabel from "../base/input/LoteInputWithLabel";
 import LoteProvider from "../../providers/LoteProvider";
 import Select from "../select";
+import {reloadWindow} from "../../util/constants";
 
 const StyledBaseForm = styled(BaseForm)`
 max-width: 330px;
@@ -18,7 +19,19 @@ const tipoLote = [
 const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoading, setIsNotLoading, loading, ...props }) => {
     const [selectedBundle, setSelectedBundle] = useState(initial || {})
     useEffect(() => {
-        setSelectedBundle(selectedBundle)
+        const { id, lote, qtd, validade, valor_unitario, insumoId, produtoId } = selectedBundle
+        setLote(lote)
+        setQtd(qtd)
+        setValidade(validade)
+        setValorUnitario(valor_unitario)
+        if (insumoId) {
+            setBundleType(tipoLote[0].value)
+            setInsumo(insumoId)
+        }
+        if (produtoId) {
+            setBundleType(tipoLote[1].value)
+            setProduto(produtoId)
+        }
     }, [selectedBundle])
     // const { id, lote, qtd, validade, valor_unitario, insumoId, produtoId } = data
 
@@ -68,7 +81,7 @@ const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoadi
         event.preventDefault()
         const loteObj = { lote, qtd, validade, valor_unitario, insumoId: insumo, produtoId: produto }
         console.log(loteObj)
-        LoteProvider.createOrUpdate({ id: selectedBundle.id, ...loteObj })
+        LoteProvider.createOrUpdate({ id: selectedBundle.id, ...loteObj }, reloadWindow)
     }
 
     const [errors, setErrors] = useState({})
@@ -104,6 +117,7 @@ const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoadi
                 fieldForValue={'value'}
                 fieldForLabel={'label'}
                 onChangeValue={onChangeBundleType}
+                value={bundleType}
             />
             { bundleType === 'insumo'
                 ? (<Select
@@ -112,6 +126,7 @@ const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoadi
                     fieldForValue={'id'}
                     fieldForLabel={'descricao'}
                     onChangeValue={onChangeSupply}
+                    value={insumo}
                 />)
                 : (<Select
                     label='Produtos'
@@ -119,6 +134,7 @@ const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoadi
                     fieldForValue={'id'}
                     fieldForLabel={'nome'}
                     onChangeValue={onChangeProduct}
+                    value={produto}
                 />)
             }
             <ButtonOrSpinner label={selectedBundle.id ? 'Atualizar' : 'Cadastrar'} />

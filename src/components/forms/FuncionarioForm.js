@@ -11,7 +11,7 @@ import {
 import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
-import {PESSOA_DEFAULT_VALUE, ROLES, TIPOS_PRODUTO} from '../../util/constants'
+import {PESSOA_DEFAULT_VALUE, reloadWindow, ROLES, TIPOS_PRODUTO} from '../../util/constants'
 import PhoneInputWithLabel from "../base/input/PhoneInputWithLabel";
 import Select from "../select";
 import {ClienteProvider, FuncionarioProvider} from "../../providers";
@@ -87,7 +87,7 @@ const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoad
         }
         FuncionarioProvider.createOrUpdate(
             {...selectedEmployee, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf, senha: selectedEmployee.pessoa.senha || 'senha1', cargo},
-            () => {window.location.reload()})
+            reloadWindow)
     }
 
     return (

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { params } from '../util/request'
 import FuncionarioFactory from '../factories/funcionario'
+import {emptyFunction} from "../util/constants";
 
 const FuncionarioProvider = {
     getAll: (callback) => {
@@ -23,7 +24,7 @@ const FuncionarioProvider = {
     changePassword: (formData, callback) => {
         console.log('Change Password')
     },
-    createOrUpdate: (data, callback) => {
+    createOrUpdate: (data, callback = emptyFunction) => {
         const funcionarioObj = FuncionarioFactory.createFuncionario(data)
         // // debugger
         if (funcionarioObj.id) {
@@ -46,10 +47,11 @@ const FuncionarioProvider = {
                 })
         }
     },
-    delete: (id, callback) => {
+    delete: (id, callback = emptyFunction()) => {
         axios.delete('https://med-backend-dev.herokuapp.com/funcionarios/' + id, params)
             .then(response => {
                 // // debugger
+                callback()
             })
             .catch(error => {
                 // // debugger

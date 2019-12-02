@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { params } from '../util/request'
 import LoteFactory from '../factories/lote'
+import {emptyFunction} from "../util/constants";
 
 const LoteProvider = {
     getAll: (callback) => {
@@ -40,7 +41,7 @@ const LoteProvider = {
                 // // debugger
             })
     },
-    createOrUpdate: (data, callback) => {
+    createOrUpdate: (data, callback = emptyFunction) => {
         const loteObj = LoteFactory.createLote(data)
         console.log(loteObj)
         // // debugger
@@ -48,6 +49,7 @@ const LoteProvider = {
             axios.put('https://med-backend-dev.herokuapp.com/lotes/' + loteObj.id, loteObj, params)
                 .then(response => {
                     debugger
+                    callback()
                 })
                 .catch(error => {
                     debugger
@@ -56,6 +58,7 @@ const LoteProvider = {
             axios.post('https://med-backend-dev.herokuapp.com/lotes/', loteObj, params)
                 .then(response => {
                     debugger
+                    callback()
                 })
                 .catch(error => {
                     debugger

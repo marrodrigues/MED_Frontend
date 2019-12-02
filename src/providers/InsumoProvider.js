@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { params } from '../util/request'
 import InsumoFactory from '../factories/insumo'
+import {emptyFunction} from "../util/constants";
 
 const InsumoProvider = {
     getAll: (callback) => {
@@ -16,12 +17,13 @@ const InsumoProvider = {
                 // // // // debugger
             })
     },
-    createOrUpdate: (data, callback) => {
+    createOrUpdate: (data, callback = emptyFunction) => {
         const supplyObj = InsumoFactory.createInsumo(data)
         if (supplyObj.id) {
             axios.put('https://med-backend-dev.herokuapp.com/insumos/' + supplyObj.id, supplyObj, params)
                 .then(response => {
                     debugger
+                    callback()
                 })
                 .catch(error => {
                     debugger
@@ -30,16 +32,18 @@ const InsumoProvider = {
             axios.post('https://med-backend-dev.herokuapp.com/insumos/', supplyObj, params)
                 .then(response => {
                     debugger
+                    callback()
                 })
                 .catch(error => {
                     debugger
                 })
         }
     },
-    delete: (id, callback) => {
+    delete: (id, callback = emptyFunction) => {
         axios.delete('https://med-backend-dev.herokuapp.com/insumos/' + id, params)
             .then(response => {
                 // // debugger
+                callback()
             })
             .catch(error => {
                 // // debugger

@@ -6,7 +6,7 @@ import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
 import {ClienteProvider, UserProvider} from '../../providers'
-import { PESSOA_DEFAULT_VALUE } from '../../util/constants'
+import {PESSOA_DEFAULT_VALUE, reloadWindow} from '../../util/constants'
 import EmailInputWithLabel from "../base/input/EmailInputWithLabel";
 import LoginInputWithLabel from "../base/input/LoginInputWithLabel";
 import PhoneInputWithLabel from "../base/input/PhoneInputWithLabel";
@@ -68,7 +68,7 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
         }
         ClienteProvider.createOrUpdate(
             {...selectedClient, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf, senha: selectedClient.pessoa.senha},
-            () => {window.location.reload()})
+            reloadWindow)
     }
 
 
