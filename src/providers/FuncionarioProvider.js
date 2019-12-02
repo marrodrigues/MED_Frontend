@@ -30,6 +30,7 @@ const FuncionarioProvider = {
             axios.put('https://med-backend-dev.herokuapp.com/funcionarios/' + funcionarioObj.id, funcionarioObj, params)
                 .then(response => {
                     // // debugger
+                    callback()
                 })
                 .catch(error => {
                     // // debugger
@@ -38,6 +39,7 @@ const FuncionarioProvider = {
             axios.post('https://med-backend-dev.herokuapp.com/funcionarios/', funcionarioObj, params)
                 .then(response => {
                     // // debugger
+                    callback()
                 })
                 .catch(error => {
                     // // debugger

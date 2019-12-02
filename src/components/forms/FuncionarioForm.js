@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { BaseForm, InputWithLabel } from '../base'
+import {
+    BaseForm,
+    CepInputWithLabel,
+    CpfInputWithLabel,
+    EmailInputWithLabel,
+    InputWithLabel,
+    LoginInputWithLabel
+} from '../base'
 import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
-import { PESSOA_DEFAULT_VALUE } from '../../util/constants'
+import {PESSOA_DEFAULT_VALUE, ROLES, TIPOS_PRODUTO} from '../../util/constants'
+import PhoneInputWithLabel from "../base/input/PhoneInputWithLabel";
+import Select from "../select";
+import {ClienteProvider, FuncionarioProvider} from "../../providers";
 
 
 const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoading, loading, ...props }) => {
@@ -25,10 +35,63 @@ const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoad
     const [bairro, setBairro] = useState(selectedEmployee.pessoa.endereco[0].bairro || '')
     const [cidade, setCidade] = useState(selectedEmployee.pessoa.endereco[0].cidade || '')
     const [uf, setUf] = useState(selectedEmployee.pessoa.endereco[0].UF || '')
-    const [cargo, setCargo] = useState(selectedEmployee.cargo || '')
+    const [cargo, setCargo] = useState(selectedEmployee.cargo || ROLES[0].value)
     const [errors, setErrors] = useState({})
+    const notFoundCallback = () => {
+        return [false, '']
+    }
+    const emailFoundCallback = () => {
+        return [true, 'E-mail já cadastrado']
+    }
+    const loginFoundCallback = () => {
+        return [true, 'Login já cadastrado']
+    }
+    const cpfFoundCallback = () => {
+        return [true, 'CPF já cadastrado']
+    }
+    const validateInputs = () => {
+        let errors = {}
+        if (!nome) errors.nome = true
+        if (!email) errors.email = true
+        if (!cpf) errors.cpf = true
+        if (!login) errors.login = true
+        if (!dataNascimento) errors.dataNascimento = true
+        if (!numero_telefone) errors.telefone = true
+        if (!CEP) errors.CEP = true
+        if (!numero) errors.numero = true
+        setErrors(errors)
+    }
+    const onChangeCargo = event => {
+        setCargo(event.target.value)
+    }
+    const validCepCallback = (data) => {
+        const {
+            bairro: _bairro,
+            localidade,
+            logradouro: _logradouro,
+            uf: _uf
+        } = data
+        setBairro(_bairro)
+        setCidade(localidade)
+        setLogradouro(_logradouro)
+        setUf(_uf)
+    }
+    const onSubmit = e => {
+        setIsLoading()
+        e.preventDefault()
+        e.stopPropagation()
+        validateInputs()
+        if (Object.values(errors).some(field => field)) {
+            setIsNotLoading()
+            return
+        }
+        FuncionarioProvider.createOrUpdate(
+            {...selectedEmployee, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf, senha: selectedEmployee.pessoa.senha || 'senha1', cargo},
+            () => {window.location.reload()})
+    }
+
     return (
-        <BaseForm key='funcionario-form' id='funcionario-form' {...props} >
+        <BaseForm key='funcionario-form' id='funcionario-form' {...props} onSubmit={onSubmit}>
             <InputRow>
                 <InputWithLabel
                     label='Nome'
@@ -36,27 +99,28 @@ const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoad
                     onChange={setNome}
                     isInvalid={Boolean(errors.nome)}
                 />
-                <InputWithLabel
-                    label='Email'
+                <EmailInputWithLabel
                     value={email}
                     onChange={setEmail}
-                    type='email'
                     isInvalid={Boolean(errors.email)}
+                    emailExistsCallback={emailFoundCallback}
+                    emailNotFoundCallback={notFoundCallback}
                 />
             </InputRow>
             <InputRow>
-                <InputWithLabel
-                    label='CPF'
+                <CpfInputWithLabel
                     value={cpf}
                     onChange={setCpf}
                     isInvalid={Boolean(errors.cpf)}
-                    maxLength={11}
+                    cpfNotFoundCallback={notFoundCallback}
+                    cpfExistsCallback={cpfFoundCallback}
                 />
-                <InputWithLabel
-                    label='Login'
+                <LoginInputWithLabel
                     value={login}
                     onChange={setLogin}
                     isInvalid={Boolean(errors.login)}
+                    loginNotFoundCallback={notFoundCallback}
+                    loginExistsCallback={loginFoundCallback}
                 />
             </InputRow>
             <InputRow>
@@ -68,27 +132,28 @@ const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoad
                     isInvalid={Boolean(errors.dataNascimento)}
                     width='250px'
                 />
-                <InputWithLabel
-                    label='Telefone'
+                <PhoneInputWithLabel
                     value={numero_telefone}
                     onChange={setTelefone}
                     isInvalid={Boolean(errors.telefone)}
-                    width='250px'
+                    width={'200px'}
                 />
-                <InputWithLabel
+                <Select
                     label='Cargo'
-                    width='150px'
+                    objectList={ROLES}
+                    fieldForValue={'value'}
+                    fieldForLabel={'label'}
+                    onChangeValue={onChangeCargo}
                     value={cargo}
-                    onChange={setCargo}
+                    // width='150px'
                 />
             </InputRow>
             <InputRow>
-                <InputWithLabel
-                    label='CEP'
+                <CepInputWithLabel
                     value={CEP}
                     onChange={setCEP}
                     isInvalid={Boolean(errors.CEP)}
-                    maxLength={9}
+                    validCepCallback={validCepCallback}
                 />
                 <InputWithLabel
                     label='Logradouro'
@@ -138,7 +203,7 @@ const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoad
                     disabled
                 />
             </InputRow>
-            <ButtonOrSpinner label='Atualizar' />
+            <ButtonOrSpinner label={selectedEmployee.id ? 'Atualizar' : 'Cadastrar'} />
         </BaseForm>
     )
 }
