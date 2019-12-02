@@ -15,7 +15,7 @@ const getBgBarSize = (data, data2) => {
     const powerOfTen = 10 ** magnitude;
     return powerOfTen * Math.ceil(maxValue / powerOfTen);
 };
-const getOptionsForComparativeChart = (dataSet, dataSet2) => {
+const getOptionsForComparativeChart = (dataSet, dataSet2 = []) => {
     let source = []
     if (dataSet.length) {
         source.push(['product', 'Período 1'])

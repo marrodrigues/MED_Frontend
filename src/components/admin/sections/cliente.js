@@ -32,8 +32,8 @@ const ClienteSection = ({ clientList = [] }) => {
         console.log(filterValues)
     }
     // const fields = [ 'nome', 'email', 'cpf', 'login' ]
-    const mapCallback = client => (
-        <tr key={client.pessoa.cpf} onClick={() => { setSelectedClient(client) }}>
+    const mapCallback = (client, index) => (
+        <tr key={`${client.pessoa.cpf}-${index}`} onClick={() => { setSelectedClient(client) }}>
             {CLIENT_FIELDS.map(field => <td key={`${field.name}-${client.pessoa.cpf}`}>{client.pessoa[field.name]}</td>)}
         </tr>        
     )

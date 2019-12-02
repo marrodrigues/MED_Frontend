@@ -156,6 +156,14 @@ const PRODUCT_FIELDS = [{
     displayName: 'Valor'
 }]
 
+const CLIENT_REPORT_FIELDS = [
+    {name: 'nome', displayName: 'Nome'},
+    {name: 'cpf', displayName: 'CPF'},
+    {name: 'qtd_pedidos', displayName: 'Quantidade de pedidos'},
+    {name: 'receita', displayName: 'Receita'},
+    {name: 'percentual', displayName: 'Percentual'},
+]
+
 const STATUSES = [
     {value: '1', label: 'Em confecção'},
     {value: '2', label: 'Entregando'},
@@ -202,6 +210,7 @@ export {
     ROLES,
     FORMAS_PAGAMENTO,
     STATUSES,
+    CLIENT_REPORT_FIELDS,
     emptyFunction,
     reloadWindow,
 }

@@ -42,10 +42,10 @@ const PedidoForm = ({
         setEmployee(event.target.value)
     }
 
-    const mapCallback = product => (
-        <tr key={product.nome} onClick={() => { addToCart(product) }}>
+    const mapCallback = (product, index) => (
+        <tr key={`${product.nome}-${index}`} onClick={() => { addToCart(product) }}>
             {PRODUCT_FIELDS.map(field =>
-                <td key={`${field}-${product.nome}`}>
+                <td key={`${field.name}-${product.nome}`}>
                     {field.name === 'valor'
                         ? 'R$ ' + formatMoney(product[field.name])
                         : product[field.name]

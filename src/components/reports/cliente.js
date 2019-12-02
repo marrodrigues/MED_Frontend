@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import {InputWithLabel} from "../base";
 import Select from "../select";
-import {TIPOS_PRODUTO} from "../../util/constants";
+import {CLIENT_REPORT_FIELDS} from "../../util/constants";
 import InputRow from "../base/form/InputRow";
 import BaseForm from "../base/form";
 import {ButtonOrSpinner} from "../base/button";
@@ -12,6 +12,8 @@ import {connect} from "react-redux";
 import {params} from "../../util/request";
 import DataTable from "../admin/sections/DataTable";
 import { formatMoney } from '../../util/string';
+import Chart from "../Chart";
+import {getOptionsForComparativeChart} from "../../util/graficaodomal";
 
 const Container = styled.div`
     display: flex;
@@ -33,14 +35,14 @@ const ClientReport = ({
     const [dataInicial, setDataInicial] = useState('')
     const [dataFinal, setDataFinal] = useState('')
     const [dataSet, setDataSet] = useState([])
-    const fields = [ 'nome', 'cpf', 'qtd_pedidos', 'receita', 'percentual' ]
+    const [charDataSet, setChartDataSet] = useState([])
     const mapCallback = reportRow => (
         <tr key={reportRow.id}>
-            {fields.map(field => {
-                if (field === 'percentual') {
-                    return <td key={`${field}-${reportRow.nome}`}>{(reportRow.receita/total * 100).toFixed(2)}%</td>
+            {CLIENT_REPORT_FIELDS.map(field => {
+                if (field.name === 'percentual') {
+                    return <td key={`${field.name}-${reportRow.nome}`}>{(reportRow.receita / total * 100).toFixed(2)}%</td>
                 }
-                return <td key={`${field}-${reportRow.nome}`}>{field === 'receita' ? `R$ ${formatMoney(reportRow[field])}` : reportRow[field]}</td>
+                return <td key={`${field.name}-${reportRow.nome}`}>{field.name === 'receita' ? `R$ ${formatMoney(reportRow[field.name])}` : reportRow[field.name]}</td>
             })}
         </tr>
     )
@@ -54,6 +56,9 @@ const ClientReport = ({
             axios.get(url, params)
                 .then(response => response.data)
                 .then(data => {
+                    const chartdata = data.map(entry => ({ nome: entry.cpf, receita: entry.receita}))
+                    console.log(chartdata)
+                    setChartDataSet(chartdata)
                     setDataSet(data)
                     if (data.length === 0) {
                         alert('Não há entradas no período selecionado')
@@ -91,11 +96,19 @@ const ClientReport = ({
                     <ButtonOrSpinner label='Gerar'/>
                 </InputRow>
             </BaseForm>
-            <DataTable
+            {dataSet.length > 0
+            ? <Chart
+                option={getOptionsForComparativeChart(charDataSet)}
+                style={{width: '850px'}}
+            />
+            : null}
+            {dataSet.length > 0
+            ? <DataTable
                 data={dataSet}
-                fields={fields}
+                fields={CLIENT_REPORT_FIELDS}
                 mapCallback={mapCallback}
             />
+            : null}
             {
                 total !== 0
                 ? <Total>Receita Total: R$ {formatMoney(total)}</Total>
