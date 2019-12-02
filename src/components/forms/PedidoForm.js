@@ -7,33 +7,15 @@ import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import Select from "../select";
 import DataTable from "../admin/sections/DataTable";
+import {formatMoney} from "../../util/string";
+import { PRODUCT_FIELDS } from '../../util/constants'
+
 
 const StyledBaseForm = styled(BaseForm)`
 // max-width: 330px;
 `
-// Funcionario
-// Admin
-// {
-// 	"clienteId": 12,
-// 	"funcionarioId": 22,
-// 	"observacao": "teste2",
-//     "codigo": "P2",
-//     "forma_pagamento": 1,
-//     "produtos": [
-//     	{
-//     		"id": 22,
-//     		"qtd": 2
-//     	},
-//     	{
-//     		"id": 12,
-//     		"qtd": 1
-//     	}
-// 	]
-// }
-
 
 const PedidoForm = ({
-    selectedOrder: initial,
     setIsLoading,
     setIsNotLoading,
     loading,
@@ -50,20 +32,6 @@ const PedidoForm = ({
     formasDePagamento,
     ...props
 }) => {
-    const [selectedOrder, setSelectedOrder] = useState(initial || {})
-    // useEffect(() => {
-    //     setSelectedOrder(selectedOrder)
-    // }, [selectedOrder])
-      
-    // const [codigo, setCodigo] = useState(selectedOrder.codigo || '')
-    // const [status, setStatus] = useState(selectedOrder.status || '')
-    // const [forma_pagamento, setFormaPagamento] = useState(selectedOrder.forma_pagamento || formasDePagamento[0].value)
-    // const [data_pedido, setDataPedido] = useState(selectedOrder.data_pedido || '')
-    // const [observacao, setObsevacao] = useState(selectedOrder.observacao || '')
-    // const [client, setClient] = useState(clientList[0] && clientList[0].id || {})
-    // const [employee, setEmployee] = useState(employeeList[0] && employeeList[0].id || {})
-    // const [product, setProduct] = useState(productList[0] && productList[0].id || {})
-    // const [errors, setErrors] = useState({})
     const onChangePagamento = event => {
         setFormaPagamento(event.target.value)
     }
@@ -73,10 +41,17 @@ const PedidoForm = ({
     const onChangeEmployee = event => {
         setEmployee(event.target.value)
     }
-    const fields = [ 'nome', 'tamanho', 'valor']
+
     const mapCallback = product => (
         <tr key={product.nome} onClick={() => { addToCart(product) }}>
-            {fields.map(field => <td key={`${field}-${product.nome}`}>{product[field]}</td>)}
+            {PRODUCT_FIELDS.map(field =>
+                <td key={`${field}-${product.nome}`}>
+                    {field.name === 'valor'
+                        ? 'R$ ' + formatMoney(product[field.name])
+                        : product[field.name]
+                    }
+                </td>
+            )}
         </tr>
     )
     return (
@@ -112,7 +87,7 @@ const PedidoForm = ({
             {productList.length > 0
             ? <DataTable
                 data={productList}
-                fields={fields}
+                fields={PRODUCT_FIELDS}
                 mapCallback={mapCallback}
                 exportable={false}
             />

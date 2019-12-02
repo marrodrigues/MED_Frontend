@@ -120,6 +120,9 @@ const BUNDLE_FIELDS =[{
 }, {
     name: 'insumoproduto',
     displayName: 'Insumo/Produto'
+}, {
+    name: 'valor_unitario',
+    displayName: 'Valor Unitário'
 }]
 
 const ORDER_FIELDS = [{
@@ -153,6 +156,13 @@ const PRODUCT_FIELDS = [{
     displayName: 'Valor'
 }]
 
+const STATUSES = [
+    {value: '1', label: 'Em confecção'},
+    {value: '2', label: 'Entregando'},
+    {value: '3', label: 'Vendido'},
+    {value: '4', label: 'Cancelado'},
+]
+
 const TIPOS_PRODUTO = [
     { value: '1', label: 'Pizza'},
     { value: '2', label: 'Bebida'},
@@ -161,6 +171,11 @@ const TIPOS_PRODUTO = [
 const ROLES = [
     {value: 'Admin', label: 'Administrador'},
     {value: 'Funcionario', label: 'Funcionário'}
+]
+const FORMAS_PAGAMENTO = [
+    { value: '1', label: 'Dinheiro'},
+    { value: '2', label: 'Débito'},
+    { value: '3', label: 'Crédito'},
 ]
 const emptyFunction = () => {}
 
@@ -185,6 +200,8 @@ export {
     ORDER_FIELDS,
     PRODUCT_FIELDS,
     ROLES,
+    FORMAS_PAGAMENTO,
+    STATUSES,
     emptyFunction,
     reloadWindow,
 }

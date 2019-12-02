@@ -106,7 +106,7 @@ const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoadi
                 type='date'
             />
             <InputWithLabel
-                label='Valor Unitário'
+                label='Valor Unitário (em R$)'
                 value={valor_unitario}
                 onChange={setValorUnitario}
                 type='number'

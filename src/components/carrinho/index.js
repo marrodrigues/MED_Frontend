@@ -29,6 +29,7 @@ const Carrinho = ({
     carrinho,
     changeQtd,
     makeOrder,
+    newOrder,
 }) => {
     const total = carrinho.reduce((acc, curr) => acc + (curr.valor * curr.qtd), 0)
     const fields = ['nome', 'valor', '-' ,'qtd', '+']
@@ -68,7 +69,7 @@ const Carrinho = ({
                 ? <FormTitle title='Seu carrinho está vazio'/>
                 : <>
                     <Total>Total: R$ {formatMoney(total)}</Total>
-                    <BaseButton onClick={makeOrder}>Fazer pedido</BaseButton>
+                    <BaseButton onClick={makeOrder}>{newOrder ? 'Fazer pedido' : 'Atualizar pedido'}</BaseButton>
                 </>
             }
         </Container>

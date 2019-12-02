@@ -3,6 +3,7 @@ import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './ba
 import { ADMIN_TABS, BUNDLE_FIELDS } from '../../../util/constants'
 import LoteForm from '../../forms/LoteForm'
 import DataTable from './DataTable'
+import {formatMoney} from "../../../util/string";
 
 const LoteSection = ({ bundleList = [], supplyList = [], productList = [], ...props }) => {
     const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
@@ -22,7 +23,9 @@ const LoteSection = ({ bundleList = [], supplyList = [], productList = [], ...pr
                 <td key={`${field.name}-${bundle.lote}`}>
                     {field.name === 'insumoproduto'
                         ?  bundle.produto ? bundle.produto.nome : bundle.insumo.descricao
-                        : bundle[field.name]}
+                        : field.name === 'valor_unitario'
+                            ? 'R$ ' + formatMoney(bundle[field.name])
+                            :bundle[field.name]}
                 </td>)}
         </tr>        
     )

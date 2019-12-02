@@ -3,6 +3,7 @@ import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './ba
 import { ADMIN_TABS, PRODUCT_FIELDS } from '../../../util/constants'
 import ProdutoForm from '../../forms/ProdutoForm'
 import DataTable from './DataTable'
+import {formatMoney} from "../../../util/string";
 
 const ProdutoSection = ({ productList = [], supplyList = [], ...props }) => {
     const [selectedTab, setSelectedTab] = useState(ADMIN_TABS[1])
@@ -18,7 +19,10 @@ const ProdutoSection = ({ productList = [], supplyList = [], ...props }) => {
         <tr key={product.nome} onClick={() => { setSelectedProduct(product) }}>
             {PRODUCT_FIELDS.map(field =>
                 <td key={`${field.name}-${product.nome}`}>
-                    {product[field.name]}
+                    {field.name === 'valor'
+                        ? 'R$ ' + formatMoney(product[field.name])
+                        : product[field.name]
+                    }
                 </td>)}
         </tr>        
     )
