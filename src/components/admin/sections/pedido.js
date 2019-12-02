@@ -19,6 +19,7 @@ const PedidoSection = ({
     const [selectedOrder, setSelectedOrder] = useState({})
     const [carrinho, setCarrinho] = useState([])
     const [newOrder, setNewOrder] = useState(true)
+    const [status, setStatus] = useState(0)
     useEffect(() => {
         setCodigo(selectedOrder.codigo)
         setFormaPagamento(selectedOrder.forma_pagamento)
@@ -28,9 +29,10 @@ const PedidoSection = ({
         const pedprods = selectedOrder.pedidosProdutos || []
         pedprods.forEach(pedprod => {
             const produto = productList.find(p => p.id === pedprod.produtoId)
-            addToCart(produto)
+            addToCart(produto, pedprod.qtd)
         })
-        setNewOrder(false)
+        setStatus(selectedOrder.status || 0)
+        setNewOrder(!Boolean(selectedOrder.id))
         setSelectedTab(ORDER_TABS[0])
 
     }, [selectedOrder])
@@ -60,9 +62,9 @@ const PedidoSection = ({
                 </td>)}
         </tr>
     )}
-    const addToCart = (product) => {
+    const addToCart = (product, qtd = 1) => {
         let _carrinho = carrinho.slice()
-        _carrinho.push({...product, qtd: 1})
+        _carrinho.push({...product, qtd})
         setCarrinho(_carrinho)
     }
     const changeQtd = (product, change) => {
@@ -130,7 +132,13 @@ const PedidoSection = ({
                     fields={ORDER_FIELDS}
                 />)
             case ORDER_TABS[1]:
-                return <Carrinho carrinho={carrinho} changeQtd={changeQtd} makeOrder={makeOrder} newOrder={newOrder}/>
+                return <Carrinho
+                    carrinho={carrinho}
+                    changeQtd={changeQtd}
+                    makeOrder={makeOrder}
+                    newOrder={newOrder}
+                    disabledByStatus={status > 1}
+                />
             case ORDER_TABS[0]:
                 return <PedidoForm
                     selectedOrder={selectedOrder}
@@ -149,6 +157,8 @@ const PedidoSection = ({
                     setClient={setClient}
                     employee={employee}
                     setEmployee={setEmployee}
+                    newOrder={newOrder}
+                    disabledByStatus={status > 1}
                 />
             default:
                 return null

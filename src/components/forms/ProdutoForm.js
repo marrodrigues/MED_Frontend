@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import {BaseForm, BaseLabel, InputWithLabel} from '../base'
-import { ButtonOrSpinner } from '../base/button'
+import BaseButton, { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import Select from "../select";
 import BaseInput from "../base/input/BaseInput";
-import {ProdutoProvider} from "../../providers";
-import {TIPOS_PRODUTO} from "../../util/constants";
+import {ClienteProvider, ProdutoProvider} from "../../providers";
+import {reloadWindow, TIPOS_PRODUTO} from "../../util/constants";
 
 const StyledBaseForm = styled(BaseForm)`
 max-width: 330px;
@@ -112,6 +112,9 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
         }
     }, [nome, tamanho])
     const [errors, setErrors] = useState({})
+    const onClickDelete = () => {
+        ProdutoProvider.delete(selectedProduct.id, reloadWindow)
+    }
     return (
         <StyledBaseForm key='Produto-form' id='Produto-form' {...props} onSubmit={onSubmit} >
             <InputWithLabel
@@ -167,6 +170,12 @@ const ProdutoForm = ({ selectedProduct: initial, supplyList, setIsLoading, setIs
                     : null
             }
             <ButtonOrSpinner label={selectedProduct.id ? 'Atualizar' : 'Cadastrar'} />
+            {selectedProduct.id
+                ?
+                <div style={{marginLeft: 'auto'}}>
+                    <BaseButton onClick={onClickDelete}>Deletar</BaseButton>
+                </div>
+            : null}
         </StyledBaseForm>
     )
 }

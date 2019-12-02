@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import {BaseForm, CepInputWithLabel, CpfInputWithLabel, InputWithLabel} from '../base'
 import { validateCep, isLocationValid } from '../../util/validation'
-import { ButtonOrSpinner } from '../base/button'
+import BaseButton, { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
 import {ClienteProvider, UserProvider} from '../../providers'
@@ -70,7 +70,9 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
             {...selectedClient, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf, senha: selectedClient.pessoa.senha},
             reloadWindow)
     }
-
+    const onClickDelete = () => {
+        ClienteProvider.delete(selectedClient.id, reloadWindow)
+    }
 
     return (
         <BaseForm key='cliente-form' id='cliente-form' onSubmit={handleSubmit} {...props}>
@@ -173,6 +175,12 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
                 />
             </InputRow>
             <ButtonOrSpinner label='Atualizar' />
+            {selectedClient.id
+                ?
+                <div style={{marginLeft: 'auto'}}>
+                    <BaseButton onClick={onClickDelete}>Deletar</BaseButton>
+                </div>
+            : null}
         </BaseForm>
     )
 }

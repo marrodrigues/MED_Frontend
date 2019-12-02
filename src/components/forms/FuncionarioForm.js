@@ -8,7 +8,7 @@ import {
     InputWithLabel,
     LoginInputWithLabel
 } from '../base'
-import { ButtonOrSpinner } from '../base/button'
+import BaseButton, { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
 import {PESSOA_DEFAULT_VALUE, reloadWindow, ROLES, TIPOS_PRODUTO} from '../../util/constants'
@@ -88,6 +88,9 @@ const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoad
         FuncionarioProvider.createOrUpdate(
             {...selectedEmployee, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf, senha: selectedEmployee.pessoa.senha || 'senha1', cargo},
             reloadWindow)
+    }
+    const onClickDelete = () => {
+        FuncionarioProvider.delete(selectedEmployee.id, reloadWindow)
     }
 
     return (
@@ -204,6 +207,12 @@ const FuncionarioForm = ({ selectedEmployee: initial, setIsLoading, setIsNotLoad
                 />
             </InputRow>
             <ButtonOrSpinner label={selectedEmployee.id ? 'Atualizar' : 'Cadastrar'} />
+            {selectedEmployee.id
+                ?
+                <div style={{marginLeft: 'auto'}}>
+                    <BaseButton onClick={onClickDelete}>Deletar</BaseButton>
+                </div>
+            : null}
         </BaseForm>
     )
 }

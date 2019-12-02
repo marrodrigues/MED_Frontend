@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { BaseForm, InputWithLabel } from '../base'
-import { ButtonOrSpinner } from '../base/button'
+import BaseButton, { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import Select from "../select";
-import {InsumoProvider} from "../../providers";
+import {FuncionarioProvider, InsumoProvider} from "../../providers";
 import DescricaoInputWithLabel from "../base/input/DescricaoInputWithLabel";
+import {reloadWindow} from "../../util/constants";
 
 const StyledBaseForm = styled(BaseForm)`
 max-width: 330px;
@@ -30,6 +31,9 @@ const InsumoForm = ({ selectedSupply: initial, setIsLoading, setIsNotLoading, lo
         event.preventDefault()
         const insumoObj = { descricao, qtd_unid, unidade }
         InsumoProvider.createOrUpdate({ id: selectedSupply.id, ...insumoObj })
+    }
+    const onClickDelete = () => {
+        InsumoProvider.delete(selectedSupply.id, reloadWindow)
     }
     const descricaoExistsCallback = (data) => {
         setSelectedSupply(data)
@@ -64,6 +68,12 @@ const InsumoForm = ({ selectedSupply: initial, setIsLoading, setIsNotLoading, lo
             />
 
             <ButtonOrSpinner label={selectedSupply.id ? 'Atualizar' : 'Cadastrar'} />
+            {selectedSupply.id
+                ?
+                <div style={{marginLeft: 'auto'}}>
+                    <BaseButton onClick={onClickDelete}>Deletar</BaseButton>
+                </div>
+            : null}
         </StyledBaseForm>
     )
 }

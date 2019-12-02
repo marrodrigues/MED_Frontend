@@ -30,6 +30,8 @@ const PedidoForm = ({
     employee, setEmployee,
     onSubmit,
     formasDePagamento,
+    newOrder,
+    disabledByStatus,
     ...props
 }) => {
     const onChangePagamento = event => {
@@ -60,6 +62,7 @@ const PedidoForm = ({
                 label='Código'
                 value={codigo}
                 onChange={setCodigo}
+                disabled={!newOrder || disabledByStatus}
             />
             <Select
                 label='Forma de pagamento'
@@ -67,6 +70,7 @@ const PedidoForm = ({
                 fieldForValue={'value'}
                 fieldForLabel={'label'}
                 onChangeValue={onChangePagamento}
+                disabled={!newOrder || disabledByStatus}
             />
             <Select
                 label='Cliente'
@@ -74,6 +78,7 @@ const PedidoForm = ({
                 fieldForValue={'id'}
                 fieldForLabel={'nome'}
                 onChangeValue={onChangeClient}
+                disabled={!newOrder || disabledByStatus}
             />
             <Select
                 label='Funcionário'
@@ -81,22 +86,24 @@ const PedidoForm = ({
                 fieldForValue={'id'}
                 fieldForLabel={'nome'}
                 onChangeValue={onChangeEmployee}
+                disabled={!newOrder || disabledByStatus}
             />
 
             <BaseLabel color='#236C4A'>Produtos (Clique para adicionar ao carrinho)</BaseLabel>
-            {productList.length > 0
+            {productList.length > 0 && !disabledByStatus
             ? <DataTable
                 data={productList}
                 fields={PRODUCT_FIELDS}
                 mapCallback={mapCallback}
                 exportable={false}
             />
-            : null}
+            : <BaseLabel color='#236C4A'>Não é possivel alterar os produtos de pedidos que já passaram da fase de confecção</BaseLabel>}
 
             <InputWithLabel
                 label='Observações'
                 value={observacao}
                 onChange={setObservacao}
+                disabled={disabledByStatus}
             />
             {/*<ButtonOrSpinner label='Cadastrar' />*/}
         </StyledBaseForm>

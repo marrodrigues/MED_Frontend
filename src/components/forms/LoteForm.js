@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { BaseForm, InputWithLabel } from '../base'
-import { ButtonOrSpinner } from '../base/button'
+import BaseButton, { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import LoteInputWithLabel from "../base/input/LoteInputWithLabel";
 import LoteProvider from "../../providers/LoteProvider";
 import Select from "../select";
 import {reloadWindow} from "../../util/constants";
+import {InsumoProvider} from "../../providers";
 
 const StyledBaseForm = styled(BaseForm)`
 max-width: 330px;
@@ -83,6 +84,9 @@ const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoadi
         console.log(loteObj)
         LoteProvider.createOrUpdate({ id: selectedBundle.id, ...loteObj }, reloadWindow)
     }
+    const onClickDelete = () => {
+        LoteProvider.delete(selectedBundle.id, reloadWindow)
+    }
 
     const [errors, setErrors] = useState({})
     return (
@@ -138,6 +142,12 @@ const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoadi
                 />)
             }
             <ButtonOrSpinner label={selectedBundle.id ? 'Atualizar' : 'Cadastrar'} />
+            {selectedBundle.id
+                ?
+                <div style={{marginLeft: 'auto'}}>
+                    <BaseButton onClick={onClickDelete}>Deletar</BaseButton>
+                </div>
+            : null}
         </StyledBaseForm>
     )
 }

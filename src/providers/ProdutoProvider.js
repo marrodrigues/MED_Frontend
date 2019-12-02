@@ -33,10 +33,11 @@ const ProdutoProvider = {
     delete: (id, callback) => {
         axios.delete('https://med-backend-dev.herokuapp.com/produtos/' + id, params)
             .then(response => {
-                // // debugger
+                // callback()
+                debugger
             })
             .catch(error => {
-                // // debugger
+                debugger
             })
     },
     createOrUpdate: (data, callback) => {
