@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import {BaseForm, CpfInputWithLabel, EmailInputWithLabel, InputWithLabel, LoginInputWithLabel} from '../base'
+import {
+    BaseForm,
+    CepInputWithLabel,
+    CpfInputWithLabel,
+    EmailInputWithLabel,
+    InputWithLabel,
+    LoginInputWithLabel
+} from '../base'
 import { validateCep, isLocationValid } from '../../util/validation'
 import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
@@ -40,6 +47,18 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
     }
     const cpfFoundCallback = () => {
         return [true, 'CPF já cadastrado']
+    }
+    const validCepCallback = (data) => {
+        const {
+            bairro: _bairro,
+            localidade,
+            logradouro: _logradouro,
+            uf: _uf
+        } = data
+        setBairro(_bairro)
+        setCidade(localidade)
+        setLogradouro(_logradouro)
+        setUf(_uf)
     }
     useEffect(() => {
         if (CEP.length !== 9) return
@@ -169,13 +188,12 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
             />
             </InputRow>
             <InputRow>
-            <InputWithLabel
-                label='CEP'
-                value={CEP}
-                onChange={setCEP}
-                isInvalid={Boolean(errors.CEP)}
-                maxLength={9}
-            />
+                <CepInputWithLabel
+                    value={CEP}
+                    onChange={setCEP}
+                    isInvalid={Boolean(errors.CEP)}
+                    validCepCallback={validCepCallback}
+                />
             <InputWithLabel
                 label='Logradouro'
                 value={logradouro}
