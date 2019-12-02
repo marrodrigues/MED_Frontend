@@ -8,14 +8,15 @@ const Container = styled.section`
 `
 
 const MeusDadosSection = ({ initialValues, clientList }) => {
-    const [selectedClient, setSelectedClient] = useState(PESSOA_DEFAULT_VALUE)
+    const [selectedClient, setSelectedClient] = useState(null)
     useEffect(() => {
         const client = (clientList || []).find(client => client && client.pessoa && client.pessoa.id === Number(initialValues.id))
-        setSelectedClient((client && client.pessoa) || PESSOA_DEFAULT_VALUE)
-    }, [clientList, initialValues])
+        setSelectedClient(client)
+    }, [clientList, selectedClient])
     return (
         <Container>
-            <ClienteForm title="Meus Dados" selectedClient={selectedClient} />
+            {selectedClient &&
+            <ClienteForm title="Meus Dados" selectedClient={selectedClient} />}
         </Container>
     )
 }

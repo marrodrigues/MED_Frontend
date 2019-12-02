@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { BaseForm, InputWithLabel } from '../base'
+import {BaseForm, CepInputWithLabel, CpfInputWithLabel, InputWithLabel} from '../base'
 import { validateCep, isLocationValid } from '../../util/validation'
 import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
-import { UserProvider } from '../../providers'
+import {ClienteProvider, UserProvider} from '../../providers'
 import { PESSOA_DEFAULT_VALUE } from '../../util/constants'
+import EmailInputWithLabel from "../base/input/EmailInputWithLabel";
+import LoginInputWithLabel from "../base/input/LoginInputWithLabel";
+import PhoneInputWithLabel from "../base/input/PhoneInputWithLabel";
 // import styled from 'styled-components'
 
 const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, loading, ...props }) => {
     const [selectedClient, setSelectedClient] = useState(initial || PESSOA_DEFAULT_VALUE)
     useEffect(() => {
-        setSelectedClient(selectedClient)
-    }, [selectedClient])
+        setSelectedClient(initial)
+    }, [initial])
     const [nome, setNome] = useState(selectedClient.pessoa.nome || '')
     const [email, setEmail] = useState(selectedClient.pessoa.email || '')
     const [cpf, setCpf] = useState(selectedClient.pessoa.cpf || '')
@@ -29,32 +32,18 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
     const [uf, setUf] = useState(selectedClient.pessoa.endereco[0].UF || '')
     const [errors, setErrors] = useState({})
 
-    useEffect(() => {
-        if (CEP.length !== 9) return
-        setIsLoading()
-        validateCep(CEP)
-            .then(response => response.data)
-            .then(data => {
-                if (data.erro || !isLocationValid(data)) {
-                    setErrors({ ...errors, CEP: true })
-                } else {
-                    const { bairro, localidade: cidade, logradouro, uf } = data
-                    setBairro(bairro)
-                    setCidade(cidade)
-                    setLogradouro(logradouro)
-                    setUf(uf)
-                    setErrors({ ...errors, CEP: false })
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                setErrors({ ...errors, CEP: true })
-            })
-            .finally(() => {
-                setIsNotLoading()
-            })
-    }, [CEP])
-
+    const validCepCallback = (data) => {
+        const {
+            bairro: _bairro,
+            localidade,
+            logradouro: _logradouro,
+            uf: _uf
+        } = data
+        setBairro(_bairro)
+        setCidade(localidade)
+        setLogradouro(_logradouro)
+        setUf(_uf)
+    }
     const validateInputs = () => {
         let errors = {}
         if (!nome) errors.nome = true
@@ -77,16 +66,29 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
             setIsNotLoading()
             return
         }
-        // UserProvider.create({ nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf })
-        //     .then(response => {
-        //         debugger
-        //     })
-        //     .catch(error => {
-        //         console.log(error)
-        //     })
-        //     .finally(() => {
-        //         setIsNotLoading()
-        //     })
+        ClienteProvider.createOrUpdate(
+            {...selectedClient, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf, senha: selectedClient.pessoa.senha},
+            () => {window.location.reload()})
+        // if (selectedClient.id) {
+        //     UserProvider.update({...selectedClient, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf})
+        //         .then(response => {
+        //             debugger
+        //         })
+        //         .catch(error => {
+        //             console.log(JSON.stringify(error))
+        //         })
+        // } else {
+        //     UserProvider.create({ nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf })
+        //         .then(response => {
+        //             debugger
+        //         })
+        //         .catch(error => {
+        //             console.log(error)
+        //         })
+        //         .finally(() => {
+        //             setIsNotLoading()
+        //         })
+        // }
     }
 
 
@@ -99,27 +101,26 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
                     onChange={setNome}
                     isInvalid={Boolean(errors.nome)}
                 />
-                    <InputWithLabel
-                        label='Login'
-                        value={login}
-                        onChange={setLogin}
-                        isInvalid={Boolean(errors.login)}
-                    />
+                <LoginInputWithLabel
+                    value={login}
+                    onChange={setLogin}
+                    isInvalid={Boolean(errors.login)}
+                    disabled={selectedClient.id}
+                />
             </InputRow>
             <InputRow>
-                <InputWithLabel
-                    label='CPF'
+                <CpfInputWithLabel
                     value={cpf}
                     onChange={setCpf}
                     isInvalid={Boolean(errors.cpf)}
-                    maxLength={11}
+                    disabled={selectedClient.id}
                 />
-                <InputWithLabel
-                    label='Email'
+                <EmailInputWithLabel
                     value={email}
                     onChange={setEmail}
                     type='email'
                     isInvalid={Boolean(errors.email)}
+                    disabled={selectedClient.id}
                 />
             </InputRow>
             <InputRow>
@@ -130,20 +131,18 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
                     type='date'
                     isInvalid={Boolean(errors.dataNascimento)}
                 />
-                <InputWithLabel
-                    label='Telefone'
+                <PhoneInputWithLabel
                     value={numero_telefone}
                     onChange={setTelefone}
                     isInvalid={Boolean(errors.telefone)}
                 />
             </InputRow>
             <InputRow>
-                <InputWithLabel
-                    label='CEP'
+                <CepInputWithLabel
                     value={CEP}
                     onChange={setCEP}
                     isInvalid={Boolean(errors.CEP)}
-                    maxLength={9}
+                    validCepCallback={validCepCallback}
                 />
                 <InputWithLabel
                     label='Logradouro'

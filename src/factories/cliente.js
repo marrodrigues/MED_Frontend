@@ -1,6 +1,6 @@
 export default {
     createCliente: (data) => {
-        let cliente = { flag_bloqueado: 0, }
+        let cliente = { flag_bloqueado: 0 }
         cliente.id = data.id
         cliente.pessoaId = data.pessoaId
         const { cpf, nome, login, senha, email, dataNascimento } = data

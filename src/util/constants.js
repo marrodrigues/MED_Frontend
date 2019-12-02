@@ -158,6 +158,11 @@ const TIPOS_PRODUTO = [
     { value: '2', label: 'Bebida'},
 ]
 
+const ROLES = [
+    {value: 'Admin', label: 'Administrador'},
+    {value: 'Funcionario', label: 'Funcionário'}
+]
+
 
 export {
     PATHS,
@@ -177,4 +182,5 @@ export {
     BUNDLE_FIELDS,
     ORDER_FIELDS,
     PRODUCT_FIELDS,
+    ROLES,
 }

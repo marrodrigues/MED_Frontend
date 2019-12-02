@@ -23,13 +23,12 @@ const ClienteProvider = {
     changePassword: (formData, callback) => {
         console.log('Change Password')
     },
-    createOrUpdate: (data, callback) => {
+    createOrUpdate: (data, callback = () => {}) => {
         const clienteObj = ClienteFactory.createCliente(data)
-        // // debugger
         if (clienteObj.id) {
             axios.put('https://med-backend-dev.herokuapp.com/clientes/' + clienteObj.id, clienteObj, params)
                 .then(response => {
-                    // // debugger
+                    debugger
                     callback()
                 })
                 .catch(error => {

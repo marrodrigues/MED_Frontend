@@ -10,10 +10,14 @@ const PreRegisterForm = ({ loading, onClickButton, resetLoading }) => {
     const [numero, setNumero] = useState('')
     const errorsInitalState = {cep: false, numero: false}
     const [errors, setErrors] = useState(errorsInitalState)
+    const [disableButton, setDisableButton] = useState(true)
+    const validCepCallback = () => {
+        setDisableButton(false)
+    }
     const validateInputs = () => {
         let errors = errorsInitalState
-        if (!cep) errors.login = true
-        if (!numero) errors.password = true
+        if (!cep) errors.cep = true
+        if (!numero) errors.numero = true
         setErrors(errors)
     }
     const handleSubmit = e => {
@@ -36,6 +40,7 @@ const PreRegisterForm = ({ loading, onClickButton, resetLoading }) => {
                 onChange={setCep}
                 isInvalid={errors.cep}
                 labelColor='white'
+                validCepCallback={validCepCallback}
             />
             <InputWithLabel 
                 label='Número da residência'
@@ -44,7 +49,7 @@ const PreRegisterForm = ({ loading, onClickButton, resetLoading }) => {
                 isInvalid={errors.numero}
                 labelColor='white'
             />
-            <ButtonOrSpinner label='Cadastrar'/>
+            <ButtonOrSpinner label='Cadastrar' disabled={disableButton || errors.cep}/>
         </BaseForm>
     )
 }

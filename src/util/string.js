@@ -41,20 +41,25 @@ const formatCpf = (unformattedCpf) => {
     }
     return formattedCpf
 }
-// const formatPhone = (unformattedPhone) => {
-//     const digits = removeNonNumericDigits(unformattedPhone)
-//     let formattedPhone = ''
-//     for (let digit of digits) {
-//         if (formattedPhone.length === 0) {
-//             formattedPhone += '('
-//         }
-//         if (formattedPhone.length === 3) {
-//             formattedPhone += ')'
-//         }
-
-
-//     }
-// }
+const formatPhone = (unformattedPhone) => {
+    const digits = removeNonNumericDigits(unformattedPhone)
+    let formattedPhone = ''
+    for (let digit of digits) {
+        switch (formattedPhone.length){
+            case 0:
+                formattedPhone += '('
+                break
+            case 3:
+                formattedPhone += ') '
+                break
+            case 10:
+                formattedPhone += '-'
+                break
+        }
+        formattedPhone += digit
+    }
+    return formattedPhone
+}
 
 const formatMoney = (number, decPlaces, decSep, thouSep) => {
     decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces;
@@ -71,4 +76,4 @@ const formatMoney = (number, decPlaces, decSep, thouSep) => {
         (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
     }
 
-export { formatCep, capitalize, getValuesFromQueryString, formatCpf, formatMoney }
+export { formatCep, capitalize, getValuesFromQueryString, formatCpf, formatMoney, formatPhone, removeNonNumericDigits }

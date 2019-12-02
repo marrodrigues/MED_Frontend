@@ -6,7 +6,7 @@ import { InputWithLabel } from '../'
 import { formatCep } from '../../../util/string'
 import { validateCep, isLocationValid } from '../../../util/validation'
 
-const CepInputWithLabel = ({ value, validCepCallback, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
+const CepInputWithLabel = ({ value, validCepCallback = () => {}, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
     const [isInvalidCep, setInvalidCep] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const onBlur = (e) => {

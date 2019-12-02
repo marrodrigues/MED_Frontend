@@ -151,11 +151,11 @@ const ProductReport = ({
                         type='month'
                         disabled={compare}
                     />
-                    <Checkbox
+                    {dataInicial && <Checkbox
                         checked={compare}
                         onChange={handleCheckboxChange}
                         label='Comparar'
-                    />
+                    />}
                     {
                         compare &&
                         <InputWithLabel

@@ -7,7 +7,7 @@ import { setLoggedUser, setLoading, setNotLoading } from '../../actions'
 // import { FORM_INPUT_IDS } from '../../util/constants'
 import { ButtonOrSpinner } from '../base/button'
 
-const LoginForm = ({ onLoginSucess, setIsLoading, setIsNotLoading }) => {
+const LoginForm = ({ onLoginSuccess, setIsLoading, setIsNotLoading }) => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const errorsInitalState = {login: false, password: false}
@@ -31,7 +31,7 @@ const LoginForm = ({ onLoginSucess, setIsLoading, setIsNotLoading }) => {
             .then(response => response.data)
             .then(data =>  {
                 debugger
-                onLoginSucess(data)
+                onLoginSuccess(data)
                 if (data.role === 'Cliente') {
                     window.location.href = '/cliente?id=' + data.id
                 } else {
@@ -40,6 +40,8 @@ const LoginForm = ({ onLoginSucess, setIsLoading, setIsNotLoading }) => {
             })
             .catch(error => {
                 console.log(JSON.stringify(error))
+                alert('Usuário ou senha inválidos')
+                setPassword('')
             })
             .finally(() => {
                 setIsNotLoading()
@@ -69,7 +71,7 @@ const LoginForm = ({ onLoginSucess, setIsLoading, setIsNotLoading }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    onLoginSucess: (userData) => {
+    onLoginSuccess: (userData) => {
         dispatch(setLoggedUser(userData));
     },
     setIsLoading: () => {

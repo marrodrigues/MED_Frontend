@@ -20,11 +20,11 @@ background: #354B0C;
 export default BaseButton
 
 
-const ButtonOrSpinnerWrapper = ({ label, loading }) => (
+const ButtonOrSpinnerWrapper = ({ label, loading, disabled }) => (
     <div style={{marginLeft: 'auto'}}>
         {loading
         ? <Spinner color='yellow' name='circle' />
-        : <BaseButton type='submit'>{label}</BaseButton>}
+        : <BaseButton type='submit' disabled={disabled}>{label}</BaseButton>}
     </div>
 )
 

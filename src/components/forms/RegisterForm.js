@@ -6,6 +6,8 @@ import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import InputRow from '../base/form/InputRow'
 import { UserProvider } from '../../providers'
+import PhoneInputWithLabel from "../base/input/PhoneInputWithLabel";
+import {formatCpf, removeNonNumericDigits} from "../../util/string";
 // import styled from 'styled-components'
 
 const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) => {
@@ -77,7 +79,7 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
             setIsNotLoading()    
             return
         }
-        UserProvider.create({ nome, email, cpf, login, senha, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf })
+        UserProvider.create({ nome, email, cpf: removeNonNumericDigits(cpf), login, senha, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf })
             .then(response => {
                 debugger
             })
@@ -110,10 +112,10 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
             <InputRow>
             <InputWithLabel
                 label='CPF'
-                value={cpf}
+                value={formatCpf(cpf)}
                 onChange={setCpf}
                 isInvalid={Boolean(errors.cpf)}
-                maxLength={11}
+                maxLength={14}
             />
             <InputWithLabel
                 label='Login'
@@ -146,8 +148,7 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
                 type='date'
                 isInvalid={Boolean(errors.dataNascimento)}
             />
-            <InputWithLabel
-                label='Telefone'
+            <PhoneInputWithLabel
                 value={numero_telefone}
                 onChange={setTelefone}
                 isInvalid={Boolean(errors.telefone)}

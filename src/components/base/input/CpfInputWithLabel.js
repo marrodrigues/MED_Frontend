@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { setLoading, setNotLoading } from '../../../actions'
 
 import { InputWithLabel } from '../'
-import { formatCpf } from '../../../util/string'
+import {formatCpf, removeNonNumericDigits} from '../../../util/string'
 import { validateCpf } from '../../../util/validation'
 
 const CpfInputWithLabel = ({ value, cpfExistsCallback = () => {}, cpfNotFoundCallback = () => {}, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
@@ -12,7 +12,7 @@ const CpfInputWithLabel = ({ value, cpfExistsCallback = () => {}, cpfNotFoundCal
     const onBlur = e => {
         setIsLoading()
         const cpf = e.target.value
-        validateCpf(cpf)
+        validateCpf(removeNonNumericDigits(cpf))
             .then(response => response.data)
             .then(data => {
                 cpfExistsCallback(data)

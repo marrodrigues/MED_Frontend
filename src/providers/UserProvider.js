@@ -5,6 +5,7 @@ import {
     // KEYS
 } from '../util/constants'
 import { params } from '../util/request'
+import {removeNonNumericDigits} from "../util/string";
 
 const createClienteObj = ({
         bairro,
@@ -23,6 +24,7 @@ const createClienteObj = ({
         uf 
     }) => {
         let clienteObj = { flag_bloqueado: 0, pessoa: {} }
+        const [ddd, num_tel] = numero_telefone.split(' ').map(str => removeNonNumericDigits(str))
         clienteObj.pessoa = {
             cpf,
             dataNascimento,
@@ -40,8 +42,8 @@ const createClienteObj = ({
                 uf
             }],
             telefone: [{
-                DDD: 21,
-                numero_telefone,
+                DDD: ddd,
+                numero_telefone: num_tel,
                 tipo: 'celular'
             }]
         }
@@ -66,6 +68,7 @@ const UserProvider = {
             })
     },
     update: (formData) => {
+        console.log(formData)
         let updateObj = { pessoa: { endereco: [{}], telefone: [{}] } }
         for (let key in formData) {
             let splittedKey = key.split('-')

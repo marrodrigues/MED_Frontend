@@ -78,7 +78,6 @@ const Content = styled.section`
 `
 
 const Admin = ({ sections, initialValues }) => {
-    // TODO remover após teste
     const [selectedItem, setSelectedItem] = useState(sections[0].name)
     const onClickNavItem = (section) => { setSelectedItem(section) }
     const [clientList, setClientList] =  useState([])
@@ -134,13 +133,6 @@ const Admin = ({ sections, initialValues }) => {
         }
         PedidoProvider.getAll(orderListCallback)
     }, [])
-
-    // useEffect(() => {
-    //     if (initialValues.id) {
-    //         const selectedClient = (clientList || []).find(client => client.pessoa.id === Number(initialValues.id))
-    //         setSelectedClient(selectedClient)
-    //     }
-    // }, [initialValues.id, clientList])
     
     const renderSection = () => {
         switch (selectedItem) {
@@ -149,7 +141,6 @@ const Admin = ({ sections, initialValues }) => {
             case 'Clientes':
                 return <ClienteSection clientList={clientList}/>
             case 'Meus Dados':
-                console.log(selectedClient)
                 return <MeusDadosSection initialValues={initialValues} clientList={clientList}/>
             case 'Meus Pedidos':  
                 // return <TestComponent/>
