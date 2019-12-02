@@ -35,6 +35,7 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
     const [cidade, setCidade] = useState('')
     const [uf, setUf] = useState('')
     const [errors, setErrors] = useState({})
+    const [confirmacaoErrorMessage, setConfirmacaoErrorMessage] = useState('')
 
     const notFoundCallback = () => {
         return [false, '']
@@ -47,6 +48,20 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
     }
     const cpfFoundCallback = () => {
         return [true, 'CPF já cadastrado']
+    }
+    const onBlurConfirmacao = event => {
+        event.stopPropagation()
+        event.preventDefault()
+        const conf = event.target.value
+        if (senha !== conf) {
+            errors.confirmacao = true
+            setErrors(errors)
+            setConfirmacaoErrorMessage('Não confere com a senha')
+        } else {
+            errors.confirmacao = false
+            setErrors(errors)
+            setConfirmacaoErrorMessage('')
+        }
     }
     const validCepCallback = (data) => {
         const {
@@ -113,7 +128,11 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
         UserProvider.create({ nome, email, cpf: removeNonNumericDigits(cpf), login, senha, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf })
             .then(response => response.data)
             .then(data => {
-                window.location.href = '/cliente?id=' + data.pessoaId
+                if (window.location.href.includes('admin')) {
+                    window.location.reload()
+                } else {
+                    window.location.href = '/cliente?id=' + data.pessoaId
+                }
             })
             .catch(error => {
                 console.log(error)
@@ -171,6 +190,8 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
                 onChange={setConfirmacao}
                 type='password'
                 isInvalid={Boolean(errors.confirmacao)}
+                errorMessage={confirmacaoErrorMessage}
+                onBlur={onBlurConfirmacao}
             />
             </InputRow>
             <InputRow>
