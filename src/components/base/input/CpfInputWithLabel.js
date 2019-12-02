@@ -9,17 +9,23 @@ import { validateCpf } from '../../../util/validation'
 const CpfInputWithLabel = ({ value, cpfExistsCallback = () => {}, cpfNotFoundCallback = () => {}, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
     const [isInvalidCpf, setInvalidCpf] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const callbackResult = (invalid, message) => {
+        setInvalidCpf(invalid)
+        setErrorMessage(message)
+    }
     const onBlur = e => {
         setIsLoading()
         const cpf = e.target.value
         validateCpf(removeNonNumericDigits(cpf))
             .then(response => response.data)
             .then(data => {
-                cpfExistsCallback(data)
+                const [invalid, message] = cpfExistsCallback(data)
+                callbackResult(invalid, message)
             })
             .catch(error => {
                 if (error.response.status === 404) {
-                    cpfNotFoundCallback()
+                    const [invalid, message] = cpfNotFoundCallback()
+                    callbackResult(invalid, message)
                 } else {
                     console.log(JSON.stringify(error))
                 }

@@ -8,17 +8,23 @@ import { validateEmail } from '../../../util/validation'
 const EmailInputWithLabel = ({ value, emailExistsCallback = () => {}, emailNotFoundCallback = () => {}, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
     const [isInvalidEmail, setInvalidEmail] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const callbackResult = (invalid, message) => {
+        setInvalidEmail(invalid)
+        setErrorMessage(message)
+    }
     const onBlur = e => {
         setIsLoading()
         const email = e.target.value
         validateEmail(email)
             .then(response => response.data)
             .then(data => {
-                emailExistsCallback(data)
+                const [invalid, message] = emailExistsCallback(data)
+                callbackResult(invalid, message)
             })
             .catch(error => {
                 if (error.response.status === 404) {
-                    emailNotFoundCallback()
+                    const [invalid, message] = emailNotFoundCallback()
+                    callbackResult(invalid, message)
                 } else {
                     console.log(JSON.stringify(error))
                 }
@@ -36,6 +42,7 @@ const EmailInputWithLabel = ({ value, emailExistsCallback = () => {}, emailNotFo
             onBlur={onBlur}
             isInvalid={isInvalid || isInvalidEmail}
             errorMessage={errorMessage}
+            type='email'
         />
     )
 }

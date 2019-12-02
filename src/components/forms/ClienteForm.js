@@ -22,7 +22,7 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
     const [cpf, setCpf] = useState(selectedClient.pessoa.cpf || '')
     const [login, setLogin] = useState(selectedClient.pessoa.login || '')
     const [dataNascimento, setDataNascimento] = useState(selectedClient.pessoa.dataNascimento || '')
-    const [numero_telefone, setTelefone] = useState(selectedClient.pessoa.telefone[0].numero_telefone || '')
+    const [numero_telefone, setTelefone] = useState(selectedClient.pessoa.telefone[0].DDD + selectedClient.pessoa.telefone[0].numero_telefone || '')
     const [CEP, setCEP] = useState(selectedClient.pessoa.endereco[0].CEP || '')
     const [logradouro, setLogradouro] = useState(selectedClient.pessoa.endereco[0].logradouro || '')
     const [numero, setNumero] = useState(selectedClient.pessoa.endereco[0].numero || '')
@@ -69,26 +69,6 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
         ClienteProvider.createOrUpdate(
             {...selectedClient, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf, senha: selectedClient.pessoa.senha},
             () => {window.location.reload()})
-        // if (selectedClient.id) {
-        //     UserProvider.update({...selectedClient, nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf})
-        //         .then(response => {
-        //             debugger
-        //         })
-        //         .catch(error => {
-        //             console.log(JSON.stringify(error))
-        //         })
-        // } else {
-        //     UserProvider.create({ nome, email, cpf, login, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf })
-        //         .then(response => {
-        //             debugger
-        //         })
-        //         .catch(error => {
-        //             console.log(error)
-        //         })
-        //         .finally(() => {
-        //             setIsNotLoading()
-        //         })
-        // }
     }
 
 

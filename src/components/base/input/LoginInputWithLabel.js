@@ -8,17 +8,23 @@ import { validateLogin } from '../../../util/validation'
 const LoginInputWithLabel = ({ value, loginExistsCallback = () =>{}, loginNotFoundCallback = () =>{}, isInvalid, setIsLoading, setIsNotLoading, ...props }) => {
     const [isInvalidLogin, setInvalidLogin] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
+    const callbackResult = (invalid, message) => {
+        setInvalidLogin(invalid)
+        setErrorMessage(message)
+    }
     const onBlur = e => {
         setIsLoading()
         const login = e.target.value
         validateLogin(login)
             .then(response => response.data)
             .then(data => {
-                loginExistsCallback(data)
+                const [invalid, message] = loginExistsCallback(data)
+                callbackResult(invalid, message)
             })
             .catch(error => {
                 if (error.response.status === 404) {
-                    loginNotFoundCallback()
+                    const [invalid, message] = loginNotFoundCallback()
+                    callbackResult(invalid, message)
                 } else {
                     console.log(JSON.stringify(error))
                 }

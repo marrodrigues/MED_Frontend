@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { BaseForm, InputWithLabel } from '../base'
+import {BaseForm, CpfInputWithLabel, EmailInputWithLabel, InputWithLabel, LoginInputWithLabel} from '../base'
 import { validateCep, isLocationValid } from '../../util/validation'
 import { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
@@ -29,6 +29,18 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
     const [uf, setUf] = useState('')
     const [errors, setErrors] = useState({})
 
+    const notFoundCallback = () => {
+        return [false, '']
+    }
+    const emailFoundCallback = () => {
+        return [true, 'E-mail já cadastrado']
+    }
+    const loginFoundCallback = () => {
+        return [true, 'Login já cadastrado']
+    }
+    const cpfFoundCallback = () => {
+        return [true, 'CPF já cadastrado']
+    }
     useEffect(() => {
         if (CEP.length !== 9) return
         setIsLoading()
@@ -80,8 +92,9 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
             return
         }
         UserProvider.create({ nome, email, cpf: removeNonNumericDigits(cpf), login, senha, dataNascimento, numero_telefone, CEP, numero, complemento, logradouro, bairro, cidade, uf })
-            .then(response => {
-                debugger
+            .then(response => response.data)
+            .then(data => {
+                window.location.href = '/cliente?id=' + data.pessoaId
             })
             .catch(error => {
                 console.log(error)
@@ -101,27 +114,28 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
                 onChange={setNome}
                 isInvalid={Boolean(errors.nome)}
             />
-            <InputWithLabel
-                label='Email'
+            <EmailInputWithLabel
                 value={email}
                 onChange={setEmail}
-                type='email'
                 isInvalid={Boolean(errors.email)}
+                emailExistsCallback={emailFoundCallback}
+                emailNotFoundCallback={notFoundCallback}
             />
             </InputRow>
             <InputRow>
-            <InputWithLabel
-                label='CPF'
-                value={formatCpf(cpf)}
+            <CpfInputWithLabel
+                value={cpf}
                 onChange={setCpf}
                 isInvalid={Boolean(errors.cpf)}
-                maxLength={14}
+                cpfNotFoundCallback={notFoundCallback}
+                cpfExistsCallback={cpfFoundCallback}
             />
-            <InputWithLabel
-                label='Login'
+            <LoginInputWithLabel
                 value={login}
                 onChange={setLogin}
                 isInvalid={Boolean(errors.login)}
+                loginNotFoundCallback={notFoundCallback}
+                loginExistsCallback={loginFoundCallback}
             />
             </InputRow>
             <InputRow>

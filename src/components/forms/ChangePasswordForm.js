@@ -10,8 +10,18 @@ const Form = styled(BaseForm)`
 const ChangePasswordForm = ({}) => {
     const [senha, setSenha] = useState('')
     const [confirmacao, setConfirmacao] = useState('')
+    const [error, setError] = useState({})
     const handleSubmit = e => {
-
+        e.stopPropagation()
+        e.preventDefault()
+        // if (!senha) {
+        //     error.senha = true
+        //     return
+        // }
+        // if (!confirmacao || senha !== confirmacao) {
+        //     error.confirmacao = true
+        //     return
+        // }
     }
     return (
         <Form title='Alterar Senha' key='change-password-form' id='change-password-form' onSubmit={handleSubmit}>
