@@ -82,6 +82,25 @@ const PedidoSection = ({
     const [observacao, setObservacao] = useState(selectedOrder.observacao || '')
     const [client, setClient] = useState(clientList[0] && clientList[0].id || {})
     const [employee, setEmployee] = useState(employeeList[0] && employeeList[0].id || {})
+    const onBlurCodigo = (event) => {
+        const orderByCode = orderList.find(order => order.codigo.toLowerCase() === event.target.value.toLowerCase())
+        if (orderByCode) {
+            setSelectedOrder(orderByCode)
+        }
+    }
+    const clearOrder = e => {
+        e.stopPropagation()
+        e.preventDefault()
+        setCodigo('')
+        setFormaPagamento(FORMAS_PAGAMENTO[0].value)
+        setObservacao('')
+        setClient(clientList[0] && clientList[0].id || {})
+        setEmployee(employeeList[0] && employeeList[0].id || {})
+        setCarrinho([])
+        setNewOrder(true)
+        setStatus(0)
+        setSelectedOrder({})
+    }
     const makeOrder = () => {
         const newPedido = {
             codigo,
@@ -159,6 +178,8 @@ const PedidoSection = ({
                     setEmployee={setEmployee}
                     newOrder={newOrder}
                     disabledByStatus={status > 1}
+                    onBlurCodigo={onBlurCodigo}
+                    clearOrder={clearOrder}
                 />
             default:
                 return null

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import axios from 'axios'
 import {BaseForm, BaseLabel, InputWithLabel} from '../base'
-import { ButtonOrSpinner } from '../base/button'
+import BaseButton, { ButtonOrSpinner } from '../base/button'
 import { setLoading, setNotLoading } from '../../actions'
 import Select from "../select";
 import DataTable from "../admin/sections/DataTable";
@@ -32,6 +32,9 @@ const PedidoForm = ({
     formasDePagamento,
     newOrder,
     disabledByStatus,
+    clientPage,
+    onBlurCodigo,
+    clearOrder,
     ...props
 }) => {
     const onChangePagamento = event => {
@@ -63,6 +66,7 @@ const PedidoForm = ({
                 value={codigo}
                 onChange={setCodigo}
                 disabled={!newOrder || disabledByStatus}
+                onBlur={onBlurCodigo}
             />
             <Select
                 label='Forma de pagamento'
@@ -80,14 +84,17 @@ const PedidoForm = ({
                 onChangeValue={onChangeClient}
                 disabled={!newOrder || disabledByStatus}
             />
-            <Select
-                label='Funcionário'
-                objectList={employeeList}
-                fieldForValue={'id'}
-                fieldForLabel={'nome'}
-                onChangeValue={onChangeEmployee}
-                disabled={!newOrder || disabledByStatus}
-            />
+            {
+                !clientPage &&
+                <Select
+                    label='Funcionário'
+                    objectList={employeeList}
+                    fieldForValue={'id'}
+                    fieldForLabel={'nome'}
+                    onChangeValue={onChangeEmployee}
+                    disabled={!newOrder || disabledByStatus}
+                />
+            }
 
             <BaseLabel color='#236C4A'>Produtos (Clique para adicionar ao carrinho)</BaseLabel>
             {productList.length > 0 && !disabledByStatus
@@ -106,6 +113,11 @@ const PedidoForm = ({
                 disabled={disabledByStatus}
             />
             {/*<ButtonOrSpinner label='Cadastrar' />*/}
+
+                <div style={{marginLeft: 'auto'}}>
+                    <BaseButton onClick={clearOrder}>Limpar</BaseButton>
+                </div>
+
         </StyledBaseForm>
     )
 }
