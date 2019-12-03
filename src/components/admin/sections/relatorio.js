@@ -6,6 +6,7 @@ import InsumoForm from '../../forms/InsumoForm'
 import DataTable from './DataTable'
 import ProductReport from "../../reports/product";
 import ClientReport from "../../reports/cliente";
+import EmployeeReport from "../../reports/funcionario";
 
 const RelatorioSection = ({ supplyList = [], ...props }) => {
     const [selectedTab, setSelectedTab] = useState(REPORT_TABS[0])
@@ -29,6 +30,8 @@ const RelatorioSection = ({ supplyList = [], ...props }) => {
                 return <ProductReport />
             case REPORT_TABS[1]:
                 return <ClientReport />
+            case REPORT_TABS[2]:
+                return <EmployeeReport/>
             default:
                 return null
         }

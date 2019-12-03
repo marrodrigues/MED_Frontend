@@ -61,7 +61,7 @@ const PESSOA_DEFAULT_VALUE = {
 
 const ADMIN_TABS = ['Lista', 'Formulário']
 
-const REPORT_TABS = ['Produto', 'Cliente']
+const REPORT_TABS = ['Produto', 'Cliente', 'Funcionário']
 
 const ORDER_TABS = ['Novo', 'Carrinho', 'Lista']
 
