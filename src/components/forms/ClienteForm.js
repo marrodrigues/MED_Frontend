@@ -175,13 +175,13 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
                 />
             </InputRow>
             <ButtonOrSpinner label='Atualizar' />
-            {selectedClient.id
+            {selectedClient.id && window.location.href.includes('admin')
                 ?
                 <div style={{marginLeft: 'auto'}}>
                     <BaseButton onClick={onClickDelete}>Deletar</BaseButton>
                 </div>
             : null}
-            {selectedClient.id
+            {selectedClient.id && window.location.href.includes('admin')
                 ?
                 <div style={{marginLeft: 'auto'}}>
                     <BaseButton onClick={clearClient}>Limpar</BaseButton>
