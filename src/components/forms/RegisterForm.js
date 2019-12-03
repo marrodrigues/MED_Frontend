@@ -15,9 +15,10 @@ import InputRow from '../base/form/InputRow'
 import { UserProvider } from '../../providers'
 import PhoneInputWithLabel from "../base/input/PhoneInputWithLabel";
 import {formatCpf, removeNonNumericDigits} from "../../util/string";
+import {emptyFunction} from "../../util/constants";
 // import styled from 'styled-components'
 
-const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) => {
+const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title, clientFoundCallback = emptyFunction }) => {
     const { CEP: cepPreRegistro, numero: numeroPreRegistro } = initialValues
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
@@ -40,14 +41,26 @@ const RegisterForm = ({ initialValues, setIsLoading, setIsNotLoading, title }) =
     const notFoundCallback = () => {
         return [false, '']
     }
-    const emailFoundCallback = () => {
-        return [true, 'E-mail já cadastrado']
+    const emailFoundCallback = data => {
+        if (!window.location.href.includes('admin')) {
+             return [true, 'E-mail já cadastrado']
+        }
+        clientFoundCallback(data)
+        return [false, 'E-mail encontrado']
     }
-    const loginFoundCallback = () => {
-        return [true, 'Login já cadastrado']
+    const loginFoundCallback = data => {
+        if (!window.location.href.includes('admin')) {
+             return [true, 'Login já cadastrado']
+        }
+        clientFoundCallback(data)
+        return [false, 'Login encontrado']
     }
-    const cpfFoundCallback = () => {
-        return [true, 'CPF já cadastrado']
+    const cpfFoundCallback = data => {
+        if (!window.location.href.includes('admin')) {
+             return [true, 'CPF já cadastrado']
+        }
+        clientFoundCallback(data)
+        return [false, 'CPF encontrado']
     }
     const onBlurConfirmacao = event => {
         event.stopPropagation()

@@ -12,7 +12,7 @@ import LoginInputWithLabel from "../base/input/LoginInputWithLabel";
 import PhoneInputWithLabel from "../base/input/PhoneInputWithLabel";
 // import styled from 'styled-components'
 
-const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, loading, ...props }) => {
+const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, loading, clearClient, ...props }) => {
     const [selectedClient, setSelectedClient] = useState(initial || PESSOA_DEFAULT_VALUE)
     useEffect(() => {
         setSelectedClient(initial)
@@ -179,6 +179,12 @@ const ClienteForm = ({ selectedClient: initial, setIsLoading, setIsNotLoading, l
                 ?
                 <div style={{marginLeft: 'auto'}}>
                     <BaseButton onClick={onClickDelete}>Deletar</BaseButton>
+                </div>
+            : null}
+            {selectedClient.id
+                ?
+                <div style={{marginLeft: 'auto'}}>
+                    <BaseButton onClick={clearClient}>Limpar</BaseButton>
                 </div>
             : null}
         </BaseForm>

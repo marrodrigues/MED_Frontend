@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
-import { InputWithLabel, BaseForm } from '../../base'
 import DataTable from './DataTable'
 import { FuncionarioForm } from '../../forms/'
-import {PESSOA_DEFAULT_VALUE, ADMIN_TABS, EMPLOYEE_FIELDS, CLIENT_FIELDS} from '../../../util/constants'
+import {PESSOA_DEFAULT_VALUE, ADMIN_TABS, EMPLOYEE_FIELDS } from '../../../util/constants'
 
 const FuncionarioSection = ({ employeeList = [], ...props }) => {
     const [selectedEmployee, setSelectedEmployee] = useState(PESSOA_DEFAULT_VALUE)

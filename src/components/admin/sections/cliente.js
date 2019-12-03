@@ -37,6 +37,16 @@ const ClienteSection = ({ clientList = [] }) => {
             {CLIENT_FIELDS.map(field => <td key={`${field.name}-${client.pessoa.cpf}`}>{client.pessoa[field.name]}</td>)}
         </tr>        
     )
+    const clientFoundCallback = data => {
+        const fullClient = clientList.find(client => client.pessoaId === data.id)
+        console.log(fullClient)
+        setSelectedClient(fullClient)
+    }
+    const clearClient = e => {
+        e.preventDefault()
+        e.stopPropagation()
+        setSelectedClient(PESSOA_DEFAULT_VALUE)
+    }
     
     const renderContent = () => {
         switch (selectedTab) {
@@ -55,8 +65,8 @@ const ClienteSection = ({ clientList = [] }) => {
                 )
             case tabs[1]:
                 return selectedClient.id
-                    ? <ClienteForm selectedClient={selectedClient} />
-                    : <RegisterForm initialValues={{}}/>
+                    ? <ClienteForm selectedClient={selectedClient} clearClient={clearClient} />
+                    : <RegisterForm initialValues={{}} clientFoundCallback={clientFoundCallback} />
             default:
                 return null
         }
