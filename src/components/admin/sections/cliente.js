@@ -40,7 +40,9 @@ const ClienteSection = ({ clientList = [] }) => {
     const clientFoundCallback = data => {
         const fullClient = clientList.find(client => client.pessoaId === data.id)
         console.log(fullClient)
-        setSelectedClient(fullClient)
+        if (fullClient) {
+            setSelectedClient(fullClient)
+        }
     }
     const clearClient = e => {
         e.preventDefault()
