@@ -52,7 +52,8 @@ const LoteForm = ({ selectedBundle: initial, supplyList, productList, setIsLoadi
         setValorUnitario(data.valor_unitario)
     }
     const loteNotFoundCallback = () => {
-        setSelectedBundle({})
+        // setSelectedBundle({})
+        // setLote(lote)
         setQtd('')
         setInsumo(supplyList[0] && supplyList[0].id || '')
         setProduto('')

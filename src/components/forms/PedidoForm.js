@@ -8,7 +8,8 @@ import { setLoading, setNotLoading } from '../../actions'
 import Select from "../select";
 import DataTable from "../admin/sections/DataTable";
 import {formatMoney} from "../../util/string";
-import { PRODUCT_FIELDS } from '../../util/constants'
+import {PRODUCT_FIELDS, STATUSES} from '../../util/constants'
+import InputRow from "../base/form/InputRow";
 
 
 const StyledBaseForm = styled(BaseForm)`
@@ -35,6 +36,9 @@ const PedidoForm = ({
     clientPage,
     onBlurCodigo,
     clearOrder,
+    status, setStatus,
+    makeOrder,
+    selectedOrder,
     ...props
 }) => {
     const onChangePagamento = event => {
@@ -45,6 +49,9 @@ const PedidoForm = ({
     }
     const onChangeEmployee = event => {
         setEmployee(event.target.value)
+    }
+    const onChangeStatus = event => {
+        setStatus(event.target.value)
     }
 
     const mapCallback = (product, index) => (
@@ -61,6 +68,22 @@ const PedidoForm = ({
     )
     return (
         <StyledBaseForm key='Pedido-form' id='Pedido-form' onSubmit={onSubmit} {...props} >
+            {
+                selectedOrder.status > 0 &&
+                <InputRow>
+                    <Select
+                        label='Status'
+                        objectList={STATUSES}
+                        fieldForValue={'value'}
+                        fieldForLabel={'label'}
+                        value={status}
+                        onChangeValue={onChangeStatus}
+                    />
+                    <div style={{marginLeft: 'auto'}}>
+                        <BaseButton onClick={makeOrder}>Alterar Status</BaseButton>
+                    </div>
+                </InputRow>
+            }
             <InputWithLabel
                 label='Código'
                 value={codigo}

@@ -49,7 +49,7 @@ const PedidoSection = ({
         return (
         <tr key={order.codigo} onClick={() => { setSelectedOrder(order) }}>
             {ORDER_FIELDS.map(field =>
-                <td key={`${field}-${order.codigo}`}>
+                <td key={`${field.name}-${order.codigo}`}>
                     {field.name === 'valor_total'
                         ? 'R$ ' + formatMoney(order[field.name])
                         : field.name === 'forma_pagamento'
@@ -103,12 +103,14 @@ const PedidoSection = ({
     }
     const makeOrder = () => {
         const newPedido = {
+            ...selectedOrder,
             codigo,
             forma_pagamento,
             clienteId: client,
             funcionarioId: employee,
             produtos: carrinho.map(product => ({id: product.id, qtd: product.qtd})),
-            observacao
+            observacao:
+            status
         }
         console.log(newPedido)
         if (newOrder) {
@@ -180,6 +182,10 @@ const PedidoSection = ({
                     disabledByStatus={status > 1}
                     onBlurCodigo={onBlurCodigo}
                     clearOrder={clearOrder}
+                    status={status}
+                    setStatus={setStatus}
+                    makeOrder={makeOrder}
+                    selectedOrder={selectedOrder}
                 />
             default:
                 return null
