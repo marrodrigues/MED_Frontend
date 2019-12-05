@@ -43,6 +43,20 @@ const PedidoSection = ({
         || order.observacao.includes(filter)
         || order.valor_total.includes(filter)
     )
+    const mapHelper = (order, field) => {
+        switch (field.name) {
+            case 'valor_total':
+                return 'R$ ' + formatMoney(order[field.name])
+            case 'forma_pagamento':
+                return FORMAS_PAGAMENTO.find(forma => Number(forma.value) === Number(order['forma_pagamento'])).label
+            case 'data_pedido':
+                return new Date (order['data_pedido']).toLocaleString()
+            case 'status':
+                return STATUSES.find(status => Number(status.value) === Number(order['status'])).label
+            default:
+                return order[field.name]
+        }
+    }
 
     const mapCallback = order => {
         console.log(order)
@@ -50,15 +64,7 @@ const PedidoSection = ({
         <tr key={order.codigo} onClick={() => { setSelectedOrder(order) }}>
             {ORDER_FIELDS.map(field =>
                 <td key={`${field.name}-${order.codigo}`}>
-                    {field.name === 'valor_total'
-                        ? 'R$ ' + formatMoney(order[field.name])
-                        : field.name === 'forma_pagamento'
-                            ?  FORMAS_PAGAMENTO.find(forma => Number(forma.value) === Number(order['forma_pagamento'])).label
-                            : field.name === 'data_pedido'
-                                ? new Date (order['data_pedido']).toLocaleString()
-                                : field.name === 'status'
-                                    ? STATUSES.find(status => Number(status.value) === Number(order['status'])).label
-                                    : order[field.name]}
+                    {mapHelper(order, field)}
                 </td>)}
         </tr>
     )}
@@ -101,7 +107,11 @@ const PedidoSection = ({
         setStatus(0)
         setSelectedOrder({})
     }
-    const makeOrder = () => {
+    const makeOrder = (e) => {
+        if (e) {
+            e.stopPropagation()
+            e.preventDefault()
+        }
         const newPedido = {
             ...selectedOrder,
             codigo,
@@ -109,7 +119,7 @@ const PedidoSection = ({
             clienteId: client,
             funcionarioId: employee,
             produtos: carrinho.map(product => ({id: product.id, qtd: product.qtd})),
-            observacao:
+            observacao,
             status
         }
         console.log(newPedido)
@@ -130,15 +140,14 @@ const PedidoSection = ({
             newPedido,
             params)
             .then(response => {
-                alert('Pedido atualizado com sucesso')
                 debugger
+                alert('Pedido atualizado com sucesso')
             })
             .catch(error => {
-                alert('Aconteceu algo de errado na atualização do pedido')
                 debugger
+                alert('Aconteceu algo de errado na atualização do pedido')
             })
         }
-
     }
 
     const renderContent = () => {
