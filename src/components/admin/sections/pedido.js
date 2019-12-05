@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, SectionTitle, TabsAndFilter, TabsContainer, Tab } from './baseSection'
-import {ORDER_TABS, ORDER_FIELDS, FORMAS_PAGAMENTO, STATUSES} from '../../../util/constants'
+import {ORDER_TABS, ORDER_FIELDS, FORMAS_PAGAMENTO, STATUSES, reloadWindow} from '../../../util/constants'
 import PedidoForm from '../../forms/PedidoForm'
 import DataTable from './DataTable'
 import Carrinho from "../../carrinho";
@@ -135,6 +135,7 @@ const PedidoSection = ({
                 alert('Aconteceu algo de errado na criação do pedido')
                 debugger
             })
+            .finally(() => { reloadWindow() })
         } else {
             axios.put('https://med-backend-dev.herokuapp.com/pedidos/' + selectedOrder.id,
             newPedido,
@@ -147,6 +148,7 @@ const PedidoSection = ({
                 debugger
                 alert('Aconteceu algo de errado na atualização do pedido')
             })
+            .finally(() => { reloadWindow() })
         }
     }
 
