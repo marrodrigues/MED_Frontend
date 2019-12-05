@@ -86,7 +86,7 @@ const ClientReport = ({
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
                             setDataSet([])
-                            return
+                            setChartDataSet([])
                         } else {
                             alert('Algo de errado aconteceu')
                         }
@@ -119,7 +119,7 @@ const ClientReport = ({
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
                             setDataSet2([])
-                            return
+                            setChartDataSet2([])
                         } else {
                             alert('Algo de errado aconteceu')
                         }
@@ -143,7 +143,8 @@ const ClientReport = ({
                         onChange={setDataInicial}
                         type='month'
                     />
-                    {dataInicial && <Checkbox
+                    {dataSet.length > 0 && charDataSet.length > 0  &&
+                    <Checkbox
                         checked={compare}
                         onChange={handleCheckboxChange}
                         label='Comparar'

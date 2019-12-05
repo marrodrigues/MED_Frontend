@@ -88,7 +88,6 @@ const ProductReport = ({
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
                             setDataSet([])
-                            return
                         } else {
                             alert('Algo de errado aconteceu')
                         }
@@ -151,7 +150,7 @@ const ProductReport = ({
                         type='month'
                         disabled={compare}
                     />
-                    {dataInicial && <Checkbox
+                    {dataSet.length > 0 && <Checkbox
                         checked={compare}
                         onChange={handleCheckboxChange}
                         label='Comparar'

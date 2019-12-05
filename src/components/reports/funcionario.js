@@ -86,7 +86,7 @@ const EmployeeReport = ({
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
                             setDataSet([])
-                            return
+                            setChartDataSet([])
                         } else {
                             alert('Algo de errado aconteceu')
                         }
@@ -119,7 +119,7 @@ const EmployeeReport = ({
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
                             setDataSet2([])
-                            return
+                            setChartDataSet2([])
                         } else {
                             alert('Algo de errado aconteceu')
                         }
@@ -138,12 +138,13 @@ const EmployeeReport = ({
             <BaseForm onSubmit={onSubmit}>
                 <InputRow>
                     <InputWithLabel
-                        l label={`Período ${compare && dataSet.length ? '1' : ''}`}
+                        label={`Período ${compare && dataSet.length ? '1' : ''}`}
                         value={dataInicial}
                         onChange={setDataInicial}
                         type='month'
                     />
-                    {dataInicial && <Checkbox
+                    {dataSet.length > 0 && charDataSet.length > 0 &&
+                    <Checkbox
                         checked={compare}
                         onChange={handleCheckboxChange}
                         label='Comparar'
