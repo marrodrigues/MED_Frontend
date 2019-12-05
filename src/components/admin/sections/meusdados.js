@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ClienteForm from '../../forms/ClienteForm'
-import { PESSOA_DEFAULT_VALUE } from '../../../util/constants'
 
 const Container = styled.section`
 

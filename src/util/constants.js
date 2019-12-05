@@ -106,7 +106,6 @@ const SUPPLY_FIELDS = [{
     name: 'unidade',
     displayName: 'Unidade'
 }]
-    const fields = [ 'lote', 'qtd', 'validade']
 
 const BUNDLE_FIELDS =[{
     name: 'lote',

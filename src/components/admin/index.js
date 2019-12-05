@@ -146,7 +146,7 @@ const Admin = ({ sections, initialValues }) => {
                 // return <TestComponent/>
                 return <MeusPedidosForm />
             case 'Alterar Senha':
-                return <ChangePasswordForm />
+                return <ChangePasswordForm initialValues={initialValues} clientList={clientList} />
             case 'Funcionários':
                 return <FuncionarioSection employeeList={employeeList}/>
             case 'Insumos':
