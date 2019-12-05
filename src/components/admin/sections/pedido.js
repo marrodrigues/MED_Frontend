@@ -20,7 +20,13 @@ const PedidoSection = ({
     const [carrinho, setCarrinho] = useState([])
     const [newOrder, setNewOrder] = useState(true)
     const [status, setStatus] = useState(0)
+    const addToCart = (product, qtd = 1) => {
+        let _carrinho = carrinho.slice()
+        _carrinho.push({...product, qtd})
+        setCarrinho(_carrinho)
+    }
     useEffect(() => {
+        setCarrinho([])
         setCodigo(selectedOrder.codigo)
         setFormaPagamento(selectedOrder.forma_pagamento)
         setClient(selectedOrder.clienteId)
@@ -29,7 +35,8 @@ const PedidoSection = ({
         const pedprods = selectedOrder.pedidosProdutos || []
         pedprods.forEach(pedprod => {
             const produto = productList.find(p => p.id === pedprod.produtoId)
-            addToCart(produto, pedprod.qtd)
+            setCarrinho(prevCarrinho => [...prevCarrinho, {...produto, qtd: pedprod.qtd}])
+            // addToCart(produto, pedprod.qtd)
         })
         setStatus(selectedOrder.status || 0)
         setNewOrder(!Boolean(selectedOrder.id))
@@ -68,11 +75,6 @@ const PedidoSection = ({
                 </td>)}
         </tr>
     )}
-    const addToCart = (product, qtd = 1) => {
-        let _carrinho = carrinho.slice()
-        _carrinho.push({...product, qtd})
-        setCarrinho(_carrinho)
-    }
     const changeQtd = (product, change) => {
         let _carrinho = carrinho.slice()
         const index = _carrinho.map(product => product.id).indexOf(product.id)
