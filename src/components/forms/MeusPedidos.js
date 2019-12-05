@@ -165,6 +165,7 @@ const MeusPedidosForm = ({ clientList, initialValues, orderList, productList }) 
                     carrinho={carrinho}
                     changeQtd={changeQtd}
                     makeOrder={makeOrder}
+                    newOrder
                 />
             case MY_ORDERS_TABS[0]:
                 return (<>

@@ -62,6 +62,7 @@ const Carrinho = ({
                 data={carrinho}
                 fields={fields}
                 mapCallback={mapCallback}
+                exportable={false}
             />
             : null}
             {
