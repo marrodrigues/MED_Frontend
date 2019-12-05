@@ -12,11 +12,23 @@ const ProdutoSection = ({ productList = [], supplyList = [], ...props }) => {
         setSelectedTab(ADMIN_TABS[1])
     }, [selectedProduct])
     const [filter, setFilter] = useState('')
-    const filterCallback = product => (
-        product.nome.includes(filter)
-    )
-    const mapCallback = product => (
-        <tr key={product.nome} onClick={() => { setSelectedProduct(product) }}>
+    const [filterValues, setFilterValues] = useState(['', '', ''])
+    const filterCallback = product => {
+        console.log(filterValues)
+        if (filterValues.every(filter => filter === '')) return true
+        return (
+        (filterValues[0] ? product.nome.toLowerCase().includes(filterValues[0].toLowerCase()) : true)
+        && (filterValues[1] ? product.tamanho.toLowerCase().includes(filterValues[1].toLowerCase()) : true)
+        && (filterValues[2] ? `${product.valor}`.toLowerCase().includes(filterValues[2].toLowerCase()) : true)
+
+        )}
+    const updateFilterValues = (e, index) => {
+        filterValues[index] = e.target.value
+        setFilterValues(filterValues.slice())
+        console.log(filterValues)
+    }
+    const mapCallback = (product, i) => (
+        <tr key={`${product.nome}-${i}`} onClick={() => { setSelectedProduct(product) }}>
             {PRODUCT_FIELDS.map(field =>
                 <td key={`${field.name}-${product.nome}`}>
                     {field.name === 'valor'
@@ -37,6 +49,9 @@ const ProdutoSection = ({ productList = [], supplyList = [], ...props }) => {
                     filterCallback={filterCallback}
                     mapCallback={mapCallback}
                     fields={PRODUCT_FIELDS}
+                    showFilters
+                    updateFilterValues={updateFilterValues}
+                    filterValues={filterValues}
                 />)
             case ADMIN_TABS[1]:
                 return <ProdutoForm selectedProduct={selectedProduct} supplyList={supplyList}/>

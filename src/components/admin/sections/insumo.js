@@ -12,11 +12,20 @@ const InsumoSection = ({ supplyList = [], ...props }) => {
         setSelectedTab(ADMIN_TABS[1])
     }, [selectedSupply])
     const [filter, setFilter] = useState('')
-    const filterCallback = supply => (
-        supply.descricao.includes(filter)
-        || supply.unidade.includes(filter)
-        || supply.qtd_unid.includes(filter)
-    )
+    const [filterValues, setFilterValues] = useState(['', '', ''])
+    const filterCallback = supply => {
+        console.log(filterValues)
+        if (filterValues.every(filter => filter === '')) return true
+        return (
+        (filterValues[0] ? supply.descricao.toLowerCase().includes(filterValues[0].toLowerCase()) : true)
+            && (filterValues[1] ? `${supply.qtd_unid}`.toLowerCase().includes(filterValues[1].toLowerCase()) : true)
+            && (filterValues[2] ? supply.unidade.toLowerCase().includes(filterValues[2].toLowerCase()) : true)
+    )}
+    const updateFilterValues = (e, index) => {
+        filterValues[index] = e.target.value
+        setFilterValues(filterValues.slice())
+        console.log(filterValues)
+    }
     const mapCallback = supply => (
         <tr key={supply.descricao} onClick={() => { setSelectedSupply(supply) }}>
             {SUPPLY_FIELDS.map(field => <td key={`${field.name}-${supply.descricao}`}>{supply[field.name]}</td>)}
@@ -33,6 +42,9 @@ const InsumoSection = ({ supplyList = [], ...props }) => {
                     filterCallback={filterCallback}
                     mapCallback={mapCallback}
                     fields={SUPPLY_FIELDS}
+                    showFilters
+                    updateFilterValues={updateFilterValues}
+                    filterValues={filterValues}
                 />)
             case ADMIN_TABS[1]:
                 return <InsumoForm selectedSupply={selectedSupply}/>

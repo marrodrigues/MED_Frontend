@@ -12,10 +12,23 @@ const LoteSection = ({ bundleList = [], supplyList = [], productList = [], ...pr
         setSelectedTab(ADMIN_TABS[1])
     }, [selectedBundle])
     const [filter, setFilter] = useState('')
-    const filterCallback = supply => (
-        supply.lote.includes(filter)
-        || supply.qtd.includes(filter)
-    )
+    const [filterValues, setFilterValues] = useState(['', '', '', '', ''])
+    const filterCallback = bundle => {
+        console.log(filterValues)
+        if (filterValues.every(filter => filter === '')) return true
+        const insumoProduto = bundle.produto ? bundle.produto.nome : bundle.insumo.descricao
+        return (
+        (filterValues[0] ? bundle.lote.toLowerCase().includes(filterValues[0].toLowerCase()) : true)
+        && (filterValues[1] ? `${bundle.qtd}`.toLowerCase().includes(filterValues[1].toLowerCase()) : true)
+        && (filterValues[2] ? `${bundle.validade}`.toLowerCase().includes(filterValues[2].toLowerCase()) : true)
+        && (filterValues[3] ? insumoProduto.toLowerCase().includes(filterValues[3].toLowerCase()) : true)
+        && (filterValues[4] ? `${bundle.valor_unitario}`.toLowerCase().includes(filterValues[4].toLowerCase()) : true)
+        )}
+    const updateFilterValues = (e, index) => {
+        filterValues[index] = e.target.value
+        setFilterValues(filterValues.slice())
+        console.log(filterValues)
+    }
 
     const mapCallback = bundle => (
         <tr key={bundle.lote} onClick={() => { setSelectedBundle(bundle) }}>
@@ -40,6 +53,9 @@ const LoteSection = ({ bundleList = [], supplyList = [], productList = [], ...pr
                     filterCallback={filterCallback}
                     mapCallback={mapCallback}
                     fields={BUNDLE_FIELDS}
+                    showFilters
+                    updateFilterValues={updateFilterValues}
+                    filterValues={filterValues}
                 />)
             case ADMIN_TABS[1]:
                 return <LoteForm selectedBundle={selectedBundle} supplyList={supplyList} productList={productList} />
