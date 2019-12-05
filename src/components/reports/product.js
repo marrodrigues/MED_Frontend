@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import {InputWithLabel} from "../base";
 import Select from "../select";
@@ -116,7 +116,6 @@ const ProductReport = ({
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
                             setDataSet2([])
-                            return
                         } else {
                             alert('Algo de errado aconteceu')
                         }
