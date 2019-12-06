@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {InputWithLabel} from "../base";
 import Select from "../select";
 import {CLIENT_REPORT_FIELDS} from "../../util/constants";
 import InputRow from "../base/form/InputRow";
 import BaseForm from "../base/form";
-import {ButtonOrSpinner} from "../base/button";
+import BaseButton, {ButtonOrSpinner} from "../base/button";
 import axios from "axios";
 import {setLoading, setNotLoading} from "../../actions";
 import {connect} from "react-redux";
@@ -38,8 +38,8 @@ const EmployeeReport = ({
     const [dataSet, setDataSet] = useState([])
     const [dataSet2, setDataSet2] = useState([])
     const [compare, setCompare] = useState(false)
-    const [charDataSet, setChartDataSet] = useState([])
-    const [charDataSet2, setChartDataSet2] = useState([])
+    // const [charDataSet, setChartDataSet] = useState([])
+    // const [charDataSet2, setChartDataSet2] = useState([])
     // const mapCallback = reportRow => (
     //     <tr key={reportRow.id}>
     //         {CLIENT_REPORT_FIELDS.map(field => {
@@ -50,11 +50,28 @@ const EmployeeReport = ({
     //         })}
     //     </tr>
     // )
+    const [drawChart, setDrawChart] = useState(true)
+    useEffect(() => {
+        setTimeout(() => {
+            setDrawChart(true)
+        }, 100)
+    }, [drawChart])
     const handleCheckboxChange = event => {
+        const checkbox = event.target.checked
         setDataFinal('')
         setDataSet2([])
-        setChartDataSet2([])
-        setCompare(event.target.checked )
+        // setChartDataSet2([])
+        setCompare(checkbox)
+        if (!checkbox) {
+            setDrawChart(false)
+        }
+    }
+    const onClickLimpar = () => {
+        setCompare(false)
+        setDataFinal('')
+        setDataInicial('')
+        setDataSet2([])
+        setDataSet([])
     }
     const total = dataSet.reduce((acc, curr) => acc + curr.receita, 0)
     const total2 = dataSet2.reduce((acc, curr) => acc + curr.receita, 0)
@@ -72,10 +89,10 @@ const EmployeeReport = ({
                 axios.get(url, params)
                     .then(response => response.data)
                     .then(data => {
-                        const chartdata = data.map(entry => ({ nome: entry.cpf, receita: entry.receita}))
-                        console.log(chartdata)
-                        setChartDataSet(chartdata)
-                        setDataSet(data)
+                        // const chartdata = data.map(entry => ({ nome: entry.cpf, receita: entry.receita}))
+                        // console.log(chartdata)
+                        // setChartDataSet(chartdata)
+                        setDataSet(data.map(entry => ({ nome: entry.cpf, receita: entry.receita})))
                         if (data.length === 0) {
                             alert('Não há entradas no período selecionado')
                         }
@@ -86,7 +103,7 @@ const EmployeeReport = ({
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
                             setDataSet([])
-                            setChartDataSet([])
+                            // setChartDataSet([])
                         } else {
                             alert('Algo de errado aconteceu')
                         }
@@ -106,9 +123,9 @@ const EmployeeReport = ({
                     .then(response => response.data)
                     .then(data => {
                         const chartdata2 = data.map(entry => ({ nome: entry.cpf, receita: entry.receita}))
-                        console.log(chartdata2)
-                        setChartDataSet2(chartdata2)
-                        setDataSet2(data)
+                        // console.log(chartdata2)
+                        // setChartDataSet2(chartdata2)
+                        setDataSet2(chartdata2)
                         if (data.length === 0) {
                             alert('Não há entradas no período selecionado')
                         }
@@ -119,7 +136,7 @@ const EmployeeReport = ({
                         if (error.message.includes('code 404')) {
                             alert('Não há entradas no período selecionado')
                             setDataSet2([])
-                            setChartDataSet2([])
+                            // setChartDataSet2([])
                         } else {
                             alert('Algo de errado aconteceu')
                         }
@@ -142,8 +159,9 @@ const EmployeeReport = ({
                         value={dataInicial}
                         onChange={setDataInicial}
                         type='month'
+                        disabled={compare}
                     />
-                    {dataSet.length > 0 && charDataSet.length > 0 &&
+                    {dataSet.length > 0 &&
                     <Checkbox
                         checked={compare}
                         onChange={handleCheckboxChange}
@@ -159,11 +177,14 @@ const EmployeeReport = ({
                         />
                     }
                     <ButtonOrSpinner label='Gerar'/>
+                    {
+                        dataSet.length > 0 && <BaseButton onClick={onClickLimpar}>Limpar</BaseButton>
+                    }
                 </InputRow>
             </BaseForm>
-            {charDataSet.length > 0
+            {drawChart && dataSet.length > 0
             ? <Chart
-                option={getOptionsForComparativeChart(charDataSet, charDataSet2)}
+                option={getOptionsForComparativeChart(dataSet, dataSet2)}
                 style={{width: '850px'}}
             />
             : null}

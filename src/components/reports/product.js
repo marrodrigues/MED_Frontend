@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import {InputWithLabel} from "../base";
 import Select from "../select";
 import {TIPOS_PRODUTO} from "../../util/constants";
 import InputRow from "../base/form/InputRow";
 import BaseForm from "../base/form";
-import {ButtonOrSpinner} from "../base/button";
+import BaseButton, {ButtonOrSpinner} from "../base/button";
 import axios from "axios";
 import {setLoading, setNotLoading} from "../../actions";
 import {connect} from "react-redux";
@@ -46,10 +46,20 @@ const ProductReport = ({
     const onChangeTipoProduto = event => {
         setTipoProduto(event.target.value)
     }
+    const [drawChart, setDrawChart] = useState(true)
+    useEffect(() => {
+        setTimeout(() => {
+            setDrawChart(true)
+        }, 100)
+    }, [drawChart])
     const handleCheckboxChange = event => {
+        const checkbox = event.target.checked
         setDataFinal('')
         setDataSet2([])
-        setCompare(event.target.checked )
+        setCompare(checkbox)
+        if (!checkbox) {
+            setDrawChart(false)
+        }
     }
     const total = dataSet.reduce((acc, curr) => acc + curr.receita, 0)
     const total2 = dataSet2.reduce((acc, curr) => acc + curr.receita, 0)
@@ -129,6 +139,13 @@ const ProductReport = ({
             setIsNotLoading()
         }
     }
+    const onClickLimpar = () => {
+        setCompare(false)
+        setDataFinal('')
+        setDataInicial('')
+        setDataSet2([])
+        setDataSet([])
+    }
     return (
         <Container>
             <BaseForm onSubmit={onSubmit}>
@@ -163,12 +180,14 @@ const ProductReport = ({
                             type='month'
                         />
                     }
-
                     <ButtonOrSpinner label='Gerar'/>
+                    {
+                        dataSet.length > 0 && <BaseButton onClick={onClickLimpar}>Limpar</BaseButton>
+                    }
                 </StyledInputRow>
             </BaseForm>
             {/*Titulo do grafico*/}
-            {dataSet.length > 0
+            {drawChart && dataSet.length > 0
             ? <Chart
                 option={getOptionsForComparativeChart(dataSet, dataSet2)}
                 style={{width: '850px'}}
