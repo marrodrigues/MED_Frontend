@@ -44,12 +44,30 @@ const PedidoSection = ({
 
     }, [selectedOrder])
     const [filter, setFilter] = useState('')
-    const filterCallback = order => (
-        order.codigo.includes(filter)
-        || order.data_pedido.includes(filter)
-        || order.observacao.includes(filter)
-        || order.valor_total.includes(filter)
-    )
+    const [filterValues, setFilterValues] = useState(['', '', '', ''])
+    const filterCallback = order => {
+        console.log(filterValues)
+        if (filterValues.every(filter => filter === '')) return true
+        return (
+        (filterValues[0] ? order.codigo.toLowerCase().includes(filterValues[0].toLowerCase()) : true)
+        && (filterValues[1] ? STATUSES
+            .find(status => Number(status.value) === Number(order['status']))
+            .label.toLowerCase().replace('ç', 'c').replace('ã', 'a')
+            .includes(filterValues[1].toLowerCase().replace('ç', 'c').replace('ã', 'a')) : true)
+        && (filterValues[2] ? order.data_pedido.toLowerCase().includes(filterValues[2].toLowerCase()) : true)
+        && (filterValues[3] ? `${order.valor_total}`.toLowerCase().includes(filterValues[3].toLowerCase()) : true)
+        && (filterValues[4] ? FORMAS_PAGAMENTO
+            .find(forma => Number(forma.value) === Number(order['forma_pagamento']))
+            .label.toLowerCase().replace('é', 'e')
+            .includes(filterValues[4].toLowerCase().replace('é', 'e')) : true)
+        && (filterValues[5] ? order.observacao && order.observacao.toLowerCase().includes(filterValues[5].toLowerCase()) : true)
+
+    )}
+    const updateFilterValues = (e, index) => {
+        filterValues[index] = e.target.value
+        setFilterValues(filterValues.slice())
+        console.log(filterValues)
+    }
     const mapHelper = (order, field) => {
         switch (field.name) {
             case 'valor_total':
@@ -164,6 +182,9 @@ const PedidoSection = ({
                     filterCallback={filterCallback}
                     mapCallback={mapCallback}
                     fields={ORDER_FIELDS}
+                    showFilters
+                    updateFilterValues={updateFilterValues}
+                    filterValues={filterValues}
                 />)
             case ORDER_TABS[1]:
                 return <Carrinho
