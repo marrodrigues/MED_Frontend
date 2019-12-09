@@ -15,6 +15,7 @@ import { formatMoney } from '../../util/string';
 import Chart from "../Chart";
 import {getOptionsForComparativeChart} from "../../util/graficaodomal";
 import Checkbox from "../base/input/Checkbox";
+import employee from "../forms/employee";
 
 const Container = styled.div`
     display: flex;
@@ -122,7 +123,17 @@ const EmployeeReport = ({
                 axios.get(url, {...params, body})
                     .then(response => response.data)
                     .then(data => {
-                        const chartdata2 = data.map(entry => ({ nome: entry.cpf, receita: entry.receita}))
+                        const cpfToCompare = dataSet.map(entry => entry.nome)
+                        const dataToInclude = data
+                            .filter(client => cpfToCompare.includes(client.cpf))
+                            .map(entry => ({ nome: entry.cpf, receita: entry.receita}))
+                        let chartdata2 = []
+                        dataSet.forEach((entry, index) => {
+                            const dataToCompare = dataToInclude.find(_entry => _entry.nome === entry.nome)
+                            console.log(dataToCompare, dataToInclude)
+                            chartdata2.push(dataToCompare || { nome: entry.nome, receita: 0})
+                        })
+                        // console.log(dataSet, chartdata2)
                         // console.log(chartdata2)
                         // setChartDataSet2(chartdata2)
                         setDataSet2(chartdata2)

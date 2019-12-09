@@ -118,7 +118,18 @@ const ProductReport = ({
                     .then(data => {
                         // debugger
                         // console.log(data)
-                        setDataSet2(data.filter(product => product.id !== 1 && body.includes(product.id) ))
+                        const productToCompare = dataSet.map(entry => entry.nome)
+                        const dataToInclude = data
+                            .filter(product => productToCompare.includes(product.nome))
+                            .map(entry => ({ nome: entry.nome, receita: entry.receita}))
+                        let chartdata2 = []
+                        dataSet.forEach((entry, index) => {
+                            const dataToCompare = dataToInclude.find(_entry => _entry.nome === entry.nome)
+                            console.log(dataToCompare, dataToInclude)
+                            chartdata2.push(dataToCompare || { nome: entry.nome, receita: 0})
+                        })
+                        setDataSet2(chartdata2)
+
                     })
                     .catch(error => {
                         // debugger
